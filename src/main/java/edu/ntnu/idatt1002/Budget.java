@@ -15,10 +15,8 @@ public class Budget {
    * throws exception is project name is empty or blank
    *
    * @param project name of project budget is connected to
-   * @param listOfExpenses expenses in the budget
-   * @param listOfSales sales in the budget
    */
-  public Budget(String project, ArrayList<Expense> listOfExpenses, ArrayList<Sale> listOfSales) {
+  public Budget(String project) {
     if (project.isEmpty() || project.isBlank()) {
       throw new IllegalArgumentException("Budget has to be connected to a specific project");
     }
