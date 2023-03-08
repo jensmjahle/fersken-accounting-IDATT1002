@@ -9,7 +9,7 @@ public class Contact {
   private String street;
   private String streetNumber;
   private final int phoneNumber;
-  private int accountNumber;
+  private String accountNumber;
   private int postCode;
 
   /**
@@ -23,9 +23,9 @@ public class Contact {
    * @param accountNumber The account number of the contact.
    * @param postCode The postCode of the address of the contact
    */
-  public Contact(String name, String email, String country,
-                 String street, String streetNumber, int phoneNumber,
-                 int accountNumber, int postCode) {
+  public Contact(String name, String email, String street,
+                 String streetNumber, int phoneNumber,
+                 String accountNumber, int postCode) {
     this.name = name;
     this.email = email;
     this.street = street;
@@ -85,7 +85,7 @@ public class Contact {
    *
    * @return The account number of the contact.
    */
-  public int getAccountNumber() {
+  public String getAccountNumber() {
     return accountNumber;
   }
 
@@ -121,7 +121,7 @@ public class Contact {
    *
    * @param accountNumber The contact
    */
-  public void setAccountNumber(int accountNumber) {
+  public void setAccountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
   }
 
@@ -132,5 +132,60 @@ public class Contact {
    */
   public void setPostCode(int postCode) {
     this.postCode = postCode;
+  }
+
+  /**
+   * Checks if this object is equal to a different object.
+   *
+   * @param o The object to compare this object to.
+   * @return true if the objects are the same, false if not.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Contact contact = (Contact) o;
+
+    if (getPhoneNumber() != contact.getPhoneNumber()) {
+      return false;
+    }
+    if (getPostCode() != contact.getPostCode()) {
+      return false;
+    }
+    if (!getName().equals(contact.getName())) {
+      return false;
+    }
+    if (!getEmail().equals(contact.getEmail())) {
+      return false;
+    }
+    if (!getStreet().equals(contact.getStreet())) {
+      return false;
+    }
+    if (!getStreetNumber().equals(contact.getStreetNumber())) {
+      return false;
+    }
+    return getAccountNumber().equals(contact.getAccountNumber());
+  }
+
+  /**
+   * Creates a hashcode for the object.
+   *
+   * @return The hashcode of the object.
+   */
+  @Override
+  public int hashCode() {
+    int result = getName().hashCode();
+    result = 31 * result + getEmail().hashCode();
+    result = 31 * result + getStreet().hashCode();
+    result = 31 * result + getStreetNumber().hashCode();
+    result = 31 * result + getPhoneNumber();
+    result = 31 * result + getAccountNumber().hashCode();
+    result = 31 * result + getPostCode();
+    return result;
   }
 }
