@@ -23,7 +23,7 @@ public class Expense {
    * @param date of the expense. As a Date
    */
   public Expense(Contact contact, double amount, Date date) throws NullPointerException {
-    if (amount < 0) {
+    if (amount <= 0) {
       throw new IllegalArgumentException("Expense amount can not be 0 or a negative number");
     }
     this.contact = Objects.requireNonNull(contact, "Contact is missing");
@@ -41,7 +41,7 @@ public class Expense {
    * @param date of the expense. As a Date
    */
   public Expense(double amount, Date date) {
-    if (amount < 0) {
+    if (amount <= 0) {
       throw new IllegalArgumentException("Expense amount can not be 0 or a negative number");
     }
     this.date = Objects.requireNonNull(date, "Date is missing");
