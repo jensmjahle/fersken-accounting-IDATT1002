@@ -3,20 +3,19 @@ package edu.ntnu.idatt1002;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
-
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicReference;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExpenseTest {
-  private static final Contact contactTest = new Contact();
-  private static final Date dateTest = new Date();
+  private static Contact contactTest;
+  private static Date dateTest;
   Expense expenseTest;
 
   @BeforeEach
   void setUp() {
+    contactTest = new Contact("name", "email", "street", "streetNumber",
+        123456789, "accountNumber", 1234);
+    dateTest = new Date();
     expenseTest = new Expense(contactTest, 500, dateTest);
   }
   @Test
