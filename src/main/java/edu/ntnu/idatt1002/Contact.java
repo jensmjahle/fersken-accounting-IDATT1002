@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002;
 
+
 /**
  * The class represents a contact of the user. Can be either a customer, supplier, or both.
  */
@@ -7,10 +8,10 @@ public class Contact {
   private final String name;
   private final String email;
   private String street;
-  private String streetNumber;
-  private final int phoneNumber;
+  private int streetNumber;
+  private final String phoneNumber;
   private String accountNumber;
-  private int postCode;
+  private String postCode;
 
   /**
    * Creates an instance of the contact object.
@@ -18,21 +19,32 @@ public class Contact {
    * @param name The name of the contact.
    * @param email The e-mail of the contact.
    * @param street The street name of the address of the contact.
-   * @param streetNumber The street number of the address of the contact.
-   * @param phoneNumber The phone number that can be used to contact the contact.
-   * @param accountNumber The account number of the contact.
-   * @param postCode The postCode of the address of the contact
+   * @param streetNumber The street number of the address of the contact. Should not be negative or equal to zero.
+   * @param phoneNumber The phone number that can be used to contact the contact. Should be 8 digits long.
+   * @param accountNumber The account number of the contact. Should be 11 digits long.
+   * @param postCode The postCode of the address of the contact. Should be 4 digits long.
    */
   public Contact(String name, String email, String street,
-                 String streetNumber, int phoneNumber,
-                 String accountNumber, int postCode) {
+                 int streetNumber, String phoneNumber,
+                 String accountNumber, String postCode) {
+
+    if (name.isEmpty() || name.isBlank()) {
+      throw new IllegalArgumentException("Name cannot be empty");
+    }
+    if (email.isEmpty() || email.isBlank()) {
+      throw new IllegalArgumentException("E-mail cannot be empty");
+    }
+    if (phoneNumber.length() != 8){
+      throw new IllegalArgumentException("Phone number has to be 8 digits");
+    }
+
+    setStreet(street);
+    setStreetNumber(streetNumber);
+    setAccountNumber(accountNumber);
+    setPostCode(postCode);
     this.name = name;
     this.email = email;
-    this.street = street;
-    this.streetNumber = streetNumber;
     this.phoneNumber = phoneNumber;
-    this.accountNumber = accountNumber;
-    this.postCode = postCode;
   }
 
   /**
@@ -67,7 +79,7 @@ public class Contact {
    *
    * @return The street number of the address of the contact.
    */
-  public String getStreetNumber() {
+  public int getStreetNumber() {
     return streetNumber;
   }
 
@@ -76,7 +88,7 @@ public class Contact {
    *
    * @return The phone number of the contact.
    */
-  public int getPhoneNumber() {
+  public String getPhoneNumber() {
     return phoneNumber;
   }
 
@@ -94,7 +106,7 @@ public class Contact {
    *
    * @return The post contact's post code.
    */
-  public int getPostCode() {
+  public String getPostCode() {
     return postCode;
   }
 
@@ -104,6 +116,8 @@ public class Contact {
    * @param street The new street name for the contact's location.
    */
   public void setStreet(String street) {
+    if (street.isEmpty() || street.isBlank())
+      throw new IllegalArgumentException("Street cannot be blank");
     this.street = street;
   }
 
@@ -112,7 +126,10 @@ public class Contact {
    *
    * @param streetNumber The new street number of the contact.
    */
-  public void setStreetNumber(String streetNumber) {
+  public void setStreetNumber(int streetNumber) {
+    if (streetNumber <= 0) {
+      throw new IllegalArgumentException("Street number cannot be negative or zero");
+    }
     this.streetNumber = streetNumber;
   }
 
@@ -122,6 +139,9 @@ public class Contact {
    * @param accountNumber The contact
    */
   public void setAccountNumber(String accountNumber) {
+    if (accountNumber.length() != 11){
+      throw new IllegalArgumentException("Account number has to be 11 digits");
+    }
     this.accountNumber = accountNumber;
   }
 
@@ -130,7 +150,10 @@ public class Contact {
    *
    * @param postCode The new post code for the contact.
    */
-  public void setPostCode(int postCode) {
+  public void setPostCode(String postCode) {
+    if (postCode.length() != 4) {
+      throw new IllegalArgumentException("Post code has to be 4 digits");
+    }
     this.postCode = postCode;
   }
 
@@ -151,10 +174,10 @@ public class Contact {
 
     Contact contact = (Contact) o;
 
-    if (getPhoneNumber() != contact.getPhoneNumber()) {
+    if (!getPhoneNumber().equals(contact.getPhoneNumber())) {
       return false;
     }
-    if (getPostCode() != contact.getPostCode()) {
+    if (!getPostCode().equals(contact.getPostCode())) {
       return false;
     }
     if (!getName().equals(contact.getName())) {
@@ -166,7 +189,7 @@ public class Contact {
     if (!getStreet().equals(contact.getStreet())) {
       return false;
     }
-    if (!getStreetNumber().equals(contact.getStreetNumber())) {
+    if (getStreetNumber() != contact.getStreetNumber()) {
       return false;
     }
     return getAccountNumber().equals(contact.getAccountNumber());
@@ -182,10 +205,10 @@ public class Contact {
     int result = getName().hashCode();
     result = 31 * result + getEmail().hashCode();
     result = 31 * result + getStreet().hashCode();
-    result = 31 * result + getStreetNumber().hashCode();
-    result = 31 * result + getPhoneNumber();
+    result = 31 * result + getStreetNumber();
+    result = 31 * result + getPhoneNumber().hashCode();
     result = 31 * result + getAccountNumber().hashCode();
-    result = 31 * result + getPostCode();
+    result = 31 * result + getPostCode().hashCode();
     return result;
   }
 }

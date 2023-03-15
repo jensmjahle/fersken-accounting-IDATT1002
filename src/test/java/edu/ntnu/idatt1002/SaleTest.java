@@ -13,13 +13,13 @@ class SaleTest {
 
   @BeforeEach
   void setUp() {
-    contact = new Contact("Name", "abc@email.com","Street", "10", 12345678, "12345678910", 1234);
+    contact = new Contact("Name", "abc@email.com","Street", 10, "12345678", "12345678910", "1234");
     sale = new Sale(contact, new Date(), "Product", "98765432111", 100);
   }
 
   @Test
   void getCustomer() {
-    Contact expected = new Contact("Name", "abc@email.com","Street", "10", 12345678, "12345678910", 1234);
+    Contact expected = new Contact("Name", "abc@email.com","Street", 10, "12345678", "12345678910", "1234");
     Contact actual = sale.getCustomer();
     assertEquals(expected, actual);
   }

@@ -17,10 +17,8 @@ public class Budget {
    * @param project name of project budget is connected to
    */
   public Budget(String project) {
-    if (project.isEmpty() || project.isBlank()) {
-      throw new IllegalArgumentException("Budget has to be connected to a specific project");
-    }
-    this.project = project;
+
+    setProject(project);
     this.listOfExpenses = new ArrayList<>();
     this.listOfSales = new ArrayList<>();
   }
@@ -41,6 +39,9 @@ public class Budget {
    */
 
   public void setProject(String project) {
+    if (project.isEmpty() || project.isBlank()) {
+      throw new IllegalArgumentException("Budget has to be connected to a specific project");
+    }
     this.project = project;
   }
 
