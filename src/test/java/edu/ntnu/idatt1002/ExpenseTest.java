@@ -14,7 +14,7 @@ class ExpenseTest {
   @BeforeEach
   void setUp() {
     contactTest = new Contact("name", "email", "street", 10,
-        "123456789", "accountNumber", "1234");
+        "12345678", "11111111111", "1234");
     dateTest = new Date();
     expenseTest = new Expense(contactTest, 500, dateTest);
   }
