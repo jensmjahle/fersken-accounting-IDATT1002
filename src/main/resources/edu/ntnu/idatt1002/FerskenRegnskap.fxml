@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.FerskenRegnskapController">
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Transactions">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Text text="Add expense">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Text>
+            <Text text="View expenses">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Text>
+            <Text text="Add sale">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Text>
+            <Text text="View sales">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Text>
+            <Label text="Partners">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Text text="Create Customer">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Text>
+            <Text text="View customer">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Text>
+            <Text text="Create supplier">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Text>
+            <Text text="View suppliers">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Text>
+            <Text text="Manage accounts">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Text>
+            <Label text="Budget">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Text text="View budgets">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Text>
+            <Text text="Create budget">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Text>
+            <Text text="Inspect budget status">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Text>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <BarChart fx:id="barChart" maxHeight="300" maxWidth="400" prefHeight="300" prefWidth="300" BorderPane.alignment="TOP_LEFT">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </center>
+</BorderPane>
