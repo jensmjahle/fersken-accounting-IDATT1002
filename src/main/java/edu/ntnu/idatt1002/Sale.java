@@ -85,5 +85,14 @@ public class Sale implements Serializable {
     return amount;
   }
 
-
+  @Override
+  public String toString() {
+    return "Sale{" +
+        "customer=" + customer +
+        ", date=" + date +
+        ", product='" + product + '\'' +
+        ", receiverAccount='" + receiverAccount + '\'' +
+        ", amount=" + amount +
+        '}';
+  }
 }

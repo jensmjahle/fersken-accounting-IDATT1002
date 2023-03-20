@@ -213,4 +213,17 @@ public class Contact implements Serializable {
     result = 31 * result + getPostCode().hashCode();
     return result;
   }
+
+  @Override
+  public String toString() {
+    return "Contact{" +
+        "name='" + name + '\'' +
+        ", email='" + email + '\'' +
+        ", street='" + street + '\'' +
+        ", streetNumber=" + streetNumber +
+        ", phoneNumber='" + phoneNumber + '\'' +
+        ", accountNumber='" + accountNumber + '\'' +
+        ", postCode='" + postCode + '\'' +
+        '}';
+  }
 }

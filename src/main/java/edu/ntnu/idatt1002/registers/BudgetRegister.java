@@ -1,12 +1,12 @@
 package edu.ntnu.idatt1002.registers;
 
-import edu.ntnu.idatt1002.Expense;
+import edu.ntnu.idatt1002.Budget;
 
-public class BudgetRegister extends Register<Expense> {
-  private static final String FILE_NAME = "budgets.txt";
+public class BudgetRegister extends Register<Budget> {
 
-  public BudgetRegister() {
-    super(FILE_NAME);
+
+  public BudgetRegister(String fileName) {
+    super(fileName);
   }
 
 }
