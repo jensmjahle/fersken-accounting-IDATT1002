@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
  * For example buying new equipment or buying payable services can be expenses.
  *
  */
-public class Expense {
+public class Expense implements Serializable {
   private Contact contact;
   private final double amount;
   private final Date date;

@@ -1,11 +1,12 @@
 package edu.ntnu.idatt1002;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Budget class with variables that make up a budget.
  */
-public class Budget {
+public class Budget implements Serializable {
   private String project;
   private final ArrayList<Expense> listOfExpenses;
   private final ArrayList<Sale> listOfSales;

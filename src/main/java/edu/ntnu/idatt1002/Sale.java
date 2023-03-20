@@ -1,12 +1,13 @@
 package edu.ntnu.idatt1002;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  * The class represents a sale for the user.
  */
-public class Sale {
+public class Sale implements Serializable {
   private final Contact customer;
   private final Date date;
   private final String product;
