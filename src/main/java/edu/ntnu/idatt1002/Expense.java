@@ -76,4 +76,13 @@ public class Expense implements Serializable {
     return date;
   }
 
+  @Override
+  public String toString() {
+    return "Expense{" +
+        "contact=" + contact +
+        ", amount=" + amount +
+        ", date=" + date +
+        ", product='" + product + '\'' +
+        '}';
+  }
 }
