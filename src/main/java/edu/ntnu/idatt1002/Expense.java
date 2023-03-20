@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002;
 
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -13,6 +14,8 @@ public class Expense implements Serializable {
   private Contact contact;
   private final double amount;
   private final Date date;
+  private final String product;
+
 
   /**
    * Creates an expense with a contact(class Contact).
@@ -23,12 +26,13 @@ public class Expense implements Serializable {
    * @param amount of money in NOK. As a double
    * @param date of the expense. As a Date
    */
-  public Expense(Contact contact, double amount, Date date) throws NullPointerException {
+  public Expense(Contact contact, double amount, Date date, String product) throws NullPointerException {
     if (amount <= 0) {
       throw new IllegalArgumentException("Expense amount can not be 0 or a negative number");
     }
     this.contact = Objects.requireNonNull(contact, "Contact is missing");
     this.date = Objects.requireNonNull(date, "Date is missing");
+    this.product = product;
     this.amount = amount;
 
   }
@@ -41,12 +45,13 @@ public class Expense implements Serializable {
    * @param amount of money in NOK. As a double
    * @param date of the expense. As a Date
    */
-  public Expense(double amount, Date date) {
+  public Expense(double amount, Date date, String product) {
     if (amount <= 0) {
       throw new IllegalArgumentException("Expense amount can not be 0 or a negative number");
     }
     this.date = Objects.requireNonNull(date, "Date is missing");
     this.amount = amount;
+    this.product = product;
   }
 
   /**
