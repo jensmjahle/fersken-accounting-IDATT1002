@@ -6,10 +6,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Register <T>{
   private final String fileName;
-  private final ArrayList<T> objectRegister;
+  private final List<T> objectRegister;
 
   protected Register(String fileName){
     this.fileName = fileName;
@@ -17,8 +18,8 @@ public class Register <T>{
   }
 
 
-  public void writeToFile(){
-    try (FileOutputStream output = new FileOutputStream(fileName, false)){
+  private void writeToFile(){
+    try (FileOutputStream output = new FileOutputStream(fileName)){
 
       ObjectOutputStream objectOutput = new ObjectOutputStream(output);
 
@@ -35,15 +36,21 @@ public class Register <T>{
 
   public List<T> readFiles() {
     ArrayList<T> fileData = new ArrayList<>();
-    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
 
 
+     File file = new File(fileName);
+    if (file.exists()) {
 
-      fileData = (ArrayList<T>) ois.readObject();
+       try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
 
-    } catch (java.io.IOException | ClassNotFoundException e) {
-      e.printStackTrace();
-    }
+         fileData = (ArrayList<T>) ois.readObject();
+
+       } catch (java.io.IOException | ClassNotFoundException e) {
+         e.printStackTrace();
+
+       }
+
+     }
     return fileData;
   }
 
@@ -51,6 +58,7 @@ public class Register <T>{
     for (T object : objectRegister){
       if (object.equals(objectToRemove)){
         objectRegister.remove(objectToRemove);
+        writeToFile();
         return true;
       }
     }
@@ -68,6 +76,7 @@ public class Register <T>{
    */
   public void addObject(T object) {
     objectRegister.add(object);
+    writeToFile();
   }
 
 }
