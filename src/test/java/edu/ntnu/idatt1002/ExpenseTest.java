@@ -16,7 +16,7 @@ class ExpenseTest {
     contactTest = new Contact("name", "email", "street", 10,
         "12345678", "11111111111", "1234");
     dateTest = new Date();
-    expenseTest = new Expense(contactTest, 500, dateTest);
+    expenseTest = new Expense(contactTest, 500, dateTest, "product");
   }
   @Test
   @DisplayName("Check if getContact() returns correctly")
@@ -44,7 +44,7 @@ class ExpenseTest {
   @DisplayName("Not able to create an instance without contact if amount is 0")
   void throwsIllegalArgumentExceptionIfAmountIsZeroWithoutContact() {
     assertThrows(IllegalArgumentException.class, () -> {
-      Expense expense = new Expense(0, dateTest);
+      Expense expense = new Expense(0, dateTest, "product");
     });
   }
 
@@ -52,7 +52,7 @@ class ExpenseTest {
   @DisplayName("Not able to create an instance with contact if amount is 0")
   void throwsIllegalArgumentExceptionIfAmountIsZeroWithContact() {
     assertThrows(IllegalArgumentException.class, () -> {
-      Expense expense = new Expense(contactTest,0, dateTest);
+      Expense expense = new Expense(contactTest,0, dateTest, "product");
     });
   }
 
@@ -60,7 +60,7 @@ class ExpenseTest {
   @DisplayName("Not able to create an instance with contact if amount is negative")
   void throwsIllegalArgumentExceptionIfAmountIsNegativeWithContact() {
     assertThrows(IllegalArgumentException.class, () -> {
-      Expense expense = new Expense(contactTest,-5, dateTest);
+      Expense expense = new Expense(contactTest,-5, dateTest, "product");
     });
   }
 
@@ -68,7 +68,7 @@ class ExpenseTest {
   @DisplayName("Not able to create an instance without contact if amount is negative")
   void throwsIllegalArgumentExceptionIfAmountIsNegativeWithoutContact() {
     assertThrows(IllegalArgumentException.class, () -> {
-      Expense expense = new Expense(-5, dateTest);
+      Expense expense = new Expense(-5, dateTest, "product");
     });
   }
 
@@ -76,7 +76,7 @@ class ExpenseTest {
   @DisplayName("Not able to create an instance if contact is null")
   void throwsNullPointerExceptionIfContactIsNull() {
     assertThrows(NullPointerException.class, () -> {
-      Expense expense = new Expense(null, 500, dateTest);
+      Expense expense = new Expense(null, 500, dateTest, "product");
     });
   }
 
@@ -84,7 +84,7 @@ class ExpenseTest {
   @DisplayName("Not able to create an instance with contact if date is null")
   void throwsNullPointerExceptionIfDateIsNullWithContact() {
     assertThrows(NullPointerException.class, () -> {
-      Expense expense = new Expense(contactTest, 500, null);
+      Expense expense = new Expense(null, 500, dateTest,"product");
     });
   }
 
@@ -92,7 +92,7 @@ class ExpenseTest {
   @DisplayName("Not able to create an instance without contact if date is null")
   void throwsNullPointerExceptionIfDateIsNullWithoutContact() {
     assertThrows(NullPointerException.class, () -> {
-      Expense expense = new Expense(500, null);
+      Expense expense = new Expense(500, null, "product");
     });
   }
 }
