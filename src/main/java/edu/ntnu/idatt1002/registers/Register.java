@@ -1,5 +1,6 @@
 package edu.ntnu.idatt1002.registers;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -13,8 +14,8 @@ public class Register <T>{
   private final List<T> objectRegister;
 
   protected Register(String fileName){
-    this.fileName = fileName;
-    objectRegister = new ArrayList<>();
+    this.fileName = Objects.requireNonNull(fileName, "File name cannot be null.");
+      objectRegister = new ArrayList<>(readFiles());
   }
 
 
@@ -34,7 +35,7 @@ public class Register <T>{
     }
   }
 
-  public List<T> readFiles() {
+  private List<T> readFiles() {
     ArrayList<T> fileData = new ArrayList<>();
 
 
