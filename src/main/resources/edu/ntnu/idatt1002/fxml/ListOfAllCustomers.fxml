@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.ListOfAllCustomersController">
     <top>
         <Pane prefHeight="49.0" prefWidth="605.0" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="31.0" layoutY="12.0" mnemonicParsing="false" text="Return" />
+                <Button layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#switchToMainMenuScene" text="Return" />
             </children>
         </Pane>
     </top>

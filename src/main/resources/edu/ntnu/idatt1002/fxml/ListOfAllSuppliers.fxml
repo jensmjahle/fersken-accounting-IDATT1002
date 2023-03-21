@@ -11,23 +11,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.ListOfAllSuppliersController">
     <top>
         <Pane prefHeight="49.0" prefWidth="605.0" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="31.0" layoutY="12.0" mnemonicParsing="false" text="Return" />
+                <Button layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#switchToMainMenuScene" text="Return" />
             </children>
         </Pane>
     </top>
     <center>
         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="TOP_CENTER" text="All Sales">
+                <Label alignment="TOP_CENTER" text="All Suppliers">
                     <font>
                         <Font size="30.0" />
                     </font>
                 </Label>
-                <HBox prefHeight="400.0" prefWidth="801.0">
+                <HBox prefHeight="223.0" prefWidth="525.0">
                     <children>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0">
                             <HBox.margin>
@@ -36,16 +36,19 @@
                         </VBox>
                         <TableView prefHeight="223.0" prefWidth="911.0">
                             <columns>
-                                <TableColumn prefWidth="60.66666281223297" text="Type" />
-                                <TableColumn prefWidth="65.11112594604492" text="Customer" />
-                                <TableColumn prefWidth="71.55553436279297" text="Date" />
-                                <TableColumn prefWidth="129.11109924316406" text="Expense name" />
-                                <TableColumn prefWidth="75.0" text="Paid to" />
-                                <TableColumn prefWidth="75.0" text="Gross price" />
-                                <TableColumn prefWidth="89.11105346679688" text="Total price" />
-                                <TableColumn prefWidth="72.888916015625" text="Tax type" />
-                                <TableColumn prefWidth="88.00006103515625" text="Project" />
+                                <TableColumn prefWidth="76.00003683567047" text="Name" />
+                                <TableColumn prefWidth="86.66664123535156" text="E-mail" />
+                                <TableColumn prefWidth="75.0" text="Phone Nr." />
+                                <TableColumn prefWidth="75.0" text="Org. Nr." />
+                                <TableColumn prefWidth="75.0" text="Account Nr." />
+                                <TableColumn prefWidth="75.0" text="Country" />
+                                <TableColumn prefWidth="10.0" text="Postcode" />
+                                <TableColumn prefWidth="151.33334350585938" text="Street" />
+                                <TableColumn prefWidth="62.666748046875" text="Street Nr." />
                             </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
                         </TableView>
                         <VBox prefHeight="200.0" prefWidth="200.0">
                             <HBox.margin>
