@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.FerskenRegnskapController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.MainMenuController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="160.0" BorderPane.alignment="CENTER">
          <children>
@@ -24,7 +24,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
-            <Text text="View expenses">
+            <Text onMouseClicked="#switchToListOfAllExpensesScene" text="View expenses">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -34,7 +34,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
-            <Text text="View sales">
+            <Text onMouseClicked="#switchToListOfAllSalesScene" text="View sales">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Text>
@@ -43,19 +43,19 @@
                   <Font size="21.0" />
                </font>
             </Label>
-            <Text text="Create Customer">
+            <Text onMouseClicked="#switchToCreateCustomerScene" text="Create Customer">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Text>
-            <Text text="View customer">
+            <Text onMouseClicked="#switchToListOfAllCustomersScene" text="View customer">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Text>
-            <Text text="Create supplier">
+            <Text onMouseClicked="#switchToCreateSupplierScene" text="Create supplier">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Text>
-            <Text text="View suppliers">
+            <Text onMouseClicked="#switchToListOfAllSuppliersScene" text="View suppliers">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Text>
@@ -68,11 +68,11 @@
                   <Font size="21.0" />
                </font>
             </Label>
-            <Text text="View budgets">
+            <Text onMouseClicked="#switchToListOfAllBudgetsScene" text="View budgets">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Text>
-            <Text text="Create budget">
+            <Text onMouseClicked="#switchToCreateBudgetScene" text="Create budget">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Text>
