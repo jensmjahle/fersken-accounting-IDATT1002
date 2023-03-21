@@ -1,12 +1,13 @@
 package edu.ntnu.idatt1002;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  * The class represents a sale for the user.
  */
-public class Sale {
+public class Sale implements Serializable {
   private final Contact customer;
   private final Date date;
   private final String product;
@@ -84,5 +85,14 @@ public class Sale {
     return amount;
   }
 
-
+  @Override
+  public String toString() {
+    return "Sale{" +
+        "customer=" + customer +
+        ", date=" + date +
+        ", product='" + product + '\'' +
+        ", receiverAccount='" + receiverAccount + '\'' +
+        ", amount=" + amount +
+        '}';
+  }
 }

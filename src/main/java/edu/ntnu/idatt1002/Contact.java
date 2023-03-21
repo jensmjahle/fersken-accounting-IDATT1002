@@ -1,10 +1,12 @@
 package edu.ntnu.idatt1002;
 
 
+import java.io.Serializable;
+
 /**
  * The class represents a contact of the user. Can be either a customer, supplier, or both.
  */
-public class Contact {
+public class Contact implements Serializable {
   private final String name;
   private final String email;
   private String street;
@@ -210,5 +212,18 @@ public class Contact {
     result = 31 * result + getAccountNumber().hashCode();
     result = 31 * result + getPostCode().hashCode();
     return result;
+  }
+
+  @Override
+  public String toString() {
+    return "Contact{" +
+        "name='" + name + '\'' +
+        ", email='" + email + '\'' +
+        ", street='" + street + '\'' +
+        ", streetNumber=" + streetNumber +
+        ", phoneNumber='" + phoneNumber + '\'' +
+        ", accountNumber='" + accountNumber + '\'' +
+        ", postCode='" + postCode + '\'' +
+        '}';
   }
 }

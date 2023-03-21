@@ -1,12 +1,14 @@
 package edu.ntnu.idatt1002;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Budget class with variables that make up a budget.
  */
-public class Budget {
-  private String project;
+public class Budget implements Serializable {
+  private String projectName;
   private final ArrayList<Expense> listOfExpenses;
   private final ArrayList<Sale> listOfSales;
 
@@ -29,7 +31,7 @@ public class Budget {
    * @return name of the project
    */
   public String getProject() {
-    return project;
+    return projectName;
   }
 
   /**
@@ -42,7 +44,7 @@ public class Budget {
     if (project.isEmpty() || project.isBlank()) {
       throw new IllegalArgumentException("Budget has to be connected to a specific project");
     }
-    this.project = project;
+    this.projectName = project;
   }
 
   /**
@@ -51,7 +53,7 @@ public class Budget {
    * @return list of expenses in the budget
    */
 
-  public ArrayList<Expense> getListOfExpenses() {
+  public List<Expense> getListOfExpenses() {
     return listOfExpenses;
   }
 
@@ -60,7 +62,7 @@ public class Budget {
    *
    * @param expenses list of expenses
    */
-  public void setListOfExpenses(ArrayList<Expense> expenses) {
+  public void addListOfExpenses(List<Expense> expenses) {
     listOfExpenses.addAll(expenses);
   }
 
@@ -78,7 +80,7 @@ public class Budget {
    *
    * @return list of sales
    */
-  public ArrayList<Sale> getListOfSales() {
+  public List<Sale> getListOfSales() {
     return listOfSales;
   }
 
@@ -87,7 +89,7 @@ public class Budget {
    *
    * @param sales list of sales
    */
-  public void setListOfSales(ArrayList<Sale> sales) {
+  public void setListOfSales(List<Sale> sales) {
     listOfSales.addAll(sales);
   }
 
@@ -98,5 +100,14 @@ public class Budget {
    */
   public void addSale(Sale newSale) {
     listOfSales.add(newSale);
+  }
+
+  @Override
+  public String toString() {
+    return "Budget{" +
+        "project='" + projectName + '\'' +
+        ", listOfExpenses=" + listOfExpenses +
+        ", listOfSales=" + listOfSales +
+        '}';
   }
 }
