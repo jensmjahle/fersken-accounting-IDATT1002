@@ -19,7 +19,7 @@
                   <Font size="21.0" />
                </font>
             </Label>
-            <Text text="Add expense">
+            <Text onMouseClicked="#switchToRegisterExpenseScene" text="Add expense">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -29,7 +29,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Text>
-            <Text text="Add sale">
+            <Text onMouseClicked="#switchToRegisterSaleScene" text="Add sale">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -59,24 +59,16 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Text>
-            <Text text="Manage accounts">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Text>
             <Label text="Budget">
                <font>
                   <Font size="21.0" />
                </font>
             </Label>
-            <Text onMouseClicked="#switchToListOfAllBudgetsScene" text="View budgets">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Text>
             <Text onMouseClicked="#switchToCreateBudgetScene" text="Create budget">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Text>
-            <Text text="Inspect budget status">
+            <Text onMouseClicked="#switchToListOfAllBudgetsScene" text="View budgets">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Text>
