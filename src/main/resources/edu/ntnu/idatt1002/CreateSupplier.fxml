@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Pane prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="24.0" layoutY="9.0" mnemonicParsing="false" text="Return" />
+         </children>
+      </Pane>
+   </top>
+   <center>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Add a new supplier">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="234.0" prefWidth="600.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="189.0" prefWidth="296.0">
+                     <children>
+                        <Label text="General Information" />
+                        <HBox prefHeight="221.0" prefWidth="291.0">
+                           <children>
+                              <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="225.0" spacing="19.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail:" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone-Number:" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Organization number:" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account number:" />
+                                 </children>
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="223.0" spacing="10.0">
+                                 <children>
+                                    <TextField />
+                                    <TextField />
+                                    <TextField />
+                                    <TextField />
+                                    <TextField />
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children></HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="189.0" prefWidth="314.0">
+                     <children>
+                        <Label text="Adress" />
+                        <HBox prefHeight="221.0" prefWidth="291.0">
+                           <children>
+                              <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="225.0" spacing="19.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Street:" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Streetnumber:" />
+                                 </children>
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="223.0" spacing="10.0">
+                                 <children>
+                                    <TextField />
+                                    <TextField />
+                                    <TextField />
+                                    <TextField />
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Delete draft" />
+                  <Button mnemonicParsing="false" text="Save draft" />
+                  <Button mnemonicParsing="false" text="Create" />
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
