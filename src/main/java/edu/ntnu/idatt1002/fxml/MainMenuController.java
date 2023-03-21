@@ -113,4 +113,19 @@ public class MainMenuController implements Initializable {
     stage.show();
   }
 
+  public void switchToRegisterExpenseScene(MouseEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("RegisterExpense.fxml"));
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  public void switchToRegisterSaleScene(MouseEvent event) throws IOException {
+    Parent root = FXMLLoader.load(getClass().getResource("RegisterSale.fxml"));
+    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+  }
 }
