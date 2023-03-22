@@ -118,5 +118,4 @@ public class Register <T>{
     objectRegister.add(object);
     writeToFile();
   }
-
 }

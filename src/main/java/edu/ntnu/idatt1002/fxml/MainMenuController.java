@@ -37,16 +37,12 @@ public class MainMenuController implements Initializable {
     series1.getData().add(new XYChart.Data("Juni", 0));
     series1.getData().add(new XYChart.Data("Juli", 0));
     series1.getData().add(new XYChart.Data("August", 0));
+    series1.getData().add(new XYChart.Data("September", 0));
+    series1.getData().add(new XYChart.Data("Oktober", 0));
+    series1.getData().add(new XYChart.Data("November", 0));
+    series1.getData().add(new XYChart.Data("Desember", 0));
 
     barChart.getData().add(series1);
-  }
-
-  public void switchToMainMenuScene(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
   }
 
   public void switchToCreateBudgetScene(MouseEvent event) throws IOException {
