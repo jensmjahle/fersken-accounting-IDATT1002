@@ -2,49 +2,100 @@ package edu.ntnu.idatt1002;
 
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Budget tests")
 public class BudgetTest {
-  private static final Budget budget = new Budget("ProjectTest");
-  private static final Expense expense = new Expense(100, new Date(),"product");
-  private static final Contact contact = new Contact("name", "email", "street", 12, "12345678", "11111111111", "7043");
-  private static final Sale sale = new Sale(contact, new Date(), "product", "22222222222", 100);
-  @BeforeAll
-  public static void setUpBudget() {
-    budget.addExpense(expense);
-    budget.addSale(sale);
+   Budget budget;
+   Expense expense;
+   Contact contact;
+   Sale sale;
+
+  @BeforeEach
+  void setUpBudget() {
+    budget = new Budget("ProjectTest");
+    expense = new Expense(100, new Date(),"product");
+    contact = new Contact("name", "email", "street",
+        12, "12345678", "11111111111", "7043");
+    sale = new Sale(contact, new Date(), "product", "22222222222", 100);
   }
+
   @Nested
   class ConstructorTest {
+
     @Test
-    @DisplayName("Valid budget")
-    public void validBudgetTest() {
+    @DisplayName("Create valid budget")
+    void createValidBudget() {
       assertDoesNotThrow(() -> new Budget("Project"));
     }
+
     @Test
-    @DisplayName("Invalid budget")
-    public void invalidBudgetTest() {
+    @DisplayName("Create invalid budget")
+    void createInvalidBudget() {
       assertThrows(IllegalArgumentException.class, () -> new Budget(""));
     }
   }
+
   @Nested
-  class getMethodTest {
+  class Getters {
+
     @Test
-    @DisplayName("Get project test")
-    public void getProjectTest() {
-      assertEquals("ProjectTest", budget.getProject());
+    @DisplayName("Should get project")
+    void getProjectTest() {
+      String expected = "ProjectTest";
+      String actual = budget.getProject();
+      assertEquals(expected, actual);
     }
+
     @Test
     @DisplayName("Get list of expenses test")
-    public void getListOfExpensesTest() {
-      assertTrue(budget.getListOfExpenses().contains(expense));
+    void getListOfExpensesTest() {
+      budget.addExpense(expense);
+      boolean listContainsExpense = budget.getListOfExpenses().contains(expense);
+      assertTrue(listContainsExpense);
     }
+
     @Test
     @DisplayName("Get list of sales test")
-    public void getListOfSalesTest() {
-      assertTrue(budget.getListOfSales().contains(sale));
+    void getListOfSalesTest() {
+      budget.addSale(sale);
+      boolean listContainsSale = budget.getListOfSales().contains(sale);
+      assertTrue(listContainsSale);
+    }
+  }
+
+  @Nested
+  class ListHandling {
+
+    @Test
+    @DisplayName("Add list of expenses")
+    void addListOfExpenses() {
+      List<Expense> expenseList = new ArrayList<>();
+      expenseList.add(new Expense(100, new Date(), "product 1"));
+      expenseList.add(new Expense(100, new Date(), "product 1"));
+
+      budget.addListOfExpenses(expenseList);
+
+      int expectedSize = 2;
+      int actualSize = budget.getListOfExpenses().size();
+
+      assertNotNull(budget.getListOfExpenses().get(0));
+      assertEquals(expectedSize, actualSize);
+    }
+
+    @Test
+    @DisplayName("Add list of sales")
+    void addListOfSales(){
+      List<Sale> listOfSales = new ArrayList<>();
+      listOfSales.add(sale);
+      budget.addListOfSales(listOfSales);
+      Sale expected = sale;
+      Sale actual = budget.getListOfSales().get(0);
+
+      assertEquals(expected, actual);
     }
   }
 }
