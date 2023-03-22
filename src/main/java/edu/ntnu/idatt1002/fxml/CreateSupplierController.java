@@ -58,6 +58,10 @@ public class CreateSupplierController {
     ContactRegister contactRegister = new ContactRegister("supplier.txt");
     contactRegister.addObject(newCustomer);
 
+    clearAllFields();
+  }
+
+  public void clearAllFields(){
     nameField.clear();
     emailField.clear();
     streetField.clear();

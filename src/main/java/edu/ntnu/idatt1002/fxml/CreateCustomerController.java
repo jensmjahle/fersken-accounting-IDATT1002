@@ -59,6 +59,10 @@ public class CreateCustomerController {
     ContactRegister contactRegister = new ContactRegister("contact.txt");
     contactRegister.addObject(newCustomer);
 
+    clearAllFields();
+  }
+
+  public void clearAllFields() {
     nameField.clear();
     emailField.clear();
     streetField.clear();
