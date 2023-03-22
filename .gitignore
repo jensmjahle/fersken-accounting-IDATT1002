@@ -37,3 +37,5 @@ out/
 ##############################
 *.db
 *.DS_Store
+contact.txt
+supplier.txt
