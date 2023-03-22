@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.ListOfAllSuppliersController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.ListOfAllSuppliersController">
     <top>
         <Pane prefHeight="49.0" prefWidth="605.0" BorderPane.alignment="CENTER">
             <children>
@@ -34,17 +34,16 @@
                                 <Insets left="10.0" right="10.0" top="25.0" />
                             </HBox.margin>
                         </VBox>
-                        <TableView prefHeight="223.0" prefWidth="911.0">
+                        <TableView fx:id="supplierTable" prefHeight="223.0" prefWidth="911.0">
                             <columns>
-                                <TableColumn prefWidth="76.00003683567047" text="Name" />
-                                <TableColumn prefWidth="86.66664123535156" text="E-mail" />
-                                <TableColumn prefWidth="75.0" text="Phone Nr." />
-                                <TableColumn prefWidth="75.0" text="Org. Nr." />
-                                <TableColumn prefWidth="75.0" text="Account Nr." />
-                                <TableColumn prefWidth="75.0" text="Country" />
-                                <TableColumn prefWidth="10.0" text="Postcode" />
-                                <TableColumn prefWidth="151.33334350585938" text="Street" />
-                                <TableColumn prefWidth="62.666748046875" text="Street Nr." />
+                                <TableColumn fx:id="nameColumn" prefWidth="76.00003683567047" text="Name" />
+                                <TableColumn fx:id="emailColumn" prefWidth="86.66664123535156" text="E-mail" />
+                                <TableColumn fx:id="phoneNumberColumn" prefWidth="75.0" text="Phone Nr." />
+                                <TableColumn fx:id="organizationNumberColumn" prefWidth="75.0" text="Org. Nr." />
+                                <TableColumn fx:id="accountNumberColumn" prefWidth="75.0" text="Account Nr." />
+                                <TableColumn fx:id="postCodeColumn" prefWidth="10.0" text="Postcode" />
+                                <TableColumn fx:id="streetColumn" prefWidth="151.33334350585938" text="Street" />
+                                <TableColumn fx:id="streetNumberColumn" prefWidth="62.666748046875" text="Street Nr." />
                             </columns>
                             <columnResizePolicy>
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
