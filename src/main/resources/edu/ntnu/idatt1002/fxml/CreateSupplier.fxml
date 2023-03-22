@@ -106,7 +106,7 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
                <children>
-                  <Button mnemonicParsing="false" text="Delete draft" />
+                  <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" text="Delete draft" />
                   <Button mnemonicParsing="false" text="Save draft" />
                   <Button mnemonicParsing="false" onMouseClicked="#createSupplier" text="Create" />
                </children>
