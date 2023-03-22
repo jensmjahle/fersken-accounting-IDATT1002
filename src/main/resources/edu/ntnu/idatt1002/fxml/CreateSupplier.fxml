@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.CreateSupplierController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.CreateSupplierController">
    <top>
       <Pane prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -22,7 +22,7 @@
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Add a new supplier">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="96.0" prefWidth="255.0" text="Add a new supplier">
                <font>
                   <Font size="30.0" />
                </font>
@@ -31,7 +31,10 @@
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="189.0" prefWidth="296.0">
                      <children>
-                        <Label text="General Information" />
+                        <Label text="General Information">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
                         <HBox prefHeight="221.0" prefWidth="291.0">
                            <children>
                               <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="225.0" spacing="19.0">
@@ -48,11 +51,11 @@
                               </VBox>
                               <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="223.0" spacing="10.0">
                                  <children>
-                                    <TextField />
-                                    <TextField />
-                                    <TextField />
-                                    <TextField />
-                                    <TextField />
+                                    <TextField fx:id="nameField" />
+                                    <TextField fx:id="emailField" />
+                                    <TextField fx:id="phoneNumberField" />
+                                    <TextField fx:id="organizationNumberField" />
+                                    <TextField fx:id="accountNumberField" />
                                  </children>
                                  <padding>
                                     <Insets left="5.0" />
@@ -66,12 +69,14 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="189.0" prefWidth="314.0">
                      <children>
-                        <Label text="Adress" />
+                        <Label text="Adress">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font></Label>
                         <HBox prefHeight="221.0" prefWidth="291.0">
                            <children>
                               <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="225.0" spacing="19.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Street:" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Streetnumber:" />
@@ -82,10 +87,9 @@
                               </VBox>
                               <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="223.0" spacing="10.0">
                                  <children>
-                                    <TextField />
-                                    <TextField />
-                                    <TextField />
-                                    <TextField />
+                                    <TextField fx:id="postCodeField" />
+                                    <TextField fx:id="streetField" />
+                                    <TextField fx:id="streetNumberField" />
                                  </children>
                                  <padding>
                                     <Insets left="5.0" />
@@ -104,7 +108,7 @@
                <children>
                   <Button mnemonicParsing="false" text="Delete draft" />
                   <Button mnemonicParsing="false" text="Save draft" />
-                  <Button mnemonicParsing="false" text="Create" />
+                  <Button mnemonicParsing="false" onMouseClicked="#createSupplier" text="Create" />
                </children>
                <padding>
                   <Insets right="10.0" />
