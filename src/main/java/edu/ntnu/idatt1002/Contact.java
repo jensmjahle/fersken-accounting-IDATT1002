@@ -34,24 +34,7 @@ public class Contact implements Serializable {
                  int streetNumber, String phoneNumber,
                  String accountNumber, String postCode) {
 
-    if (name.isEmpty() || name.isBlank()) {
-      throw new IllegalArgumentException("Name cannot be empty");
-    }
-    if (email.isEmpty() || email.isBlank()) {
-      throw new IllegalArgumentException("E-mail cannot be empty");
-    }
-    if (phoneNumber.length() != 8) {
-      throw new IllegalArgumentException("Phone number has to be 8 digits");
-    }
-
-    setStreet(street);
-    setStreetNumber(streetNumber);
-    setAccountNumber(accountNumber);
-    setPostCode(postCode);
-    this.name = name;
-    this.email = email;
-    this.phoneNumber = phoneNumber;
-    this.organizationNumber = "";
+    this(name, email, street,streetNumber, phoneNumber, accountNumber, postCode, "");
   }
 
   /**
@@ -264,6 +247,7 @@ public class Contact implements Serializable {
     result = 31 * result + getPhoneNumber().hashCode();
     result = 31 * result + getAccountNumber().hashCode();
     result = 31 * result + getPostCode().hashCode();
+    result = 31 * result + getOrganizationNumber().hashCode();
     return result;
   }
 
