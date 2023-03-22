@@ -14,7 +14,8 @@ public class Register <T>{
   private final List<T> objectRegister;
 
   protected Register(String fileName){
-    this.fileName = Objects.requireNonNull(fileName, "File name cannot be null.");
+    Objects.requireNonNull(fileName, "File name cannot be null");
+    this.fileName = "src/main/resources/registers/" + Objects.requireNonNull(fileName, "File name cannot be null.") + ".txt";
       objectRegister = new ArrayList<>(readFiles());
   }
 
@@ -56,6 +57,7 @@ public class Register <T>{
   }
 
   public boolean removeObject(T objectToRemove){
+    Objects.requireNonNull(objectToRemove, "Cannot remove null object from register");
     for (T object : objectRegister){
       if (object.equals(objectToRemove)){
         objectRegister.remove(objectToRemove);
@@ -76,6 +78,7 @@ public class Register <T>{
    * @param object to be added.
    */
   public void addObject(T object) {
+    Objects.requireNonNull(object, "Cannot add null object to register");
     objectRegister.add(object);
     writeToFile();
   }
