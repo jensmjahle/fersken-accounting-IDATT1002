@@ -89,7 +89,7 @@ public class Budget implements Serializable {
    *
    * @param sales list of sales
    */
-  public void setListOfSales(List<Sale> sales) {
+  public void addListOfSales(List<Sale> sales) {
     listOfSales.addAll(sales);
   }
 
@@ -102,6 +102,11 @@ public class Budget implements Serializable {
     listOfSales.add(newSale);
   }
 
+  /**
+   * Creates a string that holds budget info.
+   *
+   * @return A string containing budget info.
+   */
   @Override
   public String toString() {
     return "Budget{" +
