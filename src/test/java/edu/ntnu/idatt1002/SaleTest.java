@@ -44,7 +44,7 @@ class SaleTest {
   @DisplayName("Should get customer")
   void shouldGetCustomer() {
     Contact expected = new Contact("Name", "abc@email.com","Street", 10, "12345678", "12345678910", "1234");
-    Contact actual = sale.getCustomer();
+    Contact actual = sale.getContact();
     assertEquals(expected, actual);
   }
 
