@@ -17,7 +17,7 @@
     <bottom>
         <HBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="600.0" spacing="40.0" BorderPane.alignment="BOTTOM_RIGHT">
             <children>
-                <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" text="Delete draft" />
+                <Button mnemonicParsing="false" text="Delete draft" />
                 <Button mnemonicParsing="false" text="Save draft" />
                 <Button mnemonicParsing="false" onMouseClicked="#createBudget" text="Create" />
             </children>
