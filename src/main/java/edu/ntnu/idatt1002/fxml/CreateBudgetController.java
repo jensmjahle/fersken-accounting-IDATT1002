@@ -1,9 +1,6 @@
 package edu.ntnu.idatt1002.fxml;
 
-import edu.ntnu.idatt1002.Budget;
-import edu.ntnu.idatt1002.Expense;
-import edu.ntnu.idatt1002.PathUtility;
-import edu.ntnu.idatt1002.Sale;
+import edu.ntnu.idatt1002.*;
 import edu.ntnu.idatt1002.registers.BudgetRegister;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +17,7 @@ import javafx.stage.Stage;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CreateBudgetController {
 
@@ -118,7 +116,6 @@ public class CreateBudgetController {
     newBudget.addListOfExpenses(newListOfExpenses);
     newBudget.addListOfSales(newListOfIncomes);
 
-    BudgetRegister budgetRegister = new BudgetRegister("budgets");
-    budgetRegister.addObject(newBudget);
+    RegisterManager.getInstance().getBudgetRegister().addObject(newBudget);
   }
 }

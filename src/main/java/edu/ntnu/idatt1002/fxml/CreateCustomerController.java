@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.fxml;
 
 import edu.ntnu.idatt1002.Contact;
 import edu.ntnu.idatt1002.PathUtility;
+import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.registers.ContactRegister.*;
 
 import edu.ntnu.idatt1002.registers.ContactRegister;
@@ -58,8 +59,7 @@ public class CreateCustomerController {
     String postCode = postCodeField.getText();
 
     Contact newCustomer = new Contact(name, email, street, streetNumber, phoneNumber, accountNumber, postCode, organizationNumber);
-    ContactRegister contactRegister = new ContactRegister("contacts");
-    contactRegister.addObject(newCustomer);
+    RegisterManager.getInstance().getCustomerRegister().addObject(newCustomer);
 
     clearAllFields();
   }
