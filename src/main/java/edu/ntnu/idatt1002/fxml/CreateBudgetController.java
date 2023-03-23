@@ -1,6 +1,11 @@
 package edu.ntnu.idatt1002.fxml;
 
+import edu.ntnu.idatt1002.Budget;
+import edu.ntnu.idatt1002.Expense;
 import edu.ntnu.idatt1002.PathUtility;
+import edu.ntnu.idatt1002.Sale;
+import edu.ntnu.idatt1002.registers.BudgetRegister;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
