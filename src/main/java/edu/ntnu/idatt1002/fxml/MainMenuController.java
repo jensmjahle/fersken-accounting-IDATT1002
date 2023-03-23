@@ -1,5 +1,7 @@
 package edu.ntnu.idatt1002.fxml;
 
+import edu.ntnu.idatt1002.PathUtility;
+import java.io.File;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -46,7 +48,7 @@ public class MainMenuController implements Initializable {
   }
 
   public void switchToCreateBudgetScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("CreateBudget.fxml"));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("CreateBudget"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -54,7 +56,7 @@ public class MainMenuController implements Initializable {
   }
 
   public void switchToCreateCustomerScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("CreateCustomer.fxml"));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("CreateCustomer"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -62,7 +64,7 @@ public class MainMenuController implements Initializable {
   }
 
   public void switchToCreateSupplierScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("CreateSupplier.fxml"));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("CreateSupplier"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -70,7 +72,7 @@ public class MainMenuController implements Initializable {
   }
 
   public void switchToListOfAllBudgetsScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("ListOfAllBudgets.fxml"));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("ListOfAllBudgets"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -78,7 +80,7 @@ public class MainMenuController implements Initializable {
   }
 
   public void switchToListOfAllCustomersScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("ListOfAllCustomers.fxml"));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("ListOfAllCustomers"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -86,7 +88,7 @@ public class MainMenuController implements Initializable {
   }
 
   public void switchToListOfAllExpensesScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("ListOfAllExpenses.fxml"));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("ListOfAllExpenses"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -94,7 +96,7 @@ public class MainMenuController implements Initializable {
   }
 
   public void switchToListOfAllSalesScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("ListOfAllSales.fxml"));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("ListOfAllSales"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -102,7 +104,7 @@ public class MainMenuController implements Initializable {
   }
 
   public void switchToListOfAllSuppliersScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("ListOfAllSuppliers.fxml"));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("ListOfAllSuppliers"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -110,7 +112,7 @@ public class MainMenuController implements Initializable {
   }
 
   public void switchToRegisterExpenseScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("RegisterExpense.fxml"));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("RegisterExpense"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
@@ -118,7 +120,7 @@ public class MainMenuController implements Initializable {
   }
 
   public void switchToRegisterSaleScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("RegisterSale.fxml"));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("RegisterSale"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);

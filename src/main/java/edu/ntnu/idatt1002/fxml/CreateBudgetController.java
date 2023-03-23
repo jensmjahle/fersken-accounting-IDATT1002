@@ -1,10 +1,6 @@
 package edu.ntnu.idatt1002.fxml;
 
-import edu.ntnu.idatt1002.Budget;
-import edu.ntnu.idatt1002.Expense;
-import edu.ntnu.idatt1002.Sale;
-import edu.ntnu.idatt1002.registers.BudgetRegister;
-import javafx.fxml.FXML;
+import edu.ntnu.idatt1002.PathUtility;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -53,7 +49,7 @@ public class CreateBudgetController {
   ArrayList<Expense> newListOfExpenses = new ArrayList<>();
   ArrayList<Sale> newListOfIncomes = new ArrayList<>();
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("MainMenu"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
