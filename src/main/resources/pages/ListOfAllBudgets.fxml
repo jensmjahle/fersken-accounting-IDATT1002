@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.ListOfAllBudgetsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.ListOfAllBudgetsController">
    <top>
       <Pane prefHeight="49.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -34,13 +34,12 @@
                         <Insets left="10.0" right="10.0" top="25.0" />
                      </HBox.margin>
                   </VBox>
-                  <TableView prefHeight="223.0" prefWidth="556.0">
+                  <TableView fx:id="budgetTable" prefHeight="223.0" prefWidth="556.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="Name" />
-                      <TableColumn prefWidth="75.0" text="Customer" />
-                        <TableColumn prefWidth="75.0" text="Expenses" />
-                        <TableColumn prefWidth="75.0" text="Income" />
-                        <TableColumn prefWidth="75.0" text="Difference" />
+                      <TableColumn fx:id="budgetNameColumn" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="budgetExpensesColumn" prefWidth="75.0" text="Expenses" />
+                        <TableColumn fx:id="budgetIncomesColumn" prefWidth="75.0" text="Income" />
+                        <TableColumn fx:id="budgetDifferenceColumn" prefWidth="75.0" text="Difference" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

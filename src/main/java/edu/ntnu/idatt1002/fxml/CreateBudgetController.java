@@ -69,7 +69,11 @@ public class CreateBudgetController {
     expenseNameField.clear();
     expenseAmountField.clear();
 
+    //jens fikser
+    RegisterManager.getInstance().getExpenseRegister().addObject(newExpense);
+
     updateTables();
+
 
   }
 
@@ -83,7 +87,11 @@ public class CreateBudgetController {
     incomeNameField.clear();
     incomeAmountField.clear();
 
+    //jens fikser
+    RegisterManager.getInstance().getSaleRegister().addObject(newIncome);
+
     updateTables();
+
 
   }
 
@@ -99,6 +107,9 @@ public class CreateBudgetController {
 
     incomeAmountColumn.setCellValueFactory(
         new PropertyValueFactory<>("amount"));
+
+    expenseTable.getItems().clear();
+    incomeTable.getItems().clear();
 
     for(Expense expense: newListOfExpenses){
       expenseTable.getItems().add(expense);
@@ -117,5 +128,17 @@ public class CreateBudgetController {
     newBudget.addListOfSales(newListOfIncomes);
 
     RegisterManager.getInstance().getBudgetRegister().addObject(newBudget);
+
+    clearAllFields();
+  }
+
+  public void clearAllFields() {
+    projectNameField.clear();
+    expenseTable.getItems().clear();
+    incomeTable.getItems().clear();
+    incomeNameField.clear();
+    incomeAmountField.clear();
+    expenseNameField.clear();
+    expenseAmountField.clear();
   }
 }
