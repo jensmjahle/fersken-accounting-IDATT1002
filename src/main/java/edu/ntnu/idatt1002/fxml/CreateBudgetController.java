@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CreateBudgetController {
 
@@ -126,8 +127,7 @@ public class CreateBudgetController {
     newBudget.addListOfExpenses(newListOfExpenses);
     newBudget.addListOfSales(newListOfIncomes);
 
-    BudgetRegister budgetRegister = new BudgetRegister("budgets");
-    budgetRegister.addObject(newBudget);
+    RegisterManager.getInstance().getBudgetRegister().addObject(newBudget);
 
     clearAllFields();
   }

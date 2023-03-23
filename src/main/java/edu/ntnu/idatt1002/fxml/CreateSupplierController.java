@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.fxml;
 
 import edu.ntnu.idatt1002.Contact;
 import edu.ntnu.idatt1002.PathUtility;
+import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.registers.ContactRegister;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,8 +58,8 @@ public class CreateSupplierController {
     String postCode = postCodeField.getText();
 
     Contact newCustomer = new Contact(name, email, street, streetNumber, phoneNumber, accountNumber, postCode, organizationNumber);
-    ContactRegister contactRegister = new ContactRegister("suppliers");
-    contactRegister.addObject(newCustomer);
+    RegisterManager.getInstance().getCustomerRegister().addObject(newCustomer);
+
 
     clearAllFields();
   }
