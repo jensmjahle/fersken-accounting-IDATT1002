@@ -11,6 +11,9 @@ public class Budget implements Serializable {
   private String projectName;
   private final ArrayList<Expense> listOfExpenses;
   private final ArrayList<Sale> listOfSales;
+  private double sumOfExpenses;
+  private double sumOfSales;
+  private double difference;
 
   /**
    * Constructor that initializes a budget.
@@ -30,7 +33,7 @@ public class Budget implements Serializable {
    *
    * @return name of the project
    */
-  public String getProject() {
+  public String getProjectName() {
     return projectName;
   }
 
@@ -102,6 +105,35 @@ public class Budget implements Serializable {
     listOfSales.add(newSale);
   }
 
+  public double sumOfExpenses() {
+    double sum = 0;
+    for(Expense expense: listOfExpenses) {
+      sum += expense.getAmount();
+    }
+
+    return sum;
+  }
+
+  public double sumOfSales() {
+    double sum = 0;
+    for(Sale sale: listOfSales) {
+      sum += sale.getAmount();
+    }
+
+    return sum;
+  }
+
+  public double getSumOfExpenses() {
+    return sumOfExpenses();
+  }
+
+  public double getSumOfSales() {
+    return sumOfSales();
+  }
+
+  public double getDifference() {
+    return sumOfSales() - sumOfExpenses();
+  }
   /**
    * Creates a string that holds budget info.
    *

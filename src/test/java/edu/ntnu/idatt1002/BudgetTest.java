@@ -46,7 +46,7 @@ public class BudgetTest {
     @DisplayName("Should get project")
     void getProjectTest() {
       String expected = "ProjectTest";
-      String actual = budget.getProject();
+      String actual = budget.getProjectName();
       assertEquals(expected, actual);
     }
 
