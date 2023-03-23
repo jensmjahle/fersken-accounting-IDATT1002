@@ -89,6 +89,10 @@ public class Expense implements Serializable {
     return date;
   }
 
+  public String getProduct() {
+    return product;
+  }
+
   @Override
   public String toString() {
     return "Expense{" +

@@ -1,9 +1,6 @@
 package edu.ntnu.idatt1002.fxml;
 
-import edu.ntnu.idatt1002.Budget;
-import edu.ntnu.idatt1002.Expense;
-import edu.ntnu.idatt1002.PathUtility;
-import edu.ntnu.idatt1002.Sale;
+import edu.ntnu.idatt1002.*;
 import edu.ntnu.idatt1002.registers.BudgetRegister;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,7 +68,11 @@ public class CreateBudgetController {
     expenseNameField.clear();
     expenseAmountField.clear();
 
+    //jens fikser
+    RegisterManager.getInstance().getExpenseRegister().addObject(newExpense);
+
     updateTables();
+
 
   }
 
@@ -85,7 +86,11 @@ public class CreateBudgetController {
     incomeNameField.clear();
     incomeAmountField.clear();
 
+    //jens fikser
+    RegisterManager.getInstance().getSaleRegister().addObject(newIncome);
+
     updateTables();
+
 
   }
 
@@ -101,6 +106,9 @@ public class CreateBudgetController {
 
     incomeAmountColumn.setCellValueFactory(
         new PropertyValueFactory<>("amount"));
+
+    expenseTable.getItems().clear();
+    incomeTable.getItems().clear();
 
     for(Expense expense: newListOfExpenses){
       expenseTable.getItems().add(expense);
@@ -120,5 +128,17 @@ public class CreateBudgetController {
 
     BudgetRegister budgetRegister = new BudgetRegister("budgets");
     budgetRegister.addObject(newBudget);
+
+    clearAllFields();
+  }
+
+  public void clearAllFields() {
+    projectNameField.clear();
+    expenseTable.getItems().clear();
+    incomeTable.getItems().clear();
+    incomeNameField.clear();
+    incomeAmountField.clear();
+    expenseNameField.clear();
+    expenseAmountField.clear();
   }
 }
