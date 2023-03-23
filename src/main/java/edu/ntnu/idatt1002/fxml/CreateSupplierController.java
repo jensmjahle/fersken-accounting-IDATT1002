@@ -1,6 +1,7 @@
 package edu.ntnu.idatt1002.fxml;
 
 import edu.ntnu.idatt1002.Contact;
+import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.registers.ContactRegister;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +39,7 @@ public class CreateSupplierController {
   private TextField streetNumberField;
 
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("MainMenu"));
     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
