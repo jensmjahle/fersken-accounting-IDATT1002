@@ -53,11 +53,12 @@ public class CreateCustomerController {
     String street = streetField.getText();
     int streetNumber = Integer.parseInt(streetNumberField.getText());
     String phoneNumber = phoneNumberField.getText();
+    String organizationNumber = organizationNumberField.getText();
     String accountNumber = accountNumberField.getText();
     String postCode = postCodeField.getText();
 
-    Contact newCustomer = new Contact(name, email, street, streetNumber, phoneNumber, accountNumber, postCode);
-    ContactRegister contactRegister = new ContactRegister("contact.txt");
+    Contact newCustomer = new Contact(name, email, street, streetNumber, phoneNumber, accountNumber, postCode, organizationNumber);
+    ContactRegister contactRegister = new ContactRegister("contacts");
     contactRegister.addObject(newCustomer);
 
     clearAllFields();

@@ -8,11 +8,12 @@ import java.util.Objects;
  * The class represents a sale for the user.
  */
 public class Sale implements Serializable {
-  private final Contact customer;
-  private final Date date;
-  private final String product;
-  private final String receiverAccount;
-  private final double amount;
+  private Contact customer;
+  private String customerAsString;
+  private Date date;
+  private String product;
+  private String receiverAccount;
+  private double amount;
 
   /**
    * Allocates a Sale object and initialises it.
@@ -37,6 +38,31 @@ public class Sale implements Serializable {
     this.date = Objects.requireNonNull(date, "Date cannot be null");
     this.product = Objects.requireNonNull(product, "Product cannot be null");
     this.receiverAccount = Objects.requireNonNull(receiverAccount, "Account number cannot be null");
+    this.amount = amount;
+  }
+
+  public Sale(String customer, Date date, String product, String receiverAccount, double amount)
+      throws NullPointerException, IllegalArgumentException {
+    if (amount <= 0) {
+      throw new IllegalArgumentException("A sale's amount cannot be 0 or less");
+    }
+    if (receiverAccount.length() != 11) {
+      throw new IllegalArgumentException("The account number has to be 11 numbers long");
+    }
+
+
+    this.customerAsString = customer;
+    this.date = Objects.requireNonNull(date, "Date cannot be null");
+    this.product = Objects.requireNonNull(product, "Product cannot be null");
+    this.receiverAccount = Objects.requireNonNull(receiverAccount, "Account number cannot be null");
+    this.amount = amount;
+  }
+
+  public Sale(String product, double amount) throws NullPointerException, IllegalArgumentException {
+    if (amount <= 0) {
+      throw new IllegalArgumentException("A sale's amount cannot be 0 or less");
+    }
+    this.product = Objects.requireNonNull(product, "Product cannot be null");
     this.amount = amount;
   }
 

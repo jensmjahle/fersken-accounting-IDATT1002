@@ -12,9 +12,9 @@ import java.util.Objects;
  */
 public class Expense implements Serializable {
   private Contact contact;
-  private final double amount;
-  private final Date date;
-  private final String product;
+  private double amount;
+  private Date date;
+  private String product;
 
 
   /**
@@ -35,6 +35,14 @@ public class Expense implements Serializable {
     this.product = product;
     this.amount = amount;
 
+  }
+
+  public Expense(double amount, String product) {
+    if (amount <= 0) {
+      throw new IllegalArgumentException("Expense amount can not be 0 or a negative number");
+    }
+    this.product = product;
+    this.amount = amount;
   }
 
   /**
