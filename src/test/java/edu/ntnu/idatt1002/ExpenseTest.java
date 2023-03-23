@@ -95,4 +95,16 @@ class ExpenseTest {
       Expense expense = new Expense(500, null, "product");
     });
   }
+
+  @Test
+  @DisplayName("Should get ToString")
+  void shouldGetToString(){
+    String expected = "Expense{contact=Contact{name='name', email='email', street='street', " +
+        "streetNumber=10, phoneNumber='12345678', accountNumber='11111111111', postCode='1234', " +
+        "organizationNumber=''}, amount=500.0, date=" + dateTest.toString()+ ", product='product'}";
+    String actual =expenseTest.toString();
+    assertEquals(expected, actual);
+  }
+
+
 }

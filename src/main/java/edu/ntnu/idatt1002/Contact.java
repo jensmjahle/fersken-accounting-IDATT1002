@@ -7,28 +7,53 @@ import java.io.Serializable;
  * The class represents a contact of the user. Can be either a customer, supplier, or both.
  */
 public class Contact implements Serializable {
+
   private final String name;
   private final String email;
+  private final String phoneNumber;
+  private final String organizationNumber;
   private String street;
   private int streetNumber;
-  private final String phoneNumber;
   private String accountNumber;
   private String postCode;
 
   /**
-   * Creates an instance of the contact object.
+   * Creates an instance of the contact object without organization number.
    *
-   * @param name The name of the contact.
-   * @param email The e-mail of the contact.
-   * @param street The street name of the address of the contact.
-   * @param streetNumber The street number of the address of the contact. Should not be negative or equal to zero.
-   * @param phoneNumber The phone number that can be used to contact the contact. Should be 8 digits long.
+   * @param name          The name of the contact.
+   * @param email         The e-mail of the contact.
+   * @param street        The street name of the address of the contact.
+   * @param streetNumber  The street number of the address of the contact.
+   *                      Should not be negative or equal to zero.
+   * @param phoneNumber   The phone number that can be used to contact the contact.
+   *                      Should be 8 digits long.
    * @param accountNumber The account number of the contact. Should be 11 digits long.
-   * @param postCode The postCode of the address of the contact. Should be 4 digits long.
+   * @param postCode      The postCode of the address of the contact. Should be 4 digits long.
    */
   public Contact(String name, String email, String street,
                  int streetNumber, String phoneNumber,
                  String accountNumber, String postCode) {
+
+    this(name, email, street,streetNumber, phoneNumber, accountNumber, postCode, "");
+  }
+
+  /**
+   * Creates an instance of the Contact object with organization number.
+   *
+   * @param name               The name of the contact.
+   * @param email              The e-mail of the contact.
+   * @param street             The street name of the address of the contact.
+   * @param streetNumber       The street number of the address of the contact.
+   *                           Should not be negative or equal to zero.
+   * @param phoneNumber        The phone number that can be used to contact the contact.
+   *                           Should be 8 digits long.
+   * @param accountNumber      The account number of the contact. Should be 11 digits long.
+   * @param postCode           The postCode of the address of the contact. Should be 4 digits long.
+   * @param organizationNumber The organization number for the contact.
+   */
+  public Contact(String name, String email, String street,
+                 int streetNumber, String phoneNumber,
+                 String accountNumber, String postCode, String organizationNumber) {
 
     if (name.isEmpty() || name.isBlank()) {
       throw new IllegalArgumentException("Name cannot be empty");
@@ -36,7 +61,7 @@ public class Contact implements Serializable {
     if (email.isEmpty() || email.isBlank()) {
       throw new IllegalArgumentException("E-mail cannot be empty");
     }
-    if (phoneNumber.length() != 8){
+    if (phoneNumber.length() != 8) {
       throw new IllegalArgumentException("Phone number has to be 8 digits");
     }
 
@@ -47,6 +72,7 @@ public class Contact implements Serializable {
     this.name = name;
     this.email = email;
     this.phoneNumber = phoneNumber;
+    this.organizationNumber = organizationNumber;
   }
 
   /**
@@ -77,50 +103,24 @@ public class Contact implements Serializable {
   }
 
   /**
+   * Sets a new street name for the contact.
+   *
+   * @param street The new street name for the contact's location.
+   */
+  public void setStreet(String street) {
+    if (street.isEmpty() || street.isBlank()) {
+      throw new IllegalArgumentException("Street cannot be blank");
+    }
+    this.street = street;
+  }
+
+  /**
    * Gets the street number of the address of the contact.
    *
    * @return The street number of the address of the contact.
    */
   public int getStreetNumber() {
     return streetNumber;
-  }
-
-  /**
-   * Gets the phone number of the contact and returns it.
-   *
-   * @return The phone number of the contact.
-   */
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-  /**
-   * Gets the account number of the contact.
-   *
-   * @return The account number of the contact.
-   */
-  public String getAccountNumber() {
-    return accountNumber;
-  }
-
-  /**
-   * Gets the post code of the contact's address.
-   *
-   * @return The post contact's post code.
-   */
-  public String getPostCode() {
-    return postCode;
-  }
-
-  /**
-   * Sets a new street name for the contact.
-   *
-   * @param street The new street name for the contact's location.
-   */
-  public void setStreet(String street) {
-    if (street.isEmpty() || street.isBlank())
-      throw new IllegalArgumentException("Street cannot be blank");
-    this.street = street;
   }
 
   /**
@@ -136,15 +136,51 @@ public class Contact implements Serializable {
   }
 
   /**
+   * Gets the phone number of the contact and returns it.
+   *
+   * @return The phone number of the contact.
+   */
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+
+  /**
+   * Gets the organization number of the contact.
+   *
+   * @return The organization number of the contact.
+   */
+  public String getOrganizationNumber() {
+    return organizationNumber;
+  }
+
+  /**
+   * Gets the account number of the contact.
+   *
+   * @return The account number of the contact.
+   */
+  public String getAccountNumber() {
+    return accountNumber;
+  }
+
+  /**
    * Sets a new account number for the contact.
    *
    * @param accountNumber The contact
    */
   public void setAccountNumber(String accountNumber) {
-    if (accountNumber.length() != 11){
+    if (accountNumber.length() != 11) {
       throw new IllegalArgumentException("Account number has to be 11 digits");
     }
     this.accountNumber = accountNumber;
+  }
+
+  /**
+   * Gets the post code of the contact's address.
+   *
+   * @return The post contact's post code.
+   */
+  public String getPostCode() {
+    return postCode;
   }
 
   /**
@@ -211,6 +247,7 @@ public class Contact implements Serializable {
     result = 31 * result + getPhoneNumber().hashCode();
     result = 31 * result + getAccountNumber().hashCode();
     result = 31 * result + getPostCode().hashCode();
+    result = 31 * result + getOrganizationNumber().hashCode();
     return result;
   }
 
@@ -224,6 +261,7 @@ public class Contact implements Serializable {
         ", phoneNumber='" + phoneNumber + '\'' +
         ", accountNumber='" + accountNumber + '\'' +
         ", postCode='" + postCode + '\'' +
+        ", organizationNumber='" + organizationNumber + '\'' +
         '}';
   }
 }

@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,12 +37,11 @@ class BudgetRegisterTest {
     date = new Date();
     contact = new Contact("name", "email", "street", 12, "12345678", "11111111111", "7043");
     Sale sale = new Sale(contact, date, "product", "22222222222", 100);
-    file = new File("BudgetTest.txt");
+    file = new File("BudgetTest");
     budgetRegister = new BudgetRegister(file.getPath());
 
 
   }
-
 
 
   @Test
@@ -99,11 +100,19 @@ class BudgetRegisterTest {
     });
   }
 
+  @Test
+  @DisplayName("Throws NullPointerException if trying to add a null object")
+  void cannotAddInvalidObject(){
+    assertThrows(NullPointerException.class, () -> budgetRegister.addObject(null));
+  }
+
 
   @AfterEach
   void tearDown() {
     try {
-      Files.deleteIfExists(file.toPath());
+      String location = "src/main/resources/registers/" + file.toPath() + ".txt";
+      Path path = Paths.get(location);
+      Files.deleteIfExists(path);
     } catch (Exception e){
       e.printStackTrace();
     }

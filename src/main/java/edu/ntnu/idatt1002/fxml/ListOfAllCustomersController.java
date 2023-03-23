@@ -54,7 +54,7 @@ public class ListOfAllCustomersController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    ContactRegister contactRegister = new ContactRegister("contact.txt");
+    ContactRegister contactRegister = new ContactRegister("contacts");
 
     nameColumn.setCellValueFactory(
         new PropertyValueFactory<>("name"));
