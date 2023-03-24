@@ -8,8 +8,8 @@ import java.util.Objects;
  * The class represents a sale for the user.
  */
 public class Sale implements Serializable {
-  private Contact customer;
-  private String customerAsString;
+  private Contact contact;
+  private String customer;
   private Date date;
   private String product;
   private String receiverAccount;
@@ -18,13 +18,13 @@ public class Sale implements Serializable {
   /**
    * Allocates a Sale object and initialises it.
    *
-   * @param customer The contact that bought a service from the user.
+   * @param contact The contact that bought a service from the user.
    * @param date The date of purchase.
    * @param product The product that has been sold to the customer.
    * @param receiverAccount The account that should receive the money from the sale.
    * @param amount The amount of money the customer is set to pay from the sale.
    */
-  public Sale(Contact customer, Date date, String product, String receiverAccount, double amount)
+  public Sale(Contact contact, Date date, String product, String receiverAccount, double amount)
           throws NullPointerException, IllegalArgumentException {
     if (amount <= 0) {
       throw new IllegalArgumentException("A sale's amount cannot be 0 or less");
@@ -34,7 +34,7 @@ public class Sale implements Serializable {
     }
 
 
-    this.customer = Objects.requireNonNull(customer, "Customer cannot be null");
+    this.contact = Objects.requireNonNull(contact, "Contact cannot be null");
     this.date = Objects.requireNonNull(date, "Date cannot be null");
     this.product = Objects.requireNonNull(product, "Product cannot be null");
     this.receiverAccount = Objects.requireNonNull(receiverAccount, "Account number cannot be null");
@@ -51,7 +51,7 @@ public class Sale implements Serializable {
     }
 
 
-    this.customerAsString = customer;
+    this.customer = Objects.requireNonNull(customer, "Customer cannot be null");
     this.date = Objects.requireNonNull(date, "Date cannot be null");
     this.product = Objects.requireNonNull(product, "Product cannot be null");
     this.receiverAccount = Objects.requireNonNull(receiverAccount, "Account number cannot be null");
@@ -71,7 +71,16 @@ public class Sale implements Serializable {
    *
    * @return The customer of the sale.
    */
-  public Contact getCustomer() {
+  public Contact getContact() {
+    return contact;
+  }
+
+  /**
+   * Gets the customer of the sale.
+   *
+   * @return The customer of the sale as a String.
+   */
+  public String getCustomer() {
     return customer;
   }
 
@@ -114,7 +123,7 @@ public class Sale implements Serializable {
   @Override
   public String toString() {
     return "Sale{" +
-        "customer=" + customer +
+        "customer=" + contact +
         ", date=" + date +
         ", product='" + product + '\'' +
         ", receiverAccount='" + receiverAccount + '\'' +
