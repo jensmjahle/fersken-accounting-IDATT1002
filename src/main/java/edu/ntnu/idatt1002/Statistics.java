@@ -4,6 +4,8 @@ package edu.ntnu.idatt1002;
 import edu.ntnu.idatt1002.registers.ExpenseRegister;
 import edu.ntnu.idatt1002.registers.SaleRegister;
 import java.text.SimpleDateFormat;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.Date;
 
 /**
@@ -26,38 +28,49 @@ public class Statistics {
   }
 
   /**
-   * Finds out the total sale sum for a specified month.
+   * Returns the sum for all sale prices summed up for a specified month.
    *
-   * @param month The month that will be used to calculate the total sum for that month.
-   * @return The total sale sum for the specified month.
+   * @param month The month used to find the total sale price.
+   * @return The total sale price for the specified month
    */
-  public double getSaleTotalForMonth(int month) {
-
-    return saleRegister.getObjects().stream().filter(sale -> sale.getDate().getMonth() == month)
-        .mapToDouble(Sale::getAmount).sum();
-  }
-
-  /**
-   * Finds out the total expense sum for a specified month.
-   *
-   * @param month The month that will be used to calculate the total expenses for that month.
-   * @return The total expense sum for the specified month.
-   */
-  public double getExpenseTotalForMonth(int month) {
-
-    return expenseRegister.getObjects().stream()
-        .filter(expense -> expense.getDate().getMonth() == month).mapToDouble(Expense::getAmount)
+  public double getSaleTotalForMonth(YearMonth month) {
+    return saleRegister.getObjects().stream().filter(
+            sale -> sale.getDate().getMonth() == month.getMonthValue() - 1
+                && sale.getDate().getYear() + 1900 == month.getYear()).mapToDouble(Sale::getAmount)
         .sum();
   }
 
   /**
-   * Finds out the difference between sales and expenses for a given month.
+   * Returns the sum for all expense costs summed up for a specified month.
    *
-   * @param month The month that will be used to calculate the difference.
-   * @return The total difference between sales and expenses for the given month.
+   * @param month The month used to find the total expense cost.
+   * @return The total expense cost for the specified month
    */
-  public double getDifferenceForMonth(int month) {
+  public double getExpenseTotalForMonth(YearMonth month) {
+    return expenseRegister.getObjects().stream().filter(
+            expense -> expense.getDate().getMonth() == month.getMonthValue() - 1
+                && expense.getDate().getYear() + 1900 == month.getYear())
+        .mapToDouble(Expense::getAmount).sum();
+  }
+
+  /**
+   * Finds out the difference between the sales sum and expense sum for a specified month.
+   *
+   * @param month The month that will be used to find the difference between sales and expenses.
+   * @return The difference between the sales sum and expense sum for a specified month.
+   */
+  public double getDifferenceTotalForMonth(YearMonth month) {
     return getSaleTotalForMonth(month) - getExpenseTotalForMonth(month);
+  }
+
+  /**
+   * Finds out the difference between the sales sum and expense sum for a specified day.
+   *
+   * @param date Date that will be used to find the difference between sales and expenses.
+   * @return The difference between the sales sum and expense sum for a specified day.
+   */
+  public double getDifferenceForDay(Date date) {
+    return getSaleTotalForDay(date) - getExpenseTotalForDay(date);
   }
 
   /**
@@ -69,7 +82,7 @@ public class Statistics {
    */
   public double getSaleTotalForTimePeriod(Date startDate, Date endDate) {
     return saleRegister.getObjects().stream()
-        .filter(sale -> sale.getDate().after(startDate) && sale.getDate().before(endDate))
+        .filter(sale -> !sale.getDate().before(startDate) && !sale.getDate().after(endDate))
         .mapToDouble(Sale::getAmount).sum();
   }
 
@@ -81,10 +94,23 @@ public class Statistics {
    * @return The expense total for all expenses that occur between the specified dates
    */
   public double getExpenseTotalForTimePeriod(Date startDate, Date endDate) {
-    return expenseRegister.getObjects().stream()
-        .filter(expense -> expense.getDate().after(startDate) && expense.getDate().before(endDate))
+    return expenseRegister.getObjects().stream().filter(
+            expense -> !expense.getDate().before(startDate) && !expense.getDate().after(endDate))
         .mapToDouble(Expense::getAmount).sum();
   }
+
+  /**
+   * Finds out the difference between sales sum and expense sum for a specified time period.
+   *
+   * @param startDate The start date of the time period.
+   * @param endDate   The end date of the time period.
+   * @return the difference between sales sum and expense sum for a specified time period.
+   */
+  public double getDifferenceForTimePeriod(Date startDate, Date endDate) {
+    return getSaleTotalForTimePeriod(startDate, endDate) - getExpenseTotalForTimePeriod(startDate,
+        endDate);
+  }
+
 
   /**
    * Finds out the total sales amount for a specified date.
@@ -95,6 +121,34 @@ public class Statistics {
   public double getSaleTotalForDay(Date day) {
     return saleRegister.getObjects().stream().filter(sale -> isSameDate(sale.getDate(), day))
         .mapToDouble(Sale::getAmount).sum();
+  }
+
+  /**
+   * Returns the sum for all sale prices summed up for a specified year.
+   *
+   * @param year The year used to find the total sale price.
+   * @return The total sale price for the specified year
+   */
+  public double getSaleTotalForYear(Year year) {
+    return saleRegister.getObjects().stream()
+        .filter(sale -> sale.getDate().getYear() + 1900 == year.getValue())
+        .mapToDouble(Sale::getAmount).sum();
+  }
+
+  /**
+   * Returns the sum for all expense costs summed up for a specified year.
+   *
+   * @param year The year used to find the total sale price.
+   * @return The total expense costs for the specified year
+   */
+  public double getExpenseTotalForYear(Year year) {
+    return expenseRegister.getObjects().stream()
+        .filter(expense -> expense.getDate().getYear() + 1900 == year.getValue())
+        .mapToDouble(Expense::getAmount).sum();
+  }
+
+  public double getDifferenceTotalForYear(Year year) {
+    return getSaleTotalForYear(year) - getExpenseTotalForYear(year);
   }
 
   /**
