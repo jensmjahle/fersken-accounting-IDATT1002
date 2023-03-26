@@ -73,6 +73,15 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Text>
+            <Label text ="Statistics">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Text onMouseClicked="#switchToShowStatsScene" text="Show statistics">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Text>
          </children>
       </VBox>
    </left>

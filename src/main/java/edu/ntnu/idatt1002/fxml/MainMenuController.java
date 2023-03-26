@@ -5,7 +5,7 @@ import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.Statistics;
 import java.io.IOException;
 import java.net.URL;
-import java.time.Month;
+import java.time.YearMonth;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -34,6 +34,12 @@ public class MainMenuController implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    createGraph();
+
+  }
+
+
+  private void createGraph() {
     final CategoryAxis xAxis = new CategoryAxis();
     final NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Month");
@@ -50,13 +56,22 @@ public class MainMenuController implements Initializable {
     expenses.setName("Expenses");
     difference.setName("Difference");
 
-    for (int i = 0; i < 12; i++) {
-      income.getData()
-          .add(new XYChart.Data<>(Month.of(i + 1).toString(), statistics.getSaleTotalForMonth(i)));
-      expenses.getData().add(
-          new XYChart.Data<>(Month.of(i + 1).toString(), -statistics.getExpenseTotalForMonth(i)));
+    YearMonth firstMonth = YearMonth.of(YearMonth.now().getYear(), 1);
+    YearMonth endMonth = YearMonth.of(YearMonth.now().getYear(), 12);
+
+    YearMonth currentMonth = firstMonth;
+
+    while (!currentMonth.isAfter(endMonth)) {
+      income.getData().add(new XYChart.Data<>(currentMonth.toString(),
+          statistics.getSaleTotalForMonth(currentMonth)));
+
+      expenses.getData().add(new XYChart.Data<>(currentMonth.toString(),
+          -statistics.getExpenseTotalForMonth(currentMonth)));
       difference.getData()
-          .add(new XYChart.Data<>(Month.of(i + 1).toString(), statistics.getDifferenceForMonth(i)));
+
+          .add(new XYChart.Data<>(currentMonth.toString(),
+              statistics.getDifferenceTotalForMonth(currentMonth)));
+      currentMonth = currentMonth.plusMonths(1);
     }
 
     lineChart.getData().addAll(Arrays.asList(expenses, difference, income));
@@ -65,6 +80,7 @@ public class MainMenuController implements Initializable {
     lineChart.setPadding(new Insets(0, 0, 0, 0));
     lineChart.getXAxis().setAutoRanging(true);
     lineChart.getYAxis().setAutoRanging(true);
+
 
   }
 
@@ -142,6 +158,14 @@ public class MainMenuController implements Initializable {
 
   public void switchToRegisterSaleScene(MouseEvent event) throws IOException {
     Parent root = FXMLLoader.load(PathUtility.getResourcePath("RegisterSale"));
+    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  public void switchToShowStatsScene(MouseEvent event) throws IOException {
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath("Stats"));
     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     scene = new Scene(root);
     stage.setScene(scene);
