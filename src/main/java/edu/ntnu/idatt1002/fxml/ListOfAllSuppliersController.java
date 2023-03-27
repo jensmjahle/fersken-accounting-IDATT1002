@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.fxml;
 
 import edu.ntnu.idatt1002.Contact;
 import edu.ntnu.idatt1002.PathUtility;
+import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.registers.ContactRegister;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,7 +56,7 @@ public class ListOfAllSuppliersController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    ContactRegister contactRegister = new ContactRegister("suppliers");
+    ContactRegister supplierRegister = RegisterManager.getInstance().getSupplierRegister();
 
     nameColumn.setCellValueFactory(
         new PropertyValueFactory<>("name"));
@@ -81,7 +82,7 @@ public class ListOfAllSuppliersController implements Initializable {
     streetNumberColumn.setCellValueFactory(
         new PropertyValueFactory<>("streetNumber"));
 
-    for(Contact contact: contactRegister.getObjects()){
+    for(Contact contact: supplierRegister.getObjects()){
       supplierTable.getItems().add(contact);
     }
   }

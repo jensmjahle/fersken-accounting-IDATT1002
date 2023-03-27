@@ -70,7 +70,7 @@ public class CreateBudgetController {
     expenseAmountField.clear();
 
     //jens fikser
-    RegisterManager.getInstance().getExpenseRegister().addObject(newExpense);
+    //RegisterManager.getInstance().getExpenseRegister().addObject(newExpense);
 
     updateTables();
 
@@ -88,7 +88,7 @@ public class CreateBudgetController {
     incomeAmountField.clear();
 
     //jens fikser
-    RegisterManager.getInstance().getSaleRegister().addObject(newIncome);
+    //RegisterManager.getInstance().getSaleRegister().addObject(newIncome);
 
     updateTables();
 
