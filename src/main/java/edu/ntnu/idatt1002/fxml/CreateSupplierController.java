@@ -58,7 +58,7 @@ public class CreateSupplierController {
     String postCode = postCodeField.getText();
 
     Contact newCustomer = new Contact(name, email, street, streetNumber, phoneNumber, accountNumber, postCode, organizationNumber);
-    RegisterManager.getInstance().getCustomerRegister().addObject(newCustomer);
+    RegisterManager.getInstance().getSupplierRegister().addObject(newCustomer);
 
 
     clearAllFields();

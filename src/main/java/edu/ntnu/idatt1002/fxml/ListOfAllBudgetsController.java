@@ -2,6 +2,7 @@ package edu.ntnu.idatt1002.fxml;
 
 import edu.ntnu.idatt1002.Budget;
 import edu.ntnu.idatt1002.PathUtility;
+import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.registers.BudgetRegister;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,7 +48,8 @@ public class ListOfAllBudgetsController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    BudgetRegister budgetRegister = new BudgetRegister("budgets");
+   // BudgetRegister budgetRegister = new BudgetRegister("budgets");
+    BudgetRegister budgetRegister = RegisterManager.getInstance().getBudgetRegister();
 
     budgetNameColumn.setCellValueFactory(
         new PropertyValueFactory<>("projectName"));
