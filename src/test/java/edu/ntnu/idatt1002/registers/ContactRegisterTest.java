@@ -29,6 +29,26 @@ class ContactRegisterTest {
   }
 
   @Test
+  @DisplayName("Should find contact by name")
+  void shouldFindContactByName(){
+    Contact expectedContact = new Contact("ExpectedContact", "email","street",
+        50,"12345678", "12345678910", "1740");
+    contactRegister.addObject(expectedContact);
+    Contact actualContact = contactRegister.findContactFromName("ExpectedContact");
+
+    assertEquals(expectedContact, actualContact);
+  }
+
+  @Test
+  @DisplayName("Should not find contact by name")
+  void shouldNotFindContactByName(){
+    contactRegister.addObject(contact);
+    Contact foundContact = contactRegister.findContactFromName("NonExistingContact");
+
+    assertNull(foundContact);
+  }
+
+  @Test
   @DisplayName("removeObject() removes contact from contact register")
   void ShouldRemoveContact() {
     contactRegister.addObject(contact);

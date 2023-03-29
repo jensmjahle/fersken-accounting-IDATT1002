@@ -18,4 +18,17 @@ public class ContactRegister extends Register<Contact> {
     super(fileName);
   }
 
+  /**
+   * Finds and returns a contact with the given name. If no contacts of that
+   * name exist, the method will return null.
+   *
+   * @param name The name that will be searched for.
+   * @return A contact that has the given name.
+   */
+  public Contact findContactFromName(String name) {
+    return getObjects().stream()
+        .filter(contact -> contact.getName().equalsIgnoreCase(name)).findAny()
+        .orElse(null);
+  }
+
 }
