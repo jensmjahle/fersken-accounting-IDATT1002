@@ -1,61 +1,205 @@
 package edu.ntnu.idatt1002.fxml;
 
 import edu.ntnu.idatt1002.Expense;
+import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.registers.ExpenseRegister;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
-import edu.ntnu.idatt1002.PathUtility;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
+/**
+ * Controller for the list of all expenses fxml file. Shows a table of suppliers to the user.
+ * Enables the user to delete and edit existing suppliers
+ */
 public class ListOfAllExpensesController implements Initializable {
 
-  private Stage stage;
-  private Scene scene;
-  private Parent root;
   @FXML
-  private TableView expenseTableView;
+  private Button editButton;
   @FXML
-  private TableColumn amountTableColumn;
+  private Button deleteButton;
   @FXML
-  private TableColumn dateTableColumn;
+  private ImageView infoIcon;
   @FXML
-  private TableColumn productTableColumn;
+  private TableView<Expense> expenseTableView;
+  @FXML
+  private TableColumn<Expense, String> amountTableColumn;
+  @FXML
+  private TableColumn<Expense, String> dateTableColumn;
+  @FXML
+  private TableColumn<Expense, String> productTableColumn;
+  private ExpenseRegister expenseRegister;
 
-  public void switchToMainMenuScene(MouseEvent event) throws IOException {
+  /**
+   * Switches the application back to the main menu scene.
+   *
+   * @param event The event that triggers the switch back to the main menu.
+   * @throws IOException If the resource cannot be found
+   */
+  @FXML
+  private void switchToMainMenuScene(MouseEvent event) throws IOException {
     Parent root = FXMLLoader.load(PathUtility.getResourcePath("MainMenu"));
-    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
   }
 
+  /**
+   * Initializes the controller with necessary functions and updates the column that shows the
+   * expenses.
+   *
+   * @param url            The location used to resolve relative paths for the root object, or null
+   *                       if the location is not known.
+   * @param resourceBundle The resources used to localize the root object, or null if the root
+   *                       object was not localized.
+   */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    ExpenseRegister expenseRegister = RegisterManager.getInstance().getExpenseRegister();
+    updateTable();
+    disableButtonsWhileInvalid();
+    enableInformationIcon();
+    enableMultiSelection();
+    installToolTip();
+  }
 
-    amountTableColumn.setCellValueFactory(
-            new PropertyValueFactory<>("amount"));
+  /**
+   * Updates the tableview with updated values for the displayed objects.
+   */
+  private void updateTable() {
+    expenseTableView.getItems().removeAll(expenseTableView.getItems());
+    expenseRegister = RegisterManager.getInstance().getExpenseRegister();
 
-    dateTableColumn.setCellValueFactory(
-            new PropertyValueFactory<>("date"));
+    amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
-    productTableColumn.setCellValueFactory(
-            new PropertyValueFactory<>("product"));
+    dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+    productTableColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
+
     for (Expense expense : expenseRegister.getObjects()) {
       expenseTableView.getItems().add(expense);
     }
   }
+
+  /**
+   * Deletes the currently highlighted objects in the tableview from the register.
+   */
+  @FXML
+  private void deleteButtonClicked() {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    List<Expense> selectedExpenses = expenseTableView.getSelectionModel().getSelectedItems();
+    alert.setContentText(
+        "Are you sure you want to delete: " + selectedExpenses.size() + " expense(s)?");
+    alert.showAndWait();
+    if (alert.getResult() == ButtonType.OK) {
+
+      for (Expense expense : selectedExpenses) {
+        expenseRegister.removeObject(expense);
+      }
+
+    }
+    updateTable();
+  }
+
+  @FXML
+  private void editButtonClicked() {
+
+    List<Expense> selectedExpenses = expenseTableView.getSelectionModel().getSelectedItems();
+    if (selectedExpenses.size() != 1) {
+      Alert alert = new Alert(AlertType.WARNING, "Can only edit 1 item at once");
+      alert.showAndWait();
+      return;
+    }
+    //TODO add editing button functionality
+
+    updateTable();
+
+  }
+
+  /**
+   * Enables the disabling of buttons when their actions are not possible to perform.
+   */
+  private void disableButtonsWhileInvalid() {
+    deleteButton.disableProperty().bind(selectedItemsNotNullBinding().not());
+    editButton.disableProperty().bind(onlyOneSelectedItemBinding().not());
+  }
+
+  /**
+   * Boolean binding that checks if there are any selected items.
+   *
+   * @return a BooleanBinding that represents if there are any selected items or not
+   */
+  private BooleanBinding selectedItemsNotNullBinding() {
+    return expenseTableView.getSelectionModel().selectedItemProperty().isNotNull();
+  }
+
+  /**
+   * Creates a boolean binding that checks if only one item is selected.
+   *
+   * @return a boolean binding that represents information about if only one item is selected in the
+   *        table.
+   */
+  private BooleanBinding onlyOneSelectedItemBinding() {
+    return Bindings.createBooleanBinding(
+        () -> expenseTableView.getSelectionModel().getSelectedItems().size() == 1,
+        expenseTableView.getSelectionModel().getSelectedItems());
+  }
+
+  /**
+   * Installs a tooltip to the info icon to show the user how to use the controls for deleting and
+   * editing objects.
+   */
+  private void installToolTip() {
+    Tooltip tooltip = new Tooltip("""
+        Highlight expense : left click
+        Unhighlight expense : press left click on a marked expense
+        Mark multiple expenses : hold ctrl while highlighting
+        """);
+    Tooltip.install(infoIcon, tooltip);
+  }
+
+  /**
+   * Adds an information icon to the current scene.
+   */
+  private void enableInformationIcon() {
+    try {
+      File imageFile = new File("src/main/resources/Icons/icon_information.png");
+      Image image = new Image(imageFile.toURI().toString());
+      infoIcon.setImage(image);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  /**
+   * Enables multi-selection in the tableview.
+   */
+  private void enableMultiSelection() {
+    expenseTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+  }
 }
+  
+
