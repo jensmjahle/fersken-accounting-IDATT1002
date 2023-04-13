@@ -1,14 +1,17 @@
-package edu.ntnu.idatt1002.fxml;
+package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Contact;
+import edu.ntnu.idatt1002.Budget;
 import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.registers.ContactRegister;
+import edu.ntnu.idatt1002.registers.BudgetRegister;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
@@ -32,10 +35,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * Controller for the list of all customers fxml file. Shows a table of suppliers to the user.
+ * Controller for the list of all budgets fxml file. Shows a table of suppliers to the user.
  * Enables the user to delete and edit existing suppliers
  */
-public class ListOfAllCustomersController implements Initializable {
+public class ListOfAllBudgetsController implements Initializable {
 
   @FXML
   private Button deleteButton;
@@ -44,24 +47,17 @@ public class ListOfAllCustomersController implements Initializable {
   @FXML
   private ImageView infoIcon;
   @FXML
-  private TableView<Contact> customerTable;
+  private TableView<Budget> budgetTable;
   @FXML
-  private TableColumn<Contact, String> nameColumn;
+  private TableColumn<Budget, String> budgetNameColumn;
   @FXML
-  private TableColumn<Contact, String> emailColumn;
+  private TableColumn<Budget, String> budgetExpensesColumn;
   @FXML
-  private TableColumn<Contact, String> phoneNumberColumn;
+  private TableColumn<Budget, String> budgetIncomesColumn;
   @FXML
-  private TableColumn<Contact, String> organizationNumberColumn;
-  @FXML
-  private TableColumn<Contact, String> accountNumberColumn;
-  @FXML
-  private TableColumn<Contact, String> postCodeColumn;
-  @FXML
-  private TableColumn<Contact, String> streetColumn;
-  @FXML
-  private TableColumn<Contact, String> streetNumberColumn;
-  private ContactRegister customerRegister;
+  private TableColumn<Budget, String> budgetDifferenceColumn;
+  private BudgetRegister budgetRegister;
+
 
   /**
    * Switches the application back to the main menu scene.
@@ -71,16 +67,12 @@ public class ListOfAllCustomersController implements Initializable {
    */
   @FXML
   private void switchToMainMenuScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("MainMenu"));
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.MAINMENU);
   }
 
   /**
    * Initializes the controller with necessary functions and updates the column that shows the
-   * customers.
+   * budgets.
    *
    * @param url            The location used to resolve relative paths for the root object, or null
    *                       if the location is not known.
@@ -100,27 +92,14 @@ public class ListOfAllCustomersController implements Initializable {
    * Updates the tableview with updated values for the displayed objects.
    */
   private void updateTable() {
-    customerTable.getItems().removeAll(customerTable.getItems());
-    customerRegister = RegisterManager.getInstance().getCustomerRegister();
+    budgetRegister = RegisterManager.getInstance().getBudgetRegister();
+    budgetNameColumn.setCellValueFactory(new PropertyValueFactory<>("projectName"));
+    budgetExpensesColumn.setCellValueFactory(new PropertyValueFactory<>("sumOfExpenses"));
+    budgetIncomesColumn.setCellValueFactory(new PropertyValueFactory<>("sumOfSales"));
+    budgetDifferenceColumn.setCellValueFactory(new PropertyValueFactory<>("difference"));
 
-    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-    emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-
-    phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-
-    organizationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("organizationNumber"));
-
-    accountNumberColumn.setCellValueFactory(new PropertyValueFactory<>("accountNumber"));
-
-    postCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postCode"));
-
-    streetColumn.setCellValueFactory(new PropertyValueFactory<>("street"));
-
-    streetNumberColumn.setCellValueFactory(new PropertyValueFactory<>("streetNumber"));
-
-    for (Contact customer : customerRegister.getObjects()) {
-      customerTable.getItems().add(customer);
+    for (Budget budget : budgetRegister.getObjects()) {
+      budgetTable.getItems().add(budget);
     }
   }
 
@@ -130,14 +109,14 @@ public class ListOfAllCustomersController implements Initializable {
   @FXML
   private void deleteButtonClicked() {
     Alert alert = new Alert(AlertType.CONFIRMATION);
-    List<Contact> selectedCustomers = customerTable.getSelectionModel().getSelectedItems();
+    List<Budget> selectedBudgets = budgetTable.getSelectionModel().getSelectedItems();
     alert.setContentText(
-        "Are you sure you want to delete: " + selectedCustomers.size() + " customer(s)?");
+        "Are you sure you want to delete: " + selectedBudgets.size() + " customer(s)?");
     alert.showAndWait();
     if (alert.getResult() == ButtonType.OK) {
 
-      for (Contact customer : selectedCustomers) {
-        customerRegister.removeObject(customer);
+      for (Budget budget : selectedBudgets) {
+        budgetRegister.removeObject(budget);
       }
 
     }
@@ -147,8 +126,8 @@ public class ListOfAllCustomersController implements Initializable {
   @FXML
   private void editButtonClicked() {
 
-    List<Contact> selectedCustomers = customerTable.getSelectionModel().getSelectedItems();
-    if (selectedCustomers.size() != 1) {
+    List<Budget> selectedBudgets = budgetTable.getSelectionModel().getSelectedItems();
+    if (selectedBudgets.size() != 1) {
       Alert alert = new Alert(AlertType.WARNING, "Can only edit 1 item at once");
       alert.showAndWait();
       return;
@@ -173,7 +152,7 @@ public class ListOfAllCustomersController implements Initializable {
    * @return a BooleanBinding that represents if there are any selected items or not
    */
   private BooleanBinding selectedItemsNotNullBinding() {
-    return customerTable.getSelectionModel().selectedItemProperty().isNotNull();
+    return budgetTable.getSelectionModel().selectedItemProperty().isNotNull();
   }
 
   /**
@@ -184,19 +163,19 @@ public class ListOfAllCustomersController implements Initializable {
    */
   private BooleanBinding onlyOneSelectedItemBinding() {
     return Bindings.createBooleanBinding(
-        () -> customerTable.getSelectionModel().getSelectedItems().size() == 1,
-        customerTable.getSelectionModel().getSelectedItems());
+        () -> budgetTable.getSelectionModel().getSelectedItems().size() == 1,
+        budgetTable.getSelectionModel().getSelectedItems());
   }
 
   /**
    * Installs a tooltip to the info icon to show the user how to use the controls for deleting and
    * editing objects.
    */
-  public void installToolTip() {
+  private void installToolTip() {
     Tooltip tooltip = new Tooltip("""
-        Highlight customer : left click
-        Unhighlight customer : press left click on a marked customer
-        Mark multiple customer : hold ctrl while highlighting
+        Highlight budget : left click
+        Unhighlight budget : press left click on a marked budget
+        Mark multiple budgets : hold ctrl while highlighting
         """);
     Tooltip.install(infoIcon, tooltip);
   }
@@ -218,9 +197,10 @@ public class ListOfAllCustomersController implements Initializable {
    * Enables multi-selection in the tableview.
    */
   private void enableMultiSelection() {
-    customerTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    budgetTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
   }
 }
+
 
 
 

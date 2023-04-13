@@ -1,14 +1,17 @@
-package edu.ntnu.idatt1002.fxml;
+package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Expense;
+import edu.ntnu.idatt1002.Contact;
 import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.registers.ExpenseRegister;
+import edu.ntnu.idatt1002.registers.ContactRegister;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
@@ -32,29 +35,36 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * Controller for the list of all expenses fxml file. Shows a table of suppliers to the user.
+ * Controller for the list of all suppliers fxml file. Shows a table of suppliers to the user.
  * Enables the user to delete and edit existing suppliers
  */
-public class ListOfAllExpensesController implements Initializable {
+public class ListOfAllSuppliersController implements Initializable {
 
-
-  @FXML
-  private Button editButton;
-  @FXML
-  private Button deleteButton;
   @FXML
   private ImageView infoIcon;
   @FXML
-  private TableView<Expense> expenseTableView;
+  private Button deleteButton;
   @FXML
-  private TableColumn<Expense, String> supplierTableColumn;
+  private Button editButton;
   @FXML
-  private TableColumn<Expense, String> amountTableColumn;
+  private TableView<Contact> supplierTable;
   @FXML
-  private TableColumn<Expense, String> dateTableColumn;
+  private TableColumn<Contact, String> nameColumn;
   @FXML
-  private TableColumn<Expense, String> productTableColumn;
-  private ExpenseRegister expenseRegister;
+  private TableColumn<Contact, String> emailColumn;
+  @FXML
+  private TableColumn<Contact, String> phoneNumberColumn;
+  @FXML
+  private TableColumn<Contact, String> organizationNumberColumn;
+  @FXML
+  private TableColumn<Contact, String> accountNumberColumn;
+  @FXML
+  private TableColumn<Contact, String> postCodeColumn;
+  @FXML
+  private TableColumn<Contact, String> streetColumn;
+  @FXML
+  private TableColumn<Contact, String> streetNumberColumn;
+  private ContactRegister supplierRegister;
 
   /**
    * Switches the application back to the main menu scene.
@@ -64,16 +74,12 @@ public class ListOfAllExpensesController implements Initializable {
    */
   @FXML
   private void switchToMainMenuScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("MainMenu"));
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.MAINMENU);
   }
 
   /**
    * Initializes the controller with necessary functions and updates the column that shows the
-   * expenses.
+   * suppliers.
    *
    * @param url            The location used to resolve relative paths for the root object, or null
    *                       if the location is not known.
@@ -84,8 +90,8 @@ public class ListOfAllExpensesController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     updateTable();
     disableButtonsWhileInvalid();
-    enableInformationIcon();
     enableMultiSelection();
+    enableInformationIcon();
     installToolTip();
   }
 
@@ -93,18 +99,27 @@ public class ListOfAllExpensesController implements Initializable {
    * Updates the tableview with updated values for the displayed objects.
    */
   private void updateTable() {
-    expenseTableView.getItems().removeAll(expenseTableView.getItems());
-    expenseRegister = RegisterManager.getInstance().getExpenseRegister();
-    supplierTableColumn.setCellValueFactory(new PropertyValueFactory<>("supplier"));
+    supplierTable.getItems().removeAll(supplierTable.getItems());
+    supplierRegister = RegisterManager.getInstance().getSupplierRegister();
 
-    amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-    dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+    emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-    productTableColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
+    phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
 
-    for (Expense expense : expenseRegister.getObjects()) {
-      expenseTableView.getItems().add(expense);
+    organizationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("organizationNumber"));
+
+    accountNumberColumn.setCellValueFactory(new PropertyValueFactory<>("accountNumber"));
+
+    postCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postCode"));
+
+    streetColumn.setCellValueFactory(new PropertyValueFactory<>("street"));
+
+    streetNumberColumn.setCellValueFactory(new PropertyValueFactory<>("streetNumber"));
+
+    for (Contact contact : supplierRegister.getObjects()) {
+      supplierTable.getItems().add(contact);
     }
   }
 
@@ -114,25 +129,25 @@ public class ListOfAllExpensesController implements Initializable {
   @FXML
   private void deleteButtonClicked() {
     Alert alert = new Alert(AlertType.CONFIRMATION);
-    List<Expense> selectedExpenses = expenseTableView.getSelectionModel().getSelectedItems();
+    List<Contact> selectedSuppliers = supplierTable.getSelectionModel().getSelectedItems();
     alert.setContentText(
-        "Are you sure you want to delete: " + selectedExpenses.size() + " expense(s)?");
+        "Are you sure you want to delete: " + selectedSuppliers.size() + " sale(s)?");
     alert.showAndWait();
     if (alert.getResult() == ButtonType.OK) {
 
-      for (Expense expense : selectedExpenses) {
-        expenseRegister.removeObject(expense);
+      for (Contact supplier : selectedSuppliers) {
+        supplierRegister.removeObject(supplier);
       }
-
+      updateTable();
     }
-    updateTable();
+
   }
 
   @FXML
   private void editButtonClicked() {
 
-    List<Expense> selectedExpenses = expenseTableView.getSelectionModel().getSelectedItems();
-    if (selectedExpenses.size() != 1) {
+    List<Contact> selectedSuppliers = supplierTable.getSelectionModel().getSelectedItems();
+    if (selectedSuppliers.size() != 1) {
       Alert alert = new Alert(AlertType.WARNING, "Can only edit 1 item at once");
       alert.showAndWait();
       return;
@@ -157,7 +172,7 @@ public class ListOfAllExpensesController implements Initializable {
    * @return a BooleanBinding that represents if there are any selected items or not
    */
   private BooleanBinding selectedItemsNotNullBinding() {
-    return expenseTableView.getSelectionModel().selectedItemProperty().isNotNull();
+    return supplierTable.getSelectionModel().selectedItemProperty().isNotNull();
   }
 
   /**
@@ -168,21 +183,28 @@ public class ListOfAllExpensesController implements Initializable {
    */
   private BooleanBinding onlyOneSelectedItemBinding() {
     return Bindings.createBooleanBinding(
-        () -> expenseTableView.getSelectionModel().getSelectedItems().size() == 1,
-        expenseTableView.getSelectionModel().getSelectedItems());
+        () -> supplierTable.getSelectionModel().getSelectedItems().size() == 1,
+        supplierTable.getSelectionModel().getSelectedItems());
   }
 
   /**
    * Installs a tooltip to the info icon to show the user how to use the controls for deleting and
    * editing objects.
    */
-  private void installToolTip() {
+  public void installToolTip() {
     Tooltip tooltip = new Tooltip("""
-        Highlight expense : left click
-        Unhighlight expense : press left click on a marked expense
-        Mark multiple expenses : hold ctrl while highlighting
+        Highlight supplier : left click
+        Unhighlight supplier : press left click on a marked supplier
+        Mark multiple supplier : hold ctrl while highlighting
         """);
     Tooltip.install(infoIcon, tooltip);
+  }
+
+  /**
+   * Enables multi-selection in the tableview.
+   */
+  private void enableMultiSelection() {
+    supplierTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
   }
 
   /**
@@ -197,13 +219,4 @@ public class ListOfAllExpensesController implements Initializable {
       System.out.println(e.getMessage());
     }
   }
-
-  /**
-   * Enables multi-selection in the tableview.
-   */
-  private void enableMultiSelection() {
-    expenseTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-  }
 }
-  
-
