@@ -37,6 +37,7 @@ import javafx.stage.Stage;
  */
 public class ListOfAllExpensesController implements Initializable {
 
+
   @FXML
   private Button editButton;
   @FXML
@@ -45,6 +46,8 @@ public class ListOfAllExpensesController implements Initializable {
   private ImageView infoIcon;
   @FXML
   private TableView<Expense> expenseTableView;
+  @FXML
+  private TableColumn<Expense, String> supplierTableColumn;
   @FXML
   private TableColumn<Expense, String> amountTableColumn;
   @FXML
@@ -92,6 +95,7 @@ public class ListOfAllExpensesController implements Initializable {
   private void updateTable() {
     expenseTableView.getItems().removeAll(expenseTableView.getItems());
     expenseRegister = RegisterManager.getInstance().getExpenseRegister();
+    supplierTableColumn.setCellValueFactory(new PropertyValueFactory<>("supplier"));
 
     amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
