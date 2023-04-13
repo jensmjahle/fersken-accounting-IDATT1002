@@ -70,6 +70,9 @@ public class Expense implements Serializable {
   public Contact getContact() {
     return contact;
   }
+  public String getSupplier() {
+    return contact.getName();
+  }
 
   /**
    * Gets the amount of money of the expense in NOK.

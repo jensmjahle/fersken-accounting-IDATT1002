@@ -1,61 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.RegisterExpenseController">
+<BorderPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.RegisterExpenseController">
    <center>
-      <TitledPane alignment="TOP_CENTER" collapsible="false" contentDisplay="TOP" maxHeight="-Infinity"
-                  maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0"
-                  text="New expense" textAlignment="CENTER" BorderPane.alignment="CENTER">
+      <TitledPane alignment="TOP_CENTER" collapsible="false" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" text="New expense" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
-            <Font size="22.0"/>
+            <Font size="22.0" />
          </font>
          <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
+               <Label text="Supplier">
+                  <font>
+                     <Font size="22.0" />
+                  </font>
+               </Label>
+               <Separator prefWidth="200.0" />
                <Label text="Amount">
                   <font>
-                     <Font size="22.0"/>
+                     <Font size="22.0" />
                   </font>
                </Label>
-               <Separator prefWidth="200.0"/>
+               <Separator prefWidth="200.0" />
                <Label text="Date">
                   <font>
-                     <Font size="22.0"/>
+                     <Font size="22.0" />
                   </font>
                </Label>
-               <Separator prefWidth="200.0"/>
+               <Separator prefWidth="200.0" />
                <Label text="Product">
                   <font>
-                     <Font size="22.0"/>
+                     <Font size="22.0" />
                   </font>
                </Label>
-               <Separator prefWidth="200.0"/>
+               <Separator prefWidth="200.0" />
             </VBox>
             <VBox alignment="CENTER_RIGHT" prefHeight="353.0" prefWidth="342.0" spacing="20.0">
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
-               <TextField fx:id="amountTextField" promptText="Amount"/>
-               <Separator prefWidth="200.0"/>
-               <DatePicker fx:id="datePicker" prefHeight="31.0" prefWidth="295.0" promptText="Date of expense"
-                           showWeekNumbers="true"/>
-               <Separator prefWidth="200.0"/>
-               <TextField fx:id="productTextField" promptText="Product"/>
-               <Separator prefWidth="200.0"/>
+               <ChoiceBox fx:id="supplierChoiceBox" prefHeight="31.0" prefWidth="286.0" />
+               <Separator prefWidth="200.0" />
+               <TextField fx:id="amountTextField" promptText="Amount" />
+               <Separator prefWidth="200.0" />
+               <DatePicker fx:id="datePicker" prefHeight="31.0" prefWidth="295.0" promptText="Date of expense" showWeekNumbers="true" />
+               <Separator prefWidth="200.0" />
+               <TextField fx:id="productTextField" promptText="Product" />
+               <Separator prefWidth="200.0" />
             </VBox>
          </SplitPane>
       </TitledPane>
@@ -71,30 +68,26 @@
       </Button>
    </top>
    <bottom>
-      <HBox alignment="TOP_RIGHT" prefHeight="105.0" prefWidth="872.0" spacing="50.0"
-            BorderPane.alignment="CENTER_RIGHT">
+      <HBox alignment="TOP_RIGHT" prefHeight="105.0" prefWidth="872.0" spacing="50.0" BorderPane.alignment="CENTER_RIGHT">
          <BorderPane.margin>
-            <Insets bottom="20.0" right="20.0" top="20.0"/>
+            <Insets bottom="20.0" right="20.0" top="20.0" />
          </BorderPane.margin>
          <padding>
-            <Insets right="50.0"/>
+            <Insets right="50.0" />
          </padding>
-         <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false"
-                 onMouseClicked="#switchToMainMenuScene" style="-fx-background-radius: 20;" text="Cancel">
+         <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onMouseClicked="#switchToMainMenuScene" style="-fx-background-radius: 20;" text="Cancel">
             <font>
-               <Font size="20.0"/>
+               <Font size="20.0" />
             </font>
          </Button>
-         <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" style="-fx-background-radius: 20;"
-                 text="Delete draft">
+         <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" style="-fx-background-radius: 20;" text="Delete draft">
             <font>
-               <Font size="20.0"/>
+               <Font size="20.0" />
             </font>
          </Button>
-         <Button mnemonicParsing="false" onMouseClicked="#createExpense" style="-fx-background-radius: 20;"
-                 text="Save draft">
+         <Button mnemonicParsing="false" onMouseClicked="#createExpense" style="-fx-background-radius: 20;" text="Save draft">
             <font>
-               <Font size="20.0"/>
+               <Font size="20.0" />
             </font>
          </Button>
       </HBox>

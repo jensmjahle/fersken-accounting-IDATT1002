@@ -81,7 +81,7 @@ public class Sale implements Serializable {
    * @return The customer of the sale as a String.
    */
   public String getCustomer() {
-    return customer;
+    return contact.getName();
   }
 
   /**
