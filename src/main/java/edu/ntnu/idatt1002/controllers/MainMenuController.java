@@ -1,6 +1,5 @@
-package edu.ntnu.idatt1002.fxml;
+package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.Statistics;
 import java.io.IOException;
@@ -8,12 +7,12 @@ import java.net.URL;
 import java.time.YearMonth;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -85,90 +84,46 @@ public class MainMenuController implements Initializable {
   }
 
   public void switchToCreateBudgetScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("CreateBudget"));
-    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.CREATEBUDGET);
   }
 
   public void switchToCreateCustomerScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("CreateCustomer"));
-    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.CREATECUSTOMER);
   }
 
   public void switchToCreateSupplierScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("CreateSupplier"));
-    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.CREATESUPPLIER);
   }
 
   public void switchToListOfAllBudgetsScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("ListOfAllBudgets"));
-    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.LISTOFALLBUDGETS);
   }
 
   public void switchToListOfAllCustomersScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("ListOfAllCustomers"));
-    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.LISTOFALLCUSTOMERS);
   }
 
   public void switchToListOfAllExpensesScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("ListOfAllExpenses"));
-    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.LISTOFALLEXPENSES);
   }
 
   public void switchToListOfAllSalesScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("ListOfAllSales"));
-    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.LISTOFALLSALES);
   }
 
   public void switchToListOfAllSuppliersScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("ListOfAllSuppliers"));
-    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.LISTOFALLSUPPLIERS);
   }
 
   public void switchToRegisterExpenseScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("RegisterExpense"));
-    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.REGISTEREXPENSE);
   }
 
   public void switchToRegisterSaleScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("RegisterSale"));
-    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.REGISTERSALE);
   }
 
   public void switchToShowStatsScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("Stats"));
-    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.STATS);
   }
 }

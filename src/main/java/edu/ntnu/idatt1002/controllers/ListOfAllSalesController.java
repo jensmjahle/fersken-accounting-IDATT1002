@@ -1,14 +1,17 @@
-package edu.ntnu.idatt1002.fxml;
+package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Budget;
 import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.registers.BudgetRegister;
+import edu.ntnu.idatt1002.Sale;
+import edu.ntnu.idatt1002.registers.SaleRegister;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
@@ -32,29 +35,30 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * Controller for the list of all budgets fxml file. Shows a table of suppliers to the user.
- * Enables the user to delete and edit existing suppliers
+ * Controller for the list of all sales fxml file. Shows a table of suppliers to the user. Enables
+ * the user to delete and edit existing suppliers
  */
-public class ListOfAllBudgetsController implements Initializable {
+public class ListOfAllSalesController implements Initializable {
 
   @FXML
-  private Button deleteButton;
+  public Button editButton;
   @FXML
-  private Button editButton;
+  public Button deleteButton;
   @FXML
-  private ImageView infoIcon;
+  public ImageView infoIcon;
   @FXML
-  private TableView<Budget> budgetTable;
+  private TableView<Sale> salesTableView;
   @FXML
-  private TableColumn<Budget, String> budgetNameColumn;
+  private TableColumn<Sale, String> customerTableColumn;
   @FXML
-  private TableColumn<Budget, String> budgetExpensesColumn;
+  private TableColumn<Sale, String> dateTableColumn;
   @FXML
-  private TableColumn<Budget, String> budgetIncomesColumn;
+  private TableColumn<Sale, String> accountTableColumn;
   @FXML
-  private TableColumn<Budget, String> budgetDifferenceColumn;
-  private BudgetRegister budgetRegister;
-
+  private TableColumn<Sale, String> amountTableColumn;
+  @FXML
+  private TableColumn<Sale, String> productTableColumn;
+  private SaleRegister saleRegister;
 
   /**
    * Switches the application back to the main menu scene.
@@ -64,16 +68,12 @@ public class ListOfAllBudgetsController implements Initializable {
    */
   @FXML
   private void switchToMainMenuScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("MainMenu"));
-    Stage budget = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    budget.setScene(scene);
-    budget.show();
+    ViewManager.switchToScene(event, View.MAINMENU);
   }
 
   /**
    * Initializes the controller with necessary functions and updates the column that shows the
-   * budgets.
+   * sales.
    *
    * @param url            The location used to resolve relative paths for the root object, or null
    *                       if the location is not known.
@@ -84,23 +84,52 @@ public class ListOfAllBudgetsController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     updateTable();
     disableButtonsWhileInvalid();
-    enableInformationIcon();
     enableMultiSelection();
+    enableInformationIcon();
     installToolTip();
+
+
+  }
+
+  /**
+   * Enables multi-selection in the tableview.
+   */
+  private void enableMultiSelection() {
+    salesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+  }
+
+  /**
+   * Adds an information icon to the current scene.
+   */
+  private void enableInformationIcon() {
+    try {
+      File imageFile = new File("src/main/resources/Icons/icon_information.png");
+      Image image = new Image(imageFile.toURI().toString());
+      infoIcon.setImage(image);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   /**
    * Updates the tableview with updated values for the displayed objects.
    */
   private void updateTable() {
-    budgetRegister = RegisterManager.getInstance().getBudgetRegister();
-    budgetNameColumn.setCellValueFactory(new PropertyValueFactory<>("projectName"));
-    budgetExpensesColumn.setCellValueFactory(new PropertyValueFactory<>("sumOfExpenses"));
-    budgetIncomesColumn.setCellValueFactory(new PropertyValueFactory<>("sumOfSales"));
-    budgetDifferenceColumn.setCellValueFactory(new PropertyValueFactory<>("difference"));
+    salesTableView.getItems().removeAll(salesTableView.getItems());
+    saleRegister = RegisterManager.getInstance().getSaleRegister();
 
-    for (Budget budget : budgetRegister.getObjects()) {
-      budgetTable.getItems().add(budget);
+    customerTableColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
+
+    dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+    accountTableColumn.setCellValueFactory(new PropertyValueFactory<>("receiverAccount"));
+
+    amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+
+    productTableColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
+
+    for (Sale sale : saleRegister.getObjects()) {
+      salesTableView.getItems().add(sale);
     }
   }
 
@@ -110,25 +139,23 @@ public class ListOfAllBudgetsController implements Initializable {
   @FXML
   private void deleteButtonClicked() {
     Alert alert = new Alert(AlertType.CONFIRMATION);
-    List<Budget> selectedBudgets = budgetTable.getSelectionModel().getSelectedItems();
-    alert.setContentText(
-        "Are you sure you want to delete: " + selectedBudgets.size() + " customer(s)?");
+    List<Sale> selectedSales = salesTableView.getSelectionModel().getSelectedItems();
+    alert.setContentText("Are you sure you want to delete: " + selectedSales.size() + " sale(s)?");
     alert.showAndWait();
     if (alert.getResult() == ButtonType.OK) {
-
-      for (Budget budget : selectedBudgets) {
-        budgetRegister.removeObject(budget);
+      for (Sale sale : selectedSales) {
+        saleRegister.removeObject(sale);
       }
-
+      updateTable();
     }
-    updateTable();
+
   }
 
   @FXML
   private void editButtonClicked() {
 
-    List<Budget> selectedBudgets = budgetTable.getSelectionModel().getSelectedItems();
-    if (selectedBudgets.size() != 1) {
+    List<Sale> selectedSales = salesTableView.getSelectionModel().getSelectedItems();
+    if (selectedSales.size() != 1) {
       Alert alert = new Alert(AlertType.WARNING, "Can only edit 1 item at once");
       alert.showAndWait();
       return;
@@ -153,7 +180,7 @@ public class ListOfAllBudgetsController implements Initializable {
    * @return a BooleanBinding that represents if there are any selected items or not
    */
   private BooleanBinding selectedItemsNotNullBinding() {
-    return budgetTable.getSelectionModel().selectedItemProperty().isNotNull();
+    return salesTableView.getSelectionModel().selectedItemProperty().isNotNull();
   }
 
   /**
@@ -164,8 +191,8 @@ public class ListOfAllBudgetsController implements Initializable {
    */
   private BooleanBinding onlyOneSelectedItemBinding() {
     return Bindings.createBooleanBinding(
-        () -> budgetTable.getSelectionModel().getSelectedItems().size() == 1,
-        budgetTable.getSelectionModel().getSelectedItems());
+        () -> salesTableView.getSelectionModel().getSelectedItems().size() == 1,
+        salesTableView.getSelectionModel().getSelectedItems());
   }
 
   /**
@@ -174,34 +201,10 @@ public class ListOfAllBudgetsController implements Initializable {
    */
   private void installToolTip() {
     Tooltip tooltip = new Tooltip("""
-        Highlight budget : left click
-        Unhighlight budget : press left click on a marked budget
-        Mark multiple budgets : hold ctrl while highlighting
+        Highlight sale : left click
+        Unhighlight sale : press left click on a marked sale
+        Mark multiple sales : hold ctrl while highlighting
         """);
     Tooltip.install(infoIcon, tooltip);
   }
-
-  /**
-   * Adds an information icon to the current scene.
-   */
-  private void enableInformationIcon() {
-    try {
-      File imageFile = new File("src/main/resources/Icons/icon_information.png");
-      Image image = new Image(imageFile.toURI().toString());
-      infoIcon.setImage(image);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
-  }
-
-  /**
-   * Enables multi-selection in the tableview.
-   */
-  private void enableMultiSelection() {
-    budgetTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-  }
 }
-
-
-
-

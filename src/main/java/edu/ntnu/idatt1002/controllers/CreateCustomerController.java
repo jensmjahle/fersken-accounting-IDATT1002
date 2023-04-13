@@ -1,9 +1,11 @@
-package edu.ntnu.idatt1002.fxml;
+package edu.ntnu.idatt1002.controllers;
 
 import edu.ntnu.idatt1002.Contact;
 import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.registers.ContactRegister;
+
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,10 +15,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
-public class CreateSupplierController {
+public class CreateCustomerController {
 
   private Stage stage;
   private Scene scene;
@@ -40,14 +41,10 @@ public class CreateSupplierController {
   private TextField streetNumberField;
 
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("MainMenu"));
-    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.MAINMENU);
   }
 
-  public void createSupplier(){
+  public void createCustomer(){
     String name = nameField.getText();
     String email = emailField.getText();
     String street = streetField.getText();
@@ -58,13 +55,12 @@ public class CreateSupplierController {
     String postCode = postCodeField.getText();
 
     Contact newCustomer = new Contact(name, email, street, streetNumber, phoneNumber, accountNumber, postCode, organizationNumber);
-    RegisterManager.getInstance().getSupplierRegister().addObject(newCustomer);
-
+    RegisterManager.getInstance().getCustomerRegister().addObject(newCustomer);
 
     clearAllFields();
   }
 
-  public void clearAllFields(){
+  public void clearAllFields() {
     nameField.clear();
     emailField.clear();
     streetField.clear();

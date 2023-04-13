@@ -1,10 +1,12 @@
-package edu.ntnu.idatt1002.fxml;
+package edu.ntnu.idatt1002.controllers;
 
 import edu.ntnu.idatt1002.Contact;
 import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.Sale;
 import edu.ntnu.idatt1002.registers.ContactRegister;
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -41,11 +43,7 @@ public class RegisterSaleController {
    * @throws IOException if method can't find filepath.
    */
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("MainMenu"));
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.MAINMENU);
   }
 
   /**

@@ -1,14 +1,17 @@
-package edu.ntnu.idatt1002.fxml;
+package edu.ntnu.idatt1002.controllers;
 
+import edu.ntnu.idatt1002.Contact;
 import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.Sale;
-import edu.ntnu.idatt1002.registers.SaleRegister;
+import edu.ntnu.idatt1002.registers.ContactRegister;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
@@ -32,30 +35,36 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * Controller for the list of all sales fxml file. Shows a table of suppliers to the user. Enables
- * the user to delete and edit existing suppliers
+ * Controller for the list of all customers fxml file. Shows a table of suppliers to the user.
+ * Enables the user to delete and edit existing suppliers
  */
-public class ListOfAllSalesController implements Initializable {
+public class ListOfAllCustomersController implements Initializable {
 
   @FXML
-  public Button editButton;
+  private Button deleteButton;
   @FXML
-  public Button deleteButton;
+  private Button editButton;
   @FXML
-  public ImageView infoIcon;
+  private ImageView infoIcon;
   @FXML
-  private TableView<Sale> salesTableView;
+  private TableView<Contact> customerTable;
   @FXML
-  private TableColumn<Sale, String> customerTableColumn;
+  private TableColumn<Contact, String> nameColumn;
   @FXML
-  private TableColumn<Sale, String> dateTableColumn;
+  private TableColumn<Contact, String> emailColumn;
   @FXML
-  private TableColumn<Sale, String> accountTableColumn;
+  private TableColumn<Contact, String> phoneNumberColumn;
   @FXML
-  private TableColumn<Sale, String> amountTableColumn;
+  private TableColumn<Contact, String> organizationNumberColumn;
   @FXML
-  private TableColumn<Sale, String> productTableColumn;
-  private SaleRegister saleRegister;
+  private TableColumn<Contact, String> accountNumberColumn;
+  @FXML
+  private TableColumn<Contact, String> postCodeColumn;
+  @FXML
+  private TableColumn<Contact, String> streetColumn;
+  @FXML
+  private TableColumn<Contact, String> streetNumberColumn;
+  private ContactRegister customerRegister;
 
   /**
    * Switches the application back to the main menu scene.
@@ -65,16 +74,12 @@ public class ListOfAllSalesController implements Initializable {
    */
   @FXML
   private void switchToMainMenuScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("MainMenu"));
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.MAINMENU);
   }
 
   /**
    * Initializes the controller with necessary functions and updates the column that shows the
-   * sales.
+   * customers.
    *
    * @param url            The location used to resolve relative paths for the root object, or null
    *                       if the location is not known.
@@ -85,52 +90,36 @@ public class ListOfAllSalesController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     updateTable();
     disableButtonsWhileInvalid();
-    enableMultiSelection();
     enableInformationIcon();
+    enableMultiSelection();
     installToolTip();
-
-
-  }
-
-  /**
-   * Enables multi-selection in the tableview.
-   */
-  private void enableMultiSelection() {
-    salesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-  }
-
-  /**
-   * Adds an information icon to the current scene.
-   */
-  private void enableInformationIcon() {
-    try {
-      File imageFile = new File("src/main/resources/Icons/icon_information.png");
-      Image image = new Image(imageFile.toURI().toString());
-      infoIcon.setImage(image);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
   }
 
   /**
    * Updates the tableview with updated values for the displayed objects.
    */
   private void updateTable() {
-    salesTableView.getItems().removeAll(salesTableView.getItems());
-    saleRegister = RegisterManager.getInstance().getSaleRegister();
+    customerTable.getItems().removeAll(customerTable.getItems());
+    customerRegister = RegisterManager.getInstance().getCustomerRegister();
 
-    customerTableColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
+    nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-    dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+    emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-    accountTableColumn.setCellValueFactory(new PropertyValueFactory<>("receiverAccount"));
+    phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
 
-    amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+    organizationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("organizationNumber"));
 
-    productTableColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
+    accountNumberColumn.setCellValueFactory(new PropertyValueFactory<>("accountNumber"));
 
-    for (Sale sale : saleRegister.getObjects()) {
-      salesTableView.getItems().add(sale);
+    postCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postCode"));
+
+    streetColumn.setCellValueFactory(new PropertyValueFactory<>("street"));
+
+    streetNumberColumn.setCellValueFactory(new PropertyValueFactory<>("streetNumber"));
+
+    for (Contact customer : customerRegister.getObjects()) {
+      customerTable.getItems().add(customer);
     }
   }
 
@@ -140,23 +129,25 @@ public class ListOfAllSalesController implements Initializable {
   @FXML
   private void deleteButtonClicked() {
     Alert alert = new Alert(AlertType.CONFIRMATION);
-    List<Sale> selectedSales = salesTableView.getSelectionModel().getSelectedItems();
-    alert.setContentText("Are you sure you want to delete: " + selectedSales.size() + " sale(s)?");
+    List<Contact> selectedCustomers = customerTable.getSelectionModel().getSelectedItems();
+    alert.setContentText(
+        "Are you sure you want to delete: " + selectedCustomers.size() + " customer(s)?");
     alert.showAndWait();
     if (alert.getResult() == ButtonType.OK) {
-      for (Sale sale : selectedSales) {
-        saleRegister.removeObject(sale);
-      }
-      updateTable();
-    }
 
+      for (Contact customer : selectedCustomers) {
+        customerRegister.removeObject(customer);
+      }
+
+    }
+    updateTable();
   }
 
   @FXML
   private void editButtonClicked() {
 
-    List<Sale> selectedSales = salesTableView.getSelectionModel().getSelectedItems();
-    if (selectedSales.size() != 1) {
+    List<Contact> selectedCustomers = customerTable.getSelectionModel().getSelectedItems();
+    if (selectedCustomers.size() != 1) {
       Alert alert = new Alert(AlertType.WARNING, "Can only edit 1 item at once");
       alert.showAndWait();
       return;
@@ -181,7 +172,7 @@ public class ListOfAllSalesController implements Initializable {
    * @return a BooleanBinding that represents if there are any selected items or not
    */
   private BooleanBinding selectedItemsNotNullBinding() {
-    return salesTableView.getSelectionModel().selectedItemProperty().isNotNull();
+    return customerTable.getSelectionModel().selectedItemProperty().isNotNull();
   }
 
   /**
@@ -192,20 +183,43 @@ public class ListOfAllSalesController implements Initializable {
    */
   private BooleanBinding onlyOneSelectedItemBinding() {
     return Bindings.createBooleanBinding(
-        () -> salesTableView.getSelectionModel().getSelectedItems().size() == 1,
-        salesTableView.getSelectionModel().getSelectedItems());
+        () -> customerTable.getSelectionModel().getSelectedItems().size() == 1,
+        customerTable.getSelectionModel().getSelectedItems());
   }
 
   /**
    * Installs a tooltip to the info icon to show the user how to use the controls for deleting and
    * editing objects.
    */
-  private void installToolTip() {
+  public void installToolTip() {
     Tooltip tooltip = new Tooltip("""
-        Highlight sale : left click
-        Unhighlight sale : press left click on a marked sale
-        Mark multiple sales : hold ctrl while highlighting
+        Highlight customer : left click
+        Unhighlight customer : press left click on a marked customer
+        Mark multiple customer : hold ctrl while highlighting
         """);
     Tooltip.install(infoIcon, tooltip);
   }
+
+  /**
+   * Adds an information icon to the current scene.
+   */
+  private void enableInformationIcon() {
+    try {
+      File imageFile = new File("src/main/resources/Icons/icon_information.png");
+      Image image = new Image(imageFile.toURI().toString());
+      infoIcon.setImage(image);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  /**
+   * Enables multi-selection in the tableview.
+   */
+  private void enableMultiSelection() {
+    customerTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+  }
 }
+
+
+

@@ -1,7 +1,8 @@
-package edu.ntnu.idatt1002.fxml;
+package edu.ntnu.idatt1002.controllers;
 
 import edu.ntnu.idatt1002.*;
-import edu.ntnu.idatt1002.registers.BudgetRegister;
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,10 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CreateBudgetController {
 
@@ -52,11 +51,7 @@ public class CreateBudgetController {
   ArrayList<Expense> newListOfExpenses = new ArrayList<>();
   ArrayList<Sale> newListOfIncomes = new ArrayList<>();
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath("MainMenu"));
-    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+    ViewManager.switchToScene(event, View.MAINMENU);
   }
 
   public void addExpense() {
