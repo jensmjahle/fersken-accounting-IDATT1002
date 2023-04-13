@@ -21,6 +21,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -31,6 +32,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -40,6 +42,8 @@ import javafx.stage.Stage;
  */
 public class StatShowerController implements Initializable {
 
+  public static final String LINE_CHART = "Line Chart";
+  public static final String BAR_CHART = "Bar Chart";
   @FXML
   private Text differenceInPeriodText;
   @FXML
@@ -47,7 +51,7 @@ public class StatShowerController implements Initializable {
   @FXML
   private Text expenseInPeriodText;
   @FXML
-  private LineChart<String, Double> lineChart;
+  private StackPane chartStackPane;
   @FXML
   private ChoiceBox<String> graphChooser;
   @FXML
@@ -104,6 +108,7 @@ public class StatShowerController implements Initializable {
     incomeInPeriod.setName("Sales");
     expenseInPeriod.setName("Expenses");
     differenceInPeriod.setName("Difference");
+
   }
 
   /**
@@ -122,15 +127,16 @@ public class StatShowerController implements Initializable {
         "Difference: " + statistics.getDifferenceForTimePeriod(firstSelectedDate,
             secondSelectedDate));
 
+
   }
 
   /**
    * Fills the choice boxes with options and sets them to their default values.
    */
   private void setChoiceBoxOptions() {
-    graphChooser.getItems().addAll("Line chart", "Bar chart");
+    graphChooser.getItems().addAll(LINE_CHART, BAR_CHART);
     dataSpacingChooser.getItems().addAll("Days", "Months", "Years");
-    graphChooser.setValue("Line Chart");
+    graphChooser.setValue(LINE_CHART);
     dataSpacingChooser.setValue("Days");
   }
 
@@ -164,10 +170,20 @@ public class StatShowerController implements Initializable {
    */
   public void handleGraphChooser() {
     selectedChartType = graphChooser.getValue();
+
+    try {
+      updateChart();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+
   }
 
   public void handleSpacingChooser() {
     selectedSpacing = dataSpacingChooser.getValue();
+
 
   }
 
@@ -193,19 +209,25 @@ public class StatShowerController implements Initializable {
   public void updateChart() {
     clearCurrentData();
 
-    switch (selectedSpacing) {
-      case "Months" -> updateDataSetsMonths(firstSelectedDate, secondSelectedDate);
-      case "Years" -> updateDataSetsYears(firstSelectedDate, secondSelectedDate);
-      default -> updateDataSetDays(firstSelectedDate, secondSelectedDate);
+    try {
+      switch (selectedSpacing) {
+        case "Months" -> updateDataSetsMonths(firstSelectedDate, secondSelectedDate);
+        case "Years" -> updateDataSetsYears(firstSelectedDate, secondSelectedDate);
+        default -> updateDataSetDays(firstSelectedDate, secondSelectedDate);
+      }
+    } catch (Exception e){
+      System.out.println(e.getMessage());
     }
-
     List<Series<String, Double>> dataSetsToAdd = filterSelectedLines();
 
-    if (selectedChartType.equals("Line Chart")) {
-
+    if (selectedChartType.equals(BAR_CHART)) {
+      createBarChart(dataSetsToAdd);
+    }
+    if (selectedChartType.equals(LINE_CHART)) {
       createLineChart(dataSetsToAdd);
     }
     setPeriodInfo();
+
 
   }
 
@@ -213,7 +235,7 @@ public class StatShowerController implements Initializable {
    * Filters the list of data series depending on which sets the user wants to see.
    *
    * @return A list of data series that contain only the data series that the user wants to have
-   *      shown in the chart.
+   * shown in the chart.
    */
   private List<Series<String, Double>> filterSelectedLines() {
     List<Series<String, Double>> dataSetsToAdd = new ArrayList<>();
@@ -237,17 +259,47 @@ public class StatShowerController implements Initializable {
    */
   private void createLineChart(List<XYChart.Series<String, Double>> listOfDataSeries) {
 
-    lineChart.getData().removeAll(lineChart.getData());
     final CategoryAxis xAxis = new CategoryAxis();
     final NumberAxis yAxis = new NumberAxis();
-    xAxis.setLabel("Month");
+    xAxis.setLabel(selectedSpacing);
     yAxis.setLabel("Kr");
+    LineChart lineChart = new LineChart<String, Number>(xAxis, yAxis);
+
+    lineChart.getData().removeAll(lineChart.getData());
     lineChart.getData().addAll(listOfDataSeries);
     lineChart.setAnimated(false);
     lineChart.setCreateSymbols(false);
+
     lineChart.setPadding(new Insets(0, 0, 0, 0));
     lineChart.getXAxis().setAutoRanging(true);
     lineChart.getYAxis().setAutoRanging(true);
+    chartStackPane.getChildren().removeAll(chartStackPane.getChildren());
+    chartStackPane.getChildren().add(lineChart);
+  }
+
+  private void createBarChart(List<XYChart.Series<String, Double>> listOfDataSeries) {
+
+    final CategoryAxis xAxis = new CategoryAxis();
+    final NumberAxis yAxis = new NumberAxis();
+
+    xAxis.setLabel(selectedSpacing);
+
+    yAxis.setLabel("Kr");
+    BarChart barChart = new BarChart(xAxis, yAxis);
+
+    barChart.getData().removeAll(barChart.getData());
+
+    barChart.getData().addAll(listOfDataSeries);
+
+    barChart.setBarGap(0);
+    barChart.setCategoryGap(3);
+    barChart.setAnimated(false);
+    barChart.setPadding(new Insets(0, 0, 0, 0));
+    barChart.getXAxis().setAutoRanging(true);
+    barChart.getYAxis().setAutoRanging(true);
+    chartStackPane.getChildren().removeAll(chartStackPane.getChildren());
+    chartStackPane.getChildren().add(barChart);
+
   }
 
 

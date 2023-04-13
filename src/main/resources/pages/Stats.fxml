@@ -16,6 +16,7 @@
 
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.StackPane?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.StatShowerController">
   <top>
     <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -59,15 +60,9 @@
     </VBox>
   </right>
   <center>
-    <LineChart fx:id="lineChart" maxHeight="300" maxWidth="400" prefHeight="300" prefWidth="300" BorderPane.alignment="TOP_LEFT">
-      <xAxis>
-        <CategoryAxis side="BOTTOM" />
+    <StackPane fx:id="chartStackPane" maxWidth="400" prefHeight="300" prefWidth="300" BorderPane.alignment="TOP_LEFT">
 
-      </xAxis>
-      <yAxis>
-        <NumberAxis side="LEFT" />
-      </yAxis>
-    </LineChart>
+    </StackPane>
 
   </center>
 </BorderPane>

@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.ImageView?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.fxml.ListOfAllBudgetsController">
    <top>
       <Pane prefHeight="49.0" prefWidth="600.0" BorderPane.alignment="CENTER">
@@ -55,4 +57,15 @@
          </children>
       </VBox>
    </center>
+   <right>
+      <VBox>
+         <Button fx:id="deleteButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#deleteButtonClicked"
+           text="Delete"/>
+         <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#editButtonClicked"
+           text="Edit"/>
+         <StackPane layoutX="40" layoutY="40">
+            <ImageView fx:id="infoIcon" fitWidth="40" preserveRatio="true" ></ImageView>
+         </StackPane>
+      </VBox>
+   </right>
 </BorderPane>
