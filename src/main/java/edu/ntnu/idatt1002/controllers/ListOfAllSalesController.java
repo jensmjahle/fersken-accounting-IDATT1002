@@ -4,14 +4,13 @@ import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.Sale;
 import edu.ntnu.idatt1002.registers.SaleRegister;
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import edu.ntnu.idatt1002.viewmanagement.View;
-import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
@@ -68,7 +67,21 @@ public class ListOfAllSalesController implements Initializable {
    */
   @FXML
   private void switchToMainMenuScene(MouseEvent event) throws IOException {
-    ViewManager.switchToScene(event, View.MAINMENU);
+    ViewManager.switchToScene(event, View.MAIN_MENU);
+  }
+
+  @FXML
+  private void switchToEditSaleScene(MouseEvent event) throws IOException {
+
+    FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath(View.EDIT_SALE.getFileName()));
+    Parent root = loader.load();
+    EditSaleController controller = loader.getController();
+    controller.setSale(salesTableView.getSelectionModel().getSelectedItems().get(0));
+
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
   }
 
   /**
@@ -118,7 +131,7 @@ public class ListOfAllSalesController implements Initializable {
     salesTableView.getItems().removeAll(salesTableView.getItems());
     saleRegister = RegisterManager.getInstance().getSaleRegister();
 
-    customerTableColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
+    customerTableColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
 
     dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
@@ -151,20 +164,6 @@ public class ListOfAllSalesController implements Initializable {
 
   }
 
-  @FXML
-  private void editButtonClicked() {
-
-    List<Sale> selectedSales = salesTableView.getSelectionModel().getSelectedItems();
-    if (selectedSales.size() != 1) {
-      Alert alert = new Alert(AlertType.WARNING, "Can only edit 1 item at once");
-      alert.showAndWait();
-      return;
-    }
-    //TODO add editing button functionality
-
-    updateTable();
-
-  }
 
   /**
    * Enables the disabling of buttons when their actions are not possible to perform.
@@ -207,4 +206,6 @@ public class ListOfAllSalesController implements Initializable {
         """);
     Tooltip.install(infoIcon, tooltip);
   }
+
+
 }

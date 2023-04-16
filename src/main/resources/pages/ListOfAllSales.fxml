@@ -17,7 +17,7 @@
     <top>
         <Pane prefHeight="49.0" prefWidth="605.0" BorderPane.alignment="CENTER">
             <Button layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#switchToMainMenuScene"
-                    text="Return"/>
+              text="Return"/>
         </Pane>
     </top>
     <center>
@@ -57,7 +57,7 @@
         <VBox>
             <Button fx:id="deleteButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#deleteButtonClicked"
               text="Delete"/>
-            <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#editButtonClicked"
+            <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#switchToEditSaleScene"
               text="Edit"/>
             <StackPane layoutX="40" layoutY="40">
                 <ImageView fx:id="infoIcon" fitWidth="40" preserveRatio="true" ></ImageView>

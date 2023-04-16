@@ -67,7 +67,7 @@ public class ListOfAllBudgetsController implements Initializable {
    */
   @FXML
   private void switchToMainMenuScene(MouseEvent event) throws IOException {
-    ViewManager.switchToScene(event, View.MAINMENU);
+    ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
   /**
@@ -124,17 +124,18 @@ public class ListOfAllBudgetsController implements Initializable {
   }
 
   @FXML
-  private void editButtonClicked() {
+  private void switchToEditBudgetScene(MouseEvent event) throws IOException{
 
-    List<Budget> selectedBudgets = budgetTable.getSelectionModel().getSelectedItems();
-    if (selectedBudgets.size() != 1) {
-      Alert alert = new Alert(AlertType.WARNING, "Can only edit 1 item at once");
-      alert.showAndWait();
-      return;
-    }
-    //TODO add editing button functionality
+    FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath(View.EDIT_BUDGET.getFileName()));
+    Parent root = loader.load();
+    EditBudgetController controller = loader.getController();
+    controller.setBudgetToRemove(budgetTable.getSelectionModel().getSelectedItems().get(0));
 
-    updateTable();
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+
 
   }
 
@@ -199,6 +200,8 @@ public class ListOfAllBudgetsController implements Initializable {
   private void enableMultiSelection() {
     budgetTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
   }
+
+
 }
 
 
