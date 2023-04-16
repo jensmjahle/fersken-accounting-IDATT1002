@@ -32,7 +32,9 @@ public class Sale implements Serializable {
     if (receiverAccount.length() != 11) {
       throw new IllegalArgumentException("The account number has to be 11 numbers long");
     }
-
+    if (!receiverAccount.matches("[0-9]+")){
+      throw new IllegalArgumentException("The account number can only consist of digits");
+    }
 
     this.contact = Objects.requireNonNull(contact, "Contact cannot be null");
     this.date = Objects.requireNonNull(date, "Date cannot be null");
@@ -49,6 +51,9 @@ public class Sale implements Serializable {
     if (receiverAccount.length() != 11) {
       throw new IllegalArgumentException("The account number has to be 11 numbers long");
     }
+    if (!receiverAccount.matches("[0-9]+")){
+      throw new IllegalArgumentException("The account number can only consist of digits");
+    }
 
 
     this.customer = Objects.requireNonNull(customer, "Customer cannot be null");
@@ -56,6 +61,7 @@ public class Sale implements Serializable {
     this.product = Objects.requireNonNull(product, "Product cannot be null");
     this.receiverAccount = Objects.requireNonNull(receiverAccount, "Account number cannot be null");
     this.amount = amount;
+    this.contact = null;
   }
 
   public Sale(String product, double amount) throws NullPointerException, IllegalArgumentException {
@@ -82,6 +88,14 @@ public class Sale implements Serializable {
    */
   public String getCustomer() {
     return contact.getName();
+  }
+
+  public String getCustomerName(){
+    if (contact != null){
+      return contact.getName();
+    } else {
+      return customer;
+    }
   }
 
   /**
