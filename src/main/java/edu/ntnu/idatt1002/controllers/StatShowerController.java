@@ -1,8 +1,9 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.Statistics;
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -14,16 +15,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import edu.ntnu.idatt1002.viewmanagement.View;
-import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -37,7 +31,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 /**
  * Class that represents a controller for the Stats.fxml file. Enables a graph containing expenses,
@@ -161,7 +154,7 @@ public class StatShowerController implements Initializable {
    * @throws IOException If the location of the main menu scene is invalid.
    */
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
-    ViewManager.switchToScene(event, View.MAINMENU);
+    ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
   /**
@@ -214,7 +207,7 @@ public class StatShowerController implements Initializable {
         case "Years" -> updateDataSetsYears(firstSelectedDate, secondSelectedDate);
         default -> updateDataSetDays(firstSelectedDate, secondSelectedDate);
       }
-    } catch (Exception e){
+    } catch (Exception e) {
       System.out.println(e.getMessage());
     }
     List<Series<String, Double>> dataSetsToAdd = filterSelectedLines();
@@ -379,7 +372,7 @@ public class StatShowerController implements Initializable {
 
     Year currentYear = firstYear;
     while (!currentYear.isAfter(endYear)) {
-      String yearFormatted = "" + currentYear.getValue();
+      String yearFormatted = String.valueOf(currentYear.getValue());
 
       incomeInPeriod.getData()
           .add(new Data<>(yearFormatted, statistics.getSaleTotalForYear(currentYear)));
