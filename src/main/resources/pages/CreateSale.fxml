@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.RegisterSaleController">
+<BorderPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.CreateSaleController">
    <center>
       <TitledPane alignment="CENTER" animated="false" collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" text="New sale" textAlignment="CENTER">
          <font>
@@ -96,7 +96,7 @@
                <Font size="20.0" />
             </font>
          </Button>
-         <Button mnemonicParsing="false" onMouseClicked="#createSale" style="-fx-background-radius: 20;" text="Create">
+         <Button mnemonicParsing="false" onMouseClicked="#onCreateSale" style="-fx-background-radius: 20;" text="Create">
             <font>
                <Font size="20.0" />
             </font>

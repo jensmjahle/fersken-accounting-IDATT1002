@@ -17,7 +17,7 @@
          <children>
             <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" text="Delete draft" />
             <Button mnemonicParsing="false" text="Save draft" />
-            <Button mnemonicParsing="false" onMouseClicked="#createCustomer" text="Create" />
+            <Button mnemonicParsing="false" onMouseClicked="#onCreateCustomer" text="Create" />
          </children>
          <BorderPane.margin>
             <Insets />

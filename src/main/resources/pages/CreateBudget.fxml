@@ -19,7 +19,7 @@
             <children>
                 <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" text="Delete draft" />
                 <Button mnemonicParsing="false" text="Save draft" />
-                <Button mnemonicParsing="false" onMouseClicked="#createBudget" text="Create" />
+                <Button mnemonicParsing="false" onMouseClicked="#onCreateBudgetClicked" text="Create" />
             </children>
             <BorderPane.margin>
                 <Insets />
@@ -84,7 +84,7 @@
                                     <Insets bottom="10.0" top="10.0" />
                                  </padding>
                               </HBox>
-                              <Button mnemonicParsing="false" onMouseClicked="#addExpense" text="Add expense" />
+                              <Button mnemonicParsing="false" onMouseClicked="#onAddExpenseClicked" text="Add expense" />
                            </children>
                         </VBox>
                           </children>
@@ -116,7 +116,7 @@
                                     <Insets bottom="10.0" top="10.0" />
                                  </padding>
                               </HBox>
-                              <Button mnemonicParsing="false" onMouseClicked="#addIncome" text="Add income" />
+                              <Button mnemonicParsing="false" onMouseClicked="#onAddIncomeClicked" text="Add income" />
                            </children>
                         </VBox>
                      </children>
