@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -13,13 +14,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.CreateBudgetController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.CreateBudgetController">
     <bottom>
         <HBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="600.0" spacing="40.0" BorderPane.alignment="BOTTOM_RIGHT">
             <children>
                 <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" text="Delete draft" />
-                <Button mnemonicParsing="false" text="Save draft" />
-                <Button mnemonicParsing="false" onMouseClicked="#onCreateBudgetClicked" text="Create" />
+                <Button mnemonicParsing="false" onMouseClicked="#createBudgetClicked" text="Create" />
             </children>
             <BorderPane.margin>
                 <Insets />
@@ -42,7 +42,10 @@
                         <Font size="30.0" />
                     </font>
                 </Label>
-                <Pane prefHeight="200.0" prefWidth="300.0" />
+                <Pane prefHeight="200.0" prefWidth="300.0">
+               <children>
+                  <ImageView fx:id="infoIcon" fitHeight="71.0" fitWidth="87.0" layoutX="113.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
             </children>
         </HBox>
     </top>
@@ -51,86 +54,43 @@
          <children>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="600.0" spacing="10.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Project name:" />
-                  <TextField fx:id="projectNameField" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Project name:">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Text>
+                  <TextField fx:id="projectNameField" prefHeight="25.0" prefWidth="269.0" />
                </children>
             </HBox>
               <HBox prefHeight="147.0" prefWidth="600.0">
                   <children>
                       <VBox alignment="CENTER" prefHeight="310.0" prefWidth="493.0">
                           <children>
-                              <Label alignment="CENTER" text="Expenses">
-                                  <VBox.margin>
-                                      <Insets bottom="10.0" />
-                                  </VBox.margin>
-                                  <font>
-                                      <Font name="System Bold" size="15.0" />
-                                  </font>
-                              </Label>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                        <VBox alignment="CENTER" prefHeight="104.0" prefWidth="400.0">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Expense name:" />
-                                    <TextField fx:id="expenseNameField" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amount:" />
-                                    <TextField fx:id="expenseAmountField" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </padding>
-                              </HBox>
-                              <Button mnemonicParsing="false" onMouseClicked="#onAddExpenseClicked" text="Add expense" />
+                              <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#switchToRegisterExpenseScene" prefHeight="30.0" prefWidth="140.0" text="Register new expense" />
                            </children>
                         </VBox>
                           </children>
                       </VBox>
                   <VBox alignment="CENTER" prefHeight="310.0" prefWidth="493.0">
                      <children>
-                        <Label alignment="CENTER" text="Income">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                        <VBox alignment="CENTER" prefHeight="84.0" prefWidth="400.0">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Income name:" />
-                                    <TextField fx:id="incomeNameField" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amount:" />
-                                    <TextField fx:id="incomeAmountField" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </padding>
-                              </HBox>
-                              <Button mnemonicParsing="false" onMouseClicked="#onAddIncomeClicked" text="Add income" />
+                              <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#switchToRegisterSaleScene" prefHeight="30.0" prefWidth="140.0" text="Register new sale" />
                            </children>
                         </VBox>
                      </children>
                   </VBox>
                   </children>
               </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="265.0" prefWidth="800.0">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
                <children>
                   <TableView fx:id="expenseTable" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                     <columns>
-                      <TableColumn fx:id="expenseNameColumn" prefWidth="150.66666162014008" text="Expense name" />
+                      <TableColumn fx:id="expenseProductColumn" prefWidth="150.66666162014008" text="Product" />
                       <TableColumn fx:id="expenseAmountColumn" prefWidth="148.6666717529297" text="Amount" />
                     </columns>
                      <columnResizePolicy>
@@ -142,7 +102,8 @@
                   </TableView>
                   <TableView fx:id="incomeTable" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                     <columns>
-                      <TableColumn fx:id="incomeNameColumn" prefWidth="75.0" text="Income name" />
+                        <TableColumn fx:id="customerColumn" prefWidth="75.0" text="Customer" />
+                      <TableColumn fx:id="incomeProductColumn" prefWidth="75.0" text="Product" />
                       <TableColumn fx:id="incomeAmountColumn" prefWidth="75.0" text="Amount" />
                     </columns>
                      <columnResizePolicy>

@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.net.URL;
 
 public class Main extends Application {
 
@@ -23,10 +22,12 @@ public class Main extends Application {
     URL url = new File("src/main/resources/pages/MainMenu.fxml").toURI().toURL();
     loader.setLocation(url);
 
-    BorderPane borderPane = loader.<BorderPane>load();
+    BorderPane borderPane = loader.load();
 
     Scene scene = new Scene(borderPane);
+    primaryStage.setTitle("Fersken Regnskap");
     primaryStage.setScene(scene);
     primaryStage.show();
+    primaryStage.setResizable(false);
   }
 }
