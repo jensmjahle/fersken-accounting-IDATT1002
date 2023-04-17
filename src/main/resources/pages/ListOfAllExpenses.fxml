@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.ListOfAllExpensesController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.ListOfAllExpensesController">
     <top>
         <Pane prefHeight="49.0" prefWidth="605.0" BorderPane.alignment="CENTER">
             <Button layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#switchToMainMenuScene" text="Return" />
@@ -25,12 +25,12 @@
                         <Insets left="10.0" right="10.0" top="25.0" />
                     </HBox.margin>
                 </VBox>
-                <TableView fx:id="expenseTableView" prefHeight="223.0" prefWidth="911.0">
+                <TableView fx:id="expenseTableView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0">
                     <columns>
-                        <TableColumn fx:id="supplierTableColumn" prefWidth="75.0" text="Supplier" />
-                        <TableColumn fx:id="amountTableColumn" prefWidth="75.0" text="Amount" />
-                        <TableColumn fx:id="dateTableColumn" prefWidth="75.0" text="Date" />
-                        <TableColumn fx:id="productTableColumn" prefWidth="88.00006103515625" text="Product" />
+                  <TableColumn fx:id="supplierTableColumn" prefWidth="162.5" resizable="false" text="Supplier" />
+                        <TableColumn fx:id="amountTableColumn" prefWidth="162.5" resizable="false" text="Amount" />
+                        <TableColumn fx:id="dateTableColumn" prefWidth="162.5" resizable="false" text="Date" />
+                        <TableColumn fx:id="productTableColumn" prefWidth="162.5" resizable="false" text="Product" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -45,7 +45,7 @@
         </VBox>
     </center>
     <right>
-        <VBox>
+        <VBox spacing="20.0">
             <Button fx:id="deleteButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#deleteButtonClicked" text="Delete" />
             <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#switchToEditExpenseScene" text="Edit" />
             <StackPane layoutX="40" layoutY="40">

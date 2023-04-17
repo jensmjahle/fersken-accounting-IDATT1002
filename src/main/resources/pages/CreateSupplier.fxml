@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.CreateSupplierController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.CreateSupplierController">
    <top>
       <Pane prefHeight="42.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button layoutX="24.0" layoutY="9.0" mnemonicParsing="false" onMouseClicked="#switchToMainMenuScene" text="Return" />
-         </children>
+         <Button layoutX="24.0" layoutY="9.0" mnemonicParsing="false" onMouseClicked="#switchToMainMenuScene"
+                 text="Return"/>
       </Pane>
    </top>
    <center>
@@ -27,29 +20,44 @@
                   <Font size="30.0" />
                </font>
             </Label>
-            <HBox prefHeight="234.0" prefWidth="600.0">
+            <HBox alignment="TOP_CENTER" prefHeight="365.0" prefWidth="800.0">
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="189.0" prefWidth="296.0">
                      <children>
                         <Label text="General Information">
                            <font>
-                              <Font name="System Bold" size="15.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font></Label>
-                        <HBox prefHeight="221.0" prefWidth="291.0">
+                        <HBox prefHeight="345.0" prefWidth="296.0">
                            <children>
-                              <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="225.0" spacing="19.0">
+                              <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="225.0" spacing="6.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail:" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone-Number:" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Organization number:" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account number:" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font></Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-Mail:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font></Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone-Number:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font></Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Organization number:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font></Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account number:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font></Text>
                                  </children>
                                  <padding>
                                     <Insets right="5.0" />
                                  </padding>
                               </VBox>
-                              <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="223.0" spacing="10.0">
+                              <VBox alignment="CENTER" prefHeight="100.0" prefWidth="223.0" spacing="1.0">
                                  <children>
                                     <TextField fx:id="nameField" />
                                     <TextField fx:id="emailField" />
@@ -69,23 +77,32 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="189.0" prefWidth="314.0">
                      <children>
-                        <Label text="Adress">
+                        <Label text="Address">
                            <font>
-                              <Font name="System Bold" size="15.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font></Label>
-                        <HBox prefHeight="221.0" prefWidth="291.0">
+                        <HBox prefHeight="353.0" prefWidth="314.0">
                            <children>
-                              <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="225.0" spacing="19.0">
+                              <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="225.0" spacing="5.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Street:" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Streetnumber:" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font></Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Street:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font></Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Streetnumber:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font></Text>
                                  </children>
                                  <padding>
                                     <Insets right="5.0" />
                                  </padding>
                               </VBox>
-                              <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="223.0" spacing="10.0">
+                              <VBox alignment="CENTER_LEFT" prefHeight="199.0" prefWidth="151.0" spacing="1.0">
                                  <children>
                                     <TextField fx:id="postCodeField" />
                                     <TextField fx:id="streetField" />
@@ -104,17 +121,18 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
-               <children>
-                  <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" text="Delete draft" />
-                  <Button mnemonicParsing="false" text="Save draft" />
-                  <Button mnemonicParsing="false" onMouseClicked="#onCreateSupplier" text="Create" />
-               </children>
-               <padding>
-                  <Insets right="10.0" />
-               </padding>
-            </HBox>
          </children>
       </VBox>
    </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" prefHeight="98.0" prefWidth="800.0" spacing="40.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" text="Delete draft" />
+            <Button mnemonicParsing="false" onMouseClicked="#createSupplier" text="Create" />
+         </children>
+         <padding>
+            <Insets right="40.0" />
+         </padding>
+      </HBox>
+   </bottom>
 </BorderPane>
