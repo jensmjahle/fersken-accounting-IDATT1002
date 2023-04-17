@@ -65,7 +65,7 @@
         <VBox>
             <Button fx:id="deleteButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#deleteButtonClicked"
               text="Delete"/>
-            <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#editButtonClicked"
+            <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#switchToEditScene"
               text="Edit"/>
             <StackPane layoutX="40" layoutY="40">
                 <ImageView fx:id="infoIcon" fitWidth="40" preserveRatio="true" ></ImageView>

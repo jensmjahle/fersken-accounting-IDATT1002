@@ -4,14 +4,13 @@ import edu.ntnu.idatt1002.Contact;
 import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.registers.ContactRegister;
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import edu.ntnu.idatt1002.viewmanagement.View;
-import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
@@ -74,7 +73,7 @@ public class ListOfAllCustomersController implements Initializable {
    */
   @FXML
   private void switchToMainMenuScene(MouseEvent event) throws IOException {
-    ViewManager.switchToScene(event, View.MAINMENU);
+    ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
   /**
@@ -152,7 +151,7 @@ public class ListOfAllCustomersController implements Initializable {
       alert.showAndWait();
       return;
     }
-    //TODO add editing button functionality
+
 
     updateTable();
 
@@ -179,7 +178,7 @@ public class ListOfAllCustomersController implements Initializable {
    * Creates a boolean binding that checks if only one item is selected.
    *
    * @return a boolean binding that represents information about if only one item is selected in the
-   *        table.
+   * table.
    */
   private BooleanBinding onlyOneSelectedItemBinding() {
     return Bindings.createBooleanBinding(
@@ -218,6 +217,20 @@ public class ListOfAllCustomersController implements Initializable {
    */
   private void enableMultiSelection() {
     customerTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+  }
+
+  @FXML
+  private void switchToEditCustomerScene(MouseEvent event) throws IOException {
+
+    FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath(View.EDIT_CUSTOMER.getFileName()));
+    Parent root = loader.load();
+    EditCustomerController controller = loader.getController();
+    controller.setCustomer(customerTable.getSelectionModel().getSelectedItems().get(0));
+
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
   }
 }
 

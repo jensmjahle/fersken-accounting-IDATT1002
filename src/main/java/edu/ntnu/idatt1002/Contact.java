@@ -23,18 +23,19 @@ public class Contact implements Serializable {
    * @param name          The name of the contact.
    * @param email         The e-mail of the contact.
    * @param street        The street name of the address of the contact.
-   * @param streetNumber  The street number of the address of the contact.
-   *                      Should not be negative or equal to zero.
-   * @param phoneNumber   The phone number that can be used to contact the contact.
-   *                      Should be 8 digits long.
+   * @param streetNumber  The street number of the address of the contact. Should not be negative or
+   *                      equal to zero.
+   * @param phoneNumber   The phone number that can be used to contact the contact. Should be 8
+   *                      digits long.
    * @param accountNumber The account number of the contact. Should be 11 digits long.
    * @param postCode      The postCode of the address of the contact. Should be 4 digits long.
+   * @throws IllegalArgumentException if the name, email, phone number, account number, post code or
+   *                                  organization number are in the wrong format.
    */
-  public Contact(String name, String email, String street,
-                 int streetNumber, String phoneNumber,
-                 String accountNumber, String postCode) {
+  public Contact(String name, String email, String street, int streetNumber, String phoneNumber,
+                 String accountNumber, String postCode) throws IllegalArgumentException {
 
-    this(name, email, street,streetNumber, phoneNumber, accountNumber, postCode, "");
+    this(name, email, street, streetNumber, phoneNumber, accountNumber, postCode, "");
   }
 
   /**
@@ -43,17 +44,19 @@ public class Contact implements Serializable {
    * @param name               The name of the contact.
    * @param email              The e-mail of the contact.
    * @param street             The street name of the address of the contact.
-   * @param streetNumber       The street number of the address of the contact.
-   *                           Should not be negative or equal to zero.
-   * @param phoneNumber        The phone number that can be used to contact the contact.
-   *                           Should be 8 digits long.
+   * @param streetNumber       The street number of the address of the contact. Should not be
+   *                           negative or equal to zero.
+   * @param phoneNumber        The phone number that can be used to contact the contact. Should be 8
+   *                           digits long.
    * @param accountNumber      The account number of the contact. Should be 11 digits long.
    * @param postCode           The postCode of the address of the contact. Should be 4 digits long.
    * @param organizationNumber The organization number for the contact.
+   * @throws IllegalArgumentException if the name, email, phone number, account number, post code or
+   *                                  organization number are in the wrong format.
    */
-  public Contact(String name, String email, String street,
-                 int streetNumber, String phoneNumber,
-                 String accountNumber, String postCode, String organizationNumber) {
+  public Contact(String name, String email, String street, int streetNumber, String phoneNumber,
+                 String accountNumber, String postCode, String organizationNumber)
+      throws IllegalArgumentException {
 
     if (name.isEmpty() || name.isBlank()) {
       throw new IllegalArgumentException("Name cannot be empty");
@@ -63,6 +66,22 @@ public class Contact implements Serializable {
     }
     if (phoneNumber.length() != 8) {
       throw new IllegalArgumentException("Phone number has to be 8 digits");
+    }
+    if (!phoneNumber.matches("[0-9]+")) {
+      throw new IllegalArgumentException("The phone number can only consist of digits");
+    }
+    if (!organizationNumber.matches("[0-9]+")) {
+      throw new IllegalArgumentException("The organization number can only consist of digits");
+    }
+    if (!accountNumber.matches("[0-9]+")) {
+      throw new IllegalArgumentException("The account number can only consist of digits");
+    }
+    if (!postCode.matches("[0-9]+")) {
+      throw new IllegalArgumentException("The post code can only consist of digits");
+    }
+    if (!email.matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+        + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
+      throw new IllegalArgumentException("Email should be on the format: username@domain.com");
     }
 
     setStreet(street);
@@ -212,10 +231,7 @@ public class Contact implements Serializable {
 
     Contact contact = (Contact) o;
 
-    if (!getPhoneNumber().equals(contact.getPhoneNumber())) {
-      return false;
-    }
-    if (!getPostCode().equals(contact.getPostCode())) {
+    if (getStreetNumber() != contact.getStreetNumber()) {
       return false;
     }
     if (!getName().equals(contact.getName())) {
@@ -224,13 +240,19 @@ public class Contact implements Serializable {
     if (!getEmail().equals(contact.getEmail())) {
       return false;
     }
+    if (!getPhoneNumber().equals(contact.getPhoneNumber())) {
+      return false;
+    }
+    if (!getOrganizationNumber().equals(contact.getOrganizationNumber())) {
+      return false;
+    }
     if (!getStreet().equals(contact.getStreet())) {
       return false;
     }
-    if (getStreetNumber() != contact.getStreetNumber()) {
+    if (!getAccountNumber().equals(contact.getAccountNumber())) {
       return false;
     }
-    return getAccountNumber().equals(contact.getAccountNumber());
+    return getPostCode().equals(contact.getPostCode());
   }
 
   /**
@@ -253,15 +275,9 @@ public class Contact implements Serializable {
 
   @Override
   public String toString() {
-    return "Contact{" +
-        "name='" + name + '\'' +
-        ", email='" + email + '\'' +
-        ", street='" + street + '\'' +
-        ", streetNumber=" + streetNumber +
-        ", phoneNumber='" + phoneNumber + '\'' +
-        ", accountNumber='" + accountNumber + '\'' +
-        ", postCode='" + postCode + '\'' +
-        ", organizationNumber='" + organizationNumber + '\'' +
-        '}';
+    return "Contact{" + "name='" + name + '\'' + ", email='" + email + '\'' + ", street='" + street
+        + '\'' + ", streetNumber=" + streetNumber + ", phoneNumber='" + phoneNumber + '\''
+        + ", accountNumber='" + accountNumber + '\'' + ", postCode='" + postCode + '\''
+        + ", organizationNumber='" + organizationNumber + '\'' + '}';
   }
 }

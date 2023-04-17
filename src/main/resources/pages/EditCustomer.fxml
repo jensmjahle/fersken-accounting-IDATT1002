@@ -11,13 +11,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.CreateCustomerController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.EditCustomerController">
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="600.0" spacing="40.0" BorderPane.alignment="BOTTOM_RIGHT">
          <children>
             <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" text="Delete draft" />
-            <Button mnemonicParsing="false" text="Save draft" />
-            <Button mnemonicParsing="false" onMouseClicked="#onCreateCustomer" text="Create" />
+            <Button mnemonicParsing="false" onMouseClicked="#onConfirmChanges" text="Confirm changes" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -69,7 +68,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="310.0" prefWidth="493.0">
                <children>
-                  <Label alignment="CENTER" text="Adress">
+                  <Label alignment="CENTER" text="Address">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -83,7 +82,7 @@
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Postcode:" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Street:" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Streetnumber:" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Street number:" />
                            </children>
                            <padding>
                               <Insets right="10.0" />
@@ -108,10 +107,10 @@
          <children>
             <Pane prefHeight="200.0" prefWidth="300.0">
                <children>
-                  <Button layoutX="30.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#switchToMainMenuScene" text="Return" />
+                  <Button layoutX="30.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#switchToListOfAllCustomersScene" text="Return" />
                </children>
             </Pane>
-            <Label minWidth="275.0" text="Add a new customer">
+            <Label minWidth="275.0" text="Edit customer">
                <font>
                   <Font size="30.0" />
                </font>

@@ -6,11 +6,11 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Represents an expense in NOK.
- * For example buying new equipment or buying payable services can be expenses.
- *
+ * Represents an expense in NOK. For example buying new equipment or buying payable services can be
+ * expenses.
  */
 public class Expense implements Serializable {
+
   private Contact contact;
   private double amount;
   private Date date;
@@ -18,15 +18,18 @@ public class Expense implements Serializable {
 
 
   /**
-   * Creates an expense with a contact(class Contact).
-   * This constructor is relevant for expenses including the need for a contact.
-   * Example: buying lager equipment with invoice.
+   * Creates an expense with a contact(class Contact). This constructor is relevant for expenses
+   * including the need for a contact. Example: buying lager equipment with invoice.
    *
    * @param contact information about the contact. As a Contact
-   * @param amount of money in NOK. As a double
-   * @param date of the expense. As a Date
+   * @param amount  of money in NOK. As a double
+   * @param date    of the expense. As a Date
    */
-  public Expense(Contact contact, double amount, Date date, String product) throws NullPointerException {
+  public Expense(Contact contact, double amount, Date date, String product)
+      throws NullPointerException, IllegalArgumentException {
+    if (product.isEmpty()){
+      throw new IllegalArgumentException("Product cannot be empty");
+    }
     if (amount <= 0) {
       throw new IllegalArgumentException("Expense amount can not be 0 or a negative number");
     }
@@ -37,21 +40,22 @@ public class Expense implements Serializable {
 
   }
 
-  public Expense(double amount, String product) {
+  public Expense(double amount, String product) throws IllegalArgumentException, NullPointerException {
     if (amount <= 0) {
       throw new IllegalArgumentException("Expense amount can not be 0 or a negative number");
     }
-    this.product = product;
+
+    this.product = Objects.requireNonNull(product, "Product cannot be null");
     this.amount = amount;
+    this.date = null;
   }
 
   /**
-   * Creates an expense without a contact.
-   * This constructor is relevant for expenses that does not need a contact.
-   * Example: small purchases in convenient store.
+   * Creates an expense without a contact. This constructor is relevant for expenses that does not
+   * need a contact. Example: small purchases in convenient store.
    *
    * @param amount of money in NOK. As a double
-   * @param date of the expense. As a Date
+   * @param date   of the expense. As a Date
    */
   public Expense(double amount, Date date, String product) {
     if (amount <= 0) {
@@ -70,8 +74,14 @@ public class Expense implements Serializable {
   public Contact getContact() {
     return contact;
   }
-  public String getSupplier() {
-    return contact.getName();
+
+
+  public String getSupplierName() {
+    if (contact != null) {
+      return contact.getName();
+    } else {
+      return "";
+    }
   }
 
   /**
@@ -98,11 +108,7 @@ public class Expense implements Serializable {
 
   @Override
   public String toString() {
-    return "Expense{" +
-        "contact=" + contact +
-        ", amount=" + amount +
-        ", date=" + date +
-        ", product='" + product + '\'' +
-        '}';
+    return "Expense{" + "contact=" + contact + ", amount=" + amount + ", date=" + date
+        + ", product='" + product + '\'' + '}';
   }
 }

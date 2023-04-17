@@ -4,14 +4,13 @@ import edu.ntnu.idatt1002.Expense;
 import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.registers.ExpenseRegister;
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import edu.ntnu.idatt1002.viewmanagement.View;
-import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
@@ -67,7 +66,23 @@ public class ListOfAllExpensesController implements Initializable {
    */
   @FXML
   private void switchToMainMenuScene(MouseEvent event) throws IOException {
-    ViewManager.switchToScene(event, View.MAINMENU);
+    ViewManager.switchToScene(event, View.MAIN_MENU);
+  }
+
+
+
+  @FXML
+  private void switchToEditExpenseScene(MouseEvent event) throws IOException {
+
+    FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath("EditExpense"));
+    Parent root = loader.load();
+    EditExpenseController controller = loader.getController();
+    controller.setExpense(expenseTableView.getSelectionModel().getSelectedItems().get(0));
+
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
   }
 
   /**
@@ -94,7 +109,7 @@ public class ListOfAllExpensesController implements Initializable {
   private void updateTable() {
     expenseTableView.getItems().removeAll(expenseTableView.getItems());
     expenseRegister = RegisterManager.getInstance().getExpenseRegister();
-    supplierTableColumn.setCellValueFactory(new PropertyValueFactory<>("supplier"));
+    supplierTableColumn.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
 
     amountTableColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 

@@ -13,13 +13,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.CreateBudgetController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.EditBudgetController">
     <bottom>
         <HBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="600.0" spacing="40.0" BorderPane.alignment="BOTTOM_RIGHT">
             <children>
                 <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" text="Delete draft" />
-                <Button mnemonicParsing="false" text="Save draft" />
-                <Button mnemonicParsing="false" onMouseClicked="#onCreateBudgetClicked" text="Create" />
+                <Button mnemonicParsing="false" onMouseClicked="#replaceBudget" text="Confirm changes" />
             </children>
             <BorderPane.margin>
                 <Insets />
@@ -37,7 +36,7 @@
                         <Button layoutX="30.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#switchToMainMenuScene" text="Return" />
                     </children>
                 </Pane>
-                <Label minWidth="275.0" text="Add a new budget">
+                <Label minWidth="275.0" text="Edit budget">
                     <font>
                         <Font size="30.0" />
                     </font>
@@ -85,6 +84,8 @@
                                  </padding>
                               </HBox>
                               <Button mnemonicParsing="false" onMouseClicked="#onAddExpenseClicked" text="Add expense" />
+                              <Button mnemonicParsing="false" onMouseClicked="#onDeleteExpenseClicked" text="Delete expense" />
+
                            </children>
                         </VBox>
                           </children>
@@ -117,6 +118,7 @@
                                  </padding>
                               </HBox>
                               <Button mnemonicParsing="false" onMouseClicked="#onAddIncomeClicked" text="Add income" />
+                              <Button mnemonicParsing="false" onMouseClicked="#onDeleteIncomeClicked" text="Delete income" />
                            </children>
                         </VBox>
                      </children>

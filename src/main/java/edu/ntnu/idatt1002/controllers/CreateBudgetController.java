@@ -1,28 +1,24 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.*;
+import edu.ntnu.idatt1002.Budget;
+import edu.ntnu.idatt1002.Expense;
+import edu.ntnu.idatt1002.RegisterManager;
+import edu.ntnu.idatt1002.Sale;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
+import java.io.IOException;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class CreateBudgetController {
 
-  private Stage stage;
-  private Scene scene;
-  private Parent root;
 
   @FXML
   private TextField projectNameField;
@@ -35,26 +31,33 @@ public class CreateBudgetController {
   @FXML
   private TextField incomeAmountField;
   @FXML
-  private TableView expenseTable;
+  private TableView<Expense> expenseTable;
   @FXML
-  private TableColumn expenseNameColumn;
+  private TableColumn<Expense, String> expenseNameColumn;
   @FXML
-  private TableColumn expenseAmountColumn;
+  private TableColumn<Expense, String> expenseAmountColumn;
   @FXML
-  private TableView incomeTable;
+  private TableView<Sale> incomeTable;
   @FXML
-  private TableColumn incomeNameColumn;
+  private TableColumn<Sale, String> incomeNameColumn;
   @FXML
-  private TableColumn incomeAmountColumn;
+  private TableColumn<Sale, String> incomeAmountColumn;
 
-  Budget newBudget;
+
   ArrayList<Expense> newListOfExpenses = new ArrayList<>();
   ArrayList<Sale> newListOfIncomes = new ArrayList<>();
+
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
-    ViewManager.switchToScene(event, View.MAINMENU);
+    ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
-  public void addExpense() {
+  public void addExpense() throws IllegalArgumentException, NullPointerException {
+    if (expenseNameField.getText().isEmpty()) {
+      throw new IllegalArgumentException("Expense name cannot be empty");
+    }
+    if (expenseAmountField.getText().isEmpty()) {
+      throw new IllegalArgumentException("Expense amount cannot be empty");
+    }
     String expenseName = expenseNameField.getText();
     String expenseAmount = expenseAmountField.getText();
 
@@ -64,61 +67,90 @@ public class CreateBudgetController {
     expenseNameField.clear();
     expenseAmountField.clear();
 
-    //jens fikser
-    //RegisterManager.getInstance().getExpenseRegister().addObject(newExpense);
 
     updateTables();
 
 
   }
 
-  public void addIncome() {
+  @FXML
+  private void onAddExpenseClicked() {
+    try {
+      addExpense();
+    } catch (NumberFormatException e) {
+      Alert alert = new Alert(AlertType.WARNING, e.getMessage() + " is not a valid number");
+      alert.showAndWait();
+
+    } catch (IllegalArgumentException e) {
+      Alert alert = new Alert(AlertType.WARNING, "Cannot save Expense because: " + e.getMessage());
+      alert.showAndWait();
+    }
+  }
+
+  public void addIncome() throws IllegalArgumentException, NullPointerException {
+    if (incomeNameField.getText().isEmpty()) {
+      throw new IllegalArgumentException("Expense name cannot be empty");
+    }
+    if (incomeAmountField.getText().isEmpty()) {
+      throw new IllegalArgumentException("Expense amount cannot be empty");
+    }
     String incomeName = incomeNameField.getText();
     String incomeAmount = incomeAmountField.getText();
 
     Sale newIncome = new Sale(incomeName, Double.parseDouble(incomeAmount));
     newListOfIncomes.add(newIncome);
 
-    incomeNameField.clear();
-    incomeAmountField.clear();
 
-    //jens fikser
-    //RegisterManager.getInstance().getSaleRegister().addObject(newIncome);
+
 
     updateTables();
 
 
   }
 
+  @FXML
+  private void onAddIncomeClicked() {
+    try {
+      addIncome();
+    } catch (NumberFormatException e) {
+      Alert alert = new Alert(AlertType.WARNING, e.getMessage() + " is not a valid number");
+      alert.showAndWait();
+
+    } catch (IllegalArgumentException e) {
+      Alert alert = new Alert(AlertType.WARNING, "Cannot save Sale because: " + e.getMessage());
+      alert.showAndWait();
+    }
+  }
+
   public void updateTables() {
-    expenseNameColumn.setCellValueFactory(
-        new PropertyValueFactory<>("product"));
+    expenseNameColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
 
-    expenseAmountColumn.setCellValueFactory(
-        new PropertyValueFactory<>("amount"));
+    expenseAmountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
-    incomeNameColumn.setCellValueFactory(
-        new PropertyValueFactory<>("product"));
+    incomeNameColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
 
-    incomeAmountColumn.setCellValueFactory(
-        new PropertyValueFactory<>("amount"));
+    incomeAmountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
 
     expenseTable.getItems().clear();
     incomeTable.getItems().clear();
 
-    for(Expense expense: newListOfExpenses){
+    for (Expense expense : newListOfExpenses) {
       expenseTable.getItems().add(expense);
     }
 
-    for(Sale sale: newListOfIncomes){
+    for (Sale sale : newListOfIncomes) {
       incomeTable.getItems().add(sale);
     }
   }
 
-  public void createBudget() {
+  public void createBudget() throws IllegalArgumentException, NullPointerException {
+    if (projectNameField.getText().isEmpty()) {
+      throw new IllegalArgumentException("Project name cannot be empty");
+    }
 
     String projectName = projectNameField.getText();
-    newBudget = new Budget(projectName);
+
+    Budget newBudget = new Budget(projectName);
     newBudget.addListOfExpenses(newListOfExpenses);
     newBudget.addListOfSales(newListOfIncomes);
 
@@ -126,6 +158,17 @@ public class CreateBudgetController {
 
     clearAllFields();
   }
+
+  public void onCreateBudgetClicked(MouseEvent mouseEvent) {
+    try {
+      createBudget();
+
+    } catch (IllegalArgumentException e) {
+      Alert alert = new Alert(AlertType.WARNING, "Cannot save Budget because: " + e.getMessage());
+      alert.showAndWait();
+    }
+  }
+
 
   public void clearAllFields() {
     projectNameField.clear();

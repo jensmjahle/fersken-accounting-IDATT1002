@@ -27,7 +27,7 @@
                 </VBox>
                 <TableView fx:id="expenseTableView" prefHeight="223.0" prefWidth="911.0">
                     <columns>
-                  <TableColumn fx:id="supplierTableColumn" prefWidth="75.0" text="Supplier" />
+                        <TableColumn fx:id="supplierTableColumn" prefWidth="75.0" text="Supplier" />
                         <TableColumn fx:id="amountTableColumn" prefWidth="75.0" text="Amount" />
                         <TableColumn fx:id="dateTableColumn" prefWidth="75.0" text="Date" />
                         <TableColumn fx:id="productTableColumn" prefWidth="88.00006103515625" text="Product" />
@@ -47,7 +47,7 @@
     <right>
         <VBox>
             <Button fx:id="deleteButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#deleteButtonClicked" text="Delete" />
-            <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#editButtonClicked" text="Edit" />
+            <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#switchToEditExpenseScene" text="Edit" />
             <StackPane layoutX="40" layoutY="40">
                 <ImageView fx:id="infoIcon" fitWidth="40" preserveRatio="true" />
             </StackPane>
