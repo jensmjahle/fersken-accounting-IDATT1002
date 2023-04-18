@@ -45,6 +45,7 @@
    </center>
    <right>
       <VBox alignment="CENTER" prefHeight="551.0" prefWidth="83.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <Button fx:id="openButton" mnemonicParsing="false" onMouseClicked="#switchToOpenBudgetScene" text="Open" />
          <Button fx:id="deleteButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#deleteButtonClicked" text="Delete" />
          <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#switchToEditBudgetScene" text="Edit" />
          <StackPane layoutX="40" layoutY="40">

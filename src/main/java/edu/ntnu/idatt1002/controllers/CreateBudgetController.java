@@ -9,8 +9,8 @@ import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import edu.ntnu.idatt1002.registers.ExpenseRegister;
 import edu.ntnu.idatt1002.registers.SaleRegister;
 import java.io.IOException;
-import java.util.ArrayList;
 
+import javafx.animation.PauseTransition;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,22 +35,22 @@ public class CreateBudgetController implements Initializable {
   @FXML
   private ImageView infoIcon;
   @FXML
-  private TableView expenseTable;
+  private TableView<Expense> expenseTable;
   @FXML
-  private TableColumn expenseProductColumn;
+  private TableColumn<Expense, String> expenseProductColumn;
   @FXML
-  private TableColumn expenseAmountColumn;
+  private TableColumn<Expense, String> expenseAmountColumn;
   @FXML
-  private TableView incomeTable;
+  private TableView<Sale> incomeTable;
   @FXML
-  private TableColumn customerColumn;
+  private TableColumn<Sale, String> customerColumn;
   @FXML
-  private TableColumn incomeProductColumn;
+  private TableColumn<Sale, String> incomeProductColumn;
   @FXML
-  private TableColumn incomeAmountColumn;
+  private TableColumn<Sale, String> incomeAmountColumn;
 
-  private ExpenseRegister expenseRegister;
-  private SaleRegister saleRegister;
+  private ObservableList<Expense> selectedExpenses;
+  private ObservableList<Sale> selectedSales;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,7 +78,7 @@ public class CreateBudgetController implements Initializable {
 
   private void updateTables() {
     expenseTable.getItems().removeAll(expenseTable.getItems());
-    expenseRegister = RegisterManager.getInstance().getExpenseRegister();
+    ExpenseRegister expenseRegister = RegisterManager.getInstance().getExpenseRegister();
     expenseProductColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
 
     expenseAmountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
@@ -87,7 +88,7 @@ public class CreateBudgetController implements Initializable {
     }
 
     incomeTable.getItems().removeAll(incomeTable.getItems());
-    saleRegister = RegisterManager.getInstance().getSaleRegister();
+    SaleRegister saleRegister = RegisterManager.getInstance().getSaleRegister();
     customerColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
 
     incomeProductColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
@@ -103,7 +104,7 @@ public class CreateBudgetController implements Initializable {
     try {
       createBudget();
     } catch (IllegalArgumentException e) {
-      Alert alert = new Alert(AlertType.WARNING, "Cannot save Budget because: " + e.getMessage());
+      Alert alert = new Alert(AlertType.WARNING, "Cannot create budget because: " + e.getMessage());
       alert.showAndWait();
     }
   }
@@ -112,14 +113,47 @@ public class CreateBudgetController implements Initializable {
     if (projectNameField.getText().isEmpty()) {
       throw new IllegalArgumentException("Project name cannot be empty");
     }
-    String projectName = projectNameField.getText();
-    Budget newBudget = new Budget(projectName);
-    ObservableList<Expense> selectedExpenses = expenseTable.getSelectionModel().getSelectedItems();
-    ObservableList<Sale> selectedSales = incomeTable.getSelectionModel().getSelectedItems();
-    newBudget.addListOfExpenses(selectedExpenses);
-    newBudget.addListOfSales(selectedSales);
+    if (checkDifferenceIsZero()) {
+      String projectName = projectNameField.getText();
+      Budget newBudget = new Budget(projectName);
+      selectedExpenses = expenseTable.getSelectionModel().getSelectedItems();
+      selectedSales = incomeTable.getSelectionModel().getSelectedItems();
+      newBudget.addListOfExpenses(selectedExpenses);
+      newBudget.addListOfSales(selectedSales);
+      RegisterManager.getInstance().getBudgetRegister().addObject(newBudget);
+      confirmBudgetIsCreated();
+      projectNameField.clear();
+    }
 
-    RegisterManager.getInstance().getBudgetRegister().addObject(newBudget);
+  }
+
+  private boolean checkDifferenceIsZero() {
+    selectedExpenses = expenseTable.getSelectionModel().getSelectedItems();
+    selectedSales = incomeTable.getSelectionModel().getSelectedItems();
+
+    double sumOfExpenses = selectedExpenses.stream().mapToDouble(Expense::getAmount).sum();
+    double sumOfSales = selectedSales.stream().mapToDouble(Sale::getAmount).sum();
+    double difference = sumOfExpenses - sumOfSales;
+    if (difference != 0) {
+      Alert alert = new Alert(AlertType.CONFIRMATION, "Budget has a difference of: " + difference + "NOK" +
+              "\nAre you sure you want to create this budget?");
+      alert.showAndWait();
+
+      if (alert.getResult() == ButtonType.OK) {
+        return true;
+
+      }else return alert.getResult() != ButtonType.CANCEL;
+
+    }
+    return true;
+  }
+
+  private void confirmBudgetIsCreated() {
+    Alert budgetHasBeenCreated = new Alert(AlertType.CONFIRMATION, "Budget has been created");
+    budgetHasBeenCreated.show();
+    PauseTransition delay = new PauseTransition(Duration.seconds(2));
+    delay.setOnFinished(event -> budgetHasBeenCreated.close());
+    delay.play();
   }
 
   public void clearAllFields() {

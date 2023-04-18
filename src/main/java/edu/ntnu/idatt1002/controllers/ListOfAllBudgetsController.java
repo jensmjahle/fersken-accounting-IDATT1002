@@ -20,14 +20,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,15 +39,17 @@ public class ListOfAllBudgetsController implements Initializable {
   @FXML
   private Button editButton;
   @FXML
+  private Button openButton;
+  @FXML
   private ImageView infoIcon;
   @FXML
   private TableView<Budget> budgetTable;
   @FXML
   private TableColumn<Budget, String> budgetNameColumn;
   @FXML
-  private TableColumn<Budget, String> budgetExpensesColumn;
+  private TableColumn<Budget, Double> budgetExpensesColumn;
   @FXML
-  private TableColumn<Budget, String> budgetIncomesColumn;
+  private TableColumn<Budget, Double> budgetIncomesColumn;
   @FXML
   private TableColumn<Budget, String> budgetDifferenceColumn;
   private BudgetRegister budgetRegister;
@@ -122,6 +118,19 @@ public class ListOfAllBudgetsController implements Initializable {
     }
     updateTable();
   }
+  @FXML
+  private void switchToOpenBudgetScene(MouseEvent event) throws  IOException{
+
+    FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath(View.OPEN_BUDGET.getFileName()));
+    Parent root = loader.load();
+    OpenBudgetController controller = loader.getController();
+    controller.budgetToBeShown(budgetTable.getSelectionModel().getSelectedItems().get(0));
+
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+  }
 
   @FXML
   private void switchToEditBudgetScene(MouseEvent event) throws IOException{
@@ -145,6 +154,7 @@ public class ListOfAllBudgetsController implements Initializable {
   private void disableButtonsWhileInvalid() {
     deleteButton.disableProperty().bind(selectedItemsNotNullBinding().not());
     editButton.disableProperty().bind(onlyOneSelectedItemBinding().not());
+    openButton.disableProperty().bind(onlyOneSelectedItemBinding().not());
   }
 
   /**

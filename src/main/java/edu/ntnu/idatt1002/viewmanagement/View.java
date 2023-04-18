@@ -17,7 +17,8 @@ public enum View {
   LIST_OF_ALL_SUPPLIERS("ListOfAllSuppliers"),
   REGISTER_EXPENSE("CreateExpense"),
   REGISTER_SALE("CreateSale"),
-  STATS("Stats");
+  STATS("Stats"),
+  OPEN_BUDGET("OpenBudget");
 
   private final String fileName;
 
