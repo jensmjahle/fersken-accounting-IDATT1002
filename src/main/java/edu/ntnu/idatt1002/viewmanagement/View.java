@@ -5,6 +5,7 @@ public enum View {
   CREATE_BUDGET("CreateBudget"),
   CREATE_CUSTOMER("CreateCustomer"),
   CREATE_SUPPLIER("CreateSupplier"),
+  CREATE_USER("CreateUser"),
   EDIT_CUSTOMER("EditCustomer"),
   EDIT_EXPENSE("EditExpense"),
   EDIT_SALE("EditSale"),
@@ -15,6 +16,7 @@ public enum View {
   LIST_OF_ALL_EXPENSES("ListOfAllExpenses"),
   LIST_OF_ALL_SALES("ListOfAllSales"),
   LIST_OF_ALL_SUPPLIERS("ListOfAllSuppliers"),
+  LOGIN("Login"),
   REGISTER_EXPENSE("CreateExpense"),
   REGISTER_SALE("CreateSale"),
   STATS("Stats"),
@@ -26,7 +28,7 @@ public enum View {
     this.fileName = fileName;
   }
 
-public String getFileName() {
+  public String getFileName() {
     return fileName;
   }
 }
