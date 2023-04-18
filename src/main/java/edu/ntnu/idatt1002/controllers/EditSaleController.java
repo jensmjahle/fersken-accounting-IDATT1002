@@ -85,7 +85,7 @@ public class EditSaleController extends CreateSaleController {
    */
   @FXML
   public void switchToListOfSales(MouseEvent mouseEvent) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath(View.LIST_OF_ALL_EXPENSES.getFileName()));
+    Parent root = FXMLLoader.load(PathUtility.getResourcePath(View.LIST_OF_ALL_SALES.getFileName()));
     Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setScene(scene);
