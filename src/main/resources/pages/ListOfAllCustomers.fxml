@@ -57,7 +57,7 @@
     <right>
         <VBox spacing="20.0">
             <Button fx:id="deleteButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#deleteButtonClicked" text="Delete" />
-            <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#editButtonClicked" text="Edit" />
+            <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#switchToEditCustomerScene" text="Edit" />
             <StackPane layoutX="40" layoutY="40">
                 <ImageView fx:id="infoIcon" fitWidth="40" preserveRatio="true" />
             </StackPane>

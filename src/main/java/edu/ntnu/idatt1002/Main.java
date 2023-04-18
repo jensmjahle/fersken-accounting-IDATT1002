@@ -25,7 +25,7 @@ public class Main extends Application {
     BorderPane borderPane = loader.load();
 
     Scene scene = new Scene(borderPane);
-    primaryStage.setTitle("Fersken Regnskap");
+    primaryStage.setTitle("Fersken Accounting");
     primaryStage.setScene(scene);
     primaryStage.show();
     primaryStage.setResizable(false);

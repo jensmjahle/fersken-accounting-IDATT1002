@@ -128,7 +128,7 @@
       <HBox alignment="CENTER_RIGHT" prefHeight="98.0" prefWidth="800.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" text="Delete draft" />
-            <Button mnemonicParsing="false" onMouseClicked="#createSupplier" text="Create" />
+            <Button mnemonicParsing="false" onMouseClicked="#onCreateSupplier" text="Create" />
          </children>
          <padding>
             <Insets right="40.0" />

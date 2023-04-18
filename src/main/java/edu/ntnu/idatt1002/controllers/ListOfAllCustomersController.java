@@ -142,21 +142,6 @@ public class ListOfAllCustomersController implements Initializable {
     updateTable();
   }
 
-  @FXML
-  private void editButtonClicked() {
-
-    List<Contact> selectedCustomers = customerTable.getSelectionModel().getSelectedItems();
-    if (selectedCustomers.size() != 1) {
-      Alert alert = new Alert(AlertType.WARNING, "Can only edit 1 item at once");
-      alert.showAndWait();
-      return;
-    }
-
-
-    updateTable();
-
-  }
-
   /**
    * Enables the disabling of buttons when their actions are not possible to perform.
    */

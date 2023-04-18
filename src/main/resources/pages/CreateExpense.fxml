@@ -73,7 +73,7 @@
             <Insets right="50.0" />
          </padding>
          <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" text="Delete draft" />
-         <Button mnemonicParsing="false" onMouseClicked="#createExpense" text="Create expense" />
+         <Button mnemonicParsing="false" onMouseClicked="#onCreateExpense" text="Create expense" />
       </HBox>
    </bottom>
 </BorderPane>
