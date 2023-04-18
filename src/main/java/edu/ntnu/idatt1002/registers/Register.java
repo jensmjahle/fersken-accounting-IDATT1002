@@ -36,7 +36,7 @@ public class Register <T>{
    * This method saves all objects stored in the register to a .txt file in resources.
    * It uses fileName as the filepath.
    */
-  private void writeToFile(){
+  public void writeToFile(){
     try (FileOutputStream output = new FileOutputStream(fileName)){
 
       ObjectOutputStream objectOutput = new ObjectOutputStream(output);

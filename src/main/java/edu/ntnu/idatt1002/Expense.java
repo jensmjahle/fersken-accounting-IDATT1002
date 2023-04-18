@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002;
 
-
+import edu.ntnu.idatt1002.Contact;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -11,10 +11,11 @@ import java.util.Objects;
  */
 public class Expense implements Serializable {
 
-  private Contact contact;
-  private double amount;
-  private Date date;
-  private String product;
+  private final Contact contact;
+  private final double amount;
+  private final Date date;
+  private final String product;
+  private final String nameOfConact;
 
 
   /**
@@ -37,6 +38,23 @@ public class Expense implements Serializable {
     this.date = Objects.requireNonNull(date, "Date is missing");
     this.product = product;
     this.amount = amount;
+    this.nameOfConact = null;
+
+  }
+
+  public Expense(String nameOfContact, double amount, Date date, String product)
+      throws NullPointerException, IllegalArgumentException {
+    if (product.isEmpty()){
+      throw new IllegalArgumentException("Product cannot be empty");
+    }
+    if (amount <= 0) {
+      throw new IllegalArgumentException("Expense amount can not be 0 or a negative number");
+    }
+    this.nameOfConact = Objects.requireNonNull(nameOfContact, "Contact is missing");
+    this.date = Objects.requireNonNull(date, "Date is missing");
+    this.product = product;
+    this.amount = amount;
+    this.contact = null;
 
   }
 
@@ -48,6 +66,8 @@ public class Expense implements Serializable {
     this.product = Objects.requireNonNull(product, "Product cannot be null");
     this.amount = amount;
     this.date = null;
+    this.contact = null;
+    this.nameOfConact = null;
   }
 
   /**
@@ -64,6 +84,8 @@ public class Expense implements Serializable {
     this.date = Objects.requireNonNull(date, "Date is missing");
     this.amount = amount;
     this.product = product;
+    this.nameOfConact = null;
+    this.contact = null;
   }
 
   /**
@@ -80,7 +102,7 @@ public class Expense implements Serializable {
     if (contact != null) {
       return contact.getName();
     } else {
-      return "";
+      return nameOfConact;
     }
   }
 

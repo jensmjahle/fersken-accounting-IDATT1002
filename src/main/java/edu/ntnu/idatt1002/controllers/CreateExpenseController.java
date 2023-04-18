@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -26,7 +27,7 @@ import javafx.scene.input.MouseEvent;
 public class CreateExpenseController implements Initializable {
 
   @FXML
-  private ChoiceBox<String> supplierChoiceBox;
+  private ComboBox<String> supplierComboBox;
 
   @FXML
   private TextField amountTextField;
@@ -52,7 +53,7 @@ public class CreateExpenseController implements Initializable {
 
   public void createExpense() throws IllegalArgumentException, NullPointerException {
 
-    if (supplierChoiceBox.getValue() == null){
+    if (supplierComboBox.getValue() == null){
       throw new IllegalArgumentException("Supplier has to be chosen");
     }
     if (datePicker.getValue() == null){
@@ -65,14 +66,23 @@ public class CreateExpenseController implements Initializable {
       throw new IllegalArgumentException("Product has to be chosen");
     }
 
-    String supplier = supplierChoiceBox.getValue();
+    String supplier = supplierComboBox.getValue();
     Contact contact = RegisterManager.getInstance().getSupplierRegister()
         .findContactFromName(supplier);
+
     Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
     double amount = (Double.parseDouble(amountTextField.getText()));
     String product = productTextField.getText();
-    Expense newExpense = new Expense(contact, amount, date, product);
-    RegisterManager.getInstance().getExpenseRegister().addObject(newExpense);
+
+    if (contact != null){
+      System.out.println(contact);
+      Expense newExpense = new Expense(contact, amount, date, product); 
+          RegisterManager.getInstance().getExpenseRegister().addObject(newExpense);   
+    } else {
+      Expense newExpense = new Expense(supplierComboBox.getValue(), amount, date, product);
+      RegisterManager.getInstance().getExpenseRegister().addObject(newExpense);  
+    }
+
     clearAllFields();
   }
 
@@ -94,7 +104,7 @@ public class CreateExpenseController implements Initializable {
    */
   @FXML
   public void clearAllFields() {
-    supplierChoiceBox.setValue(null);
+    supplierComboBox.setValue(null);
     datePicker.setValue(null);
     amountTextField.clear();
     productTextField.clear();
@@ -106,9 +116,10 @@ public class CreateExpenseController implements Initializable {
   }
 
   public void fillSupplierChoiceBox(){
+    supplierComboBox.setEditable(true);
     ContactRegister supplierRegister = RegisterManager.getInstance().getSupplierRegister();
     for (Contact supplier : supplierRegister.getObjects()) {
-      supplierChoiceBox.getItems().add(supplier.getName());
+      supplierComboBox.getItems().add(supplier.getName());
     }
   }
 }

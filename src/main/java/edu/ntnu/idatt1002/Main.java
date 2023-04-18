@@ -19,13 +19,14 @@ public class Main extends Application {
   public void start(Stage primaryStage) throws Exception {
     FXMLLoader loader = new FXMLLoader();
 
-    URL url = new File("src/main/resources/pages/MainMenu.fxml").toURI().toURL();
+    URL url = new File("src/main/resources/pages/Login.fxml").toURI().toURL();
+
     loader.setLocation(url);
 
     BorderPane borderPane = loader.load();
 
     Scene scene = new Scene(borderPane);
-    primaryStage.setTitle("Fersken Accounting");
+    primaryStage.setTitle("Fersken Regnskap");
     primaryStage.setScene(scene);
     primaryStage.show();
     primaryStage.setResizable(false);

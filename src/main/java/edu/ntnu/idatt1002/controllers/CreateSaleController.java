@@ -1,7 +1,6 @@
 package edu.ntnu.idatt1002.controllers;
 
 import edu.ntnu.idatt1002.Contact;
-import edu.ntnu.idatt1002.PathUtility;
 import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.Sale;
 import edu.ntnu.idatt1002.registers.ContactRegister;
@@ -12,17 +11,12 @@ import java.time.ZoneId;
 import java.util.Date;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -32,7 +26,7 @@ public class CreateSaleController {
 
 
   @FXML
-  private ChoiceBox<String> customerChoiceBox;
+  private ComboBox<String> customerComboBox;
   @FXML
   private DatePicker datePicker;
   @FXML
@@ -67,7 +61,7 @@ public class CreateSaleController {
    */
 
   public void createSale() throws IllegalArgumentException, NullPointerException {
-    if (customerChoiceBox.getValue() == null){
+    if (customerComboBox.getValue() == null){
       throw new IllegalArgumentException("customer has to be chosen");
     }
     if (datePicker.getValue() == null){
@@ -83,7 +77,7 @@ public class CreateSaleController {
       throw new IllegalArgumentException("Product has to be chosen");
     }
 
-    String customer = customerChoiceBox.getValue();
+    String customer = customerComboBox.getValue();
     Contact contact = RegisterManager.getInstance().getCustomerRegister()
         .findContactFromName(customer);
     Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -126,7 +120,7 @@ public class CreateSaleController {
    */
   @FXML
   public void clearAllFields() {
-    customerChoiceBox.setValue(null);
+    customerComboBox.setValue(null);
     datePicker.getEditor().clear();
     accountTextField.clear();
     productTextField.clear();
@@ -137,7 +131,7 @@ public class CreateSaleController {
   public void fillCustomerChoiceBox() {
     ContactRegister contactRegister = RegisterManager.getInstance().getCustomerRegister();
     for (Contact contact : contactRegister.getObjects()) {
-      customerChoiceBox.getItems().add(contact.getName());
+      customerComboBox.getItems().add(contact.getName());
     }
   }
 }

@@ -4,6 +4,10 @@ import edu.ntnu.idatt1002.registers.BudgetRegister;
 import edu.ntnu.idatt1002.registers.ContactRegister;
 import edu.ntnu.idatt1002.registers.ExpenseRegister;
 import edu.ntnu.idatt1002.registers.SaleRegister;
+import edu.ntnu.idatt1002.registers.UserRegister;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Singleton class that contains all different registers used to store information for the user.
@@ -11,18 +15,21 @@ import edu.ntnu.idatt1002.registers.SaleRegister;
 public class RegisterManager {
 
   private static RegisterManager instance;
-  private final BudgetRegister budgetRegister;
-  private final ContactRegister customerRegister;
-  private final ContactRegister supplierRegister;
-  private final SaleRegister saleRegister;
-  private final ExpenseRegister expenseRegister;
+  private BudgetRegister budgetRegister;
+  private ContactRegister customerRegister;
+  private ContactRegister supplierRegister;
+  private SaleRegister saleRegister;
+  private ExpenseRegister expenseRegister;
+  private final UserRegister userRegister;
+  private String userName;
 
-  private RegisterManager() {
-    this.budgetRegister = new BudgetRegister("budgets");
-    this.saleRegister = new SaleRegister("sales");
-    this.expenseRegister = new ExpenseRegister("expenses");
-    this.customerRegister = new ContactRegister("customers");
-    this.supplierRegister = new ContactRegister("suppliers");
+  private RegisterManager(){
+    try {
+      Files.createDirectories(Path.of("src/main/resources/registers/users"));
+    } catch (Exception e){
+      e.printStackTrace();
+    }
+    this.userRegister = new UserRegister("users");
   }
 
   /**
@@ -83,5 +90,29 @@ public class RegisterManager {
     return supplierRegister;
   }
 
+  public UserRegister getUserRegister() {
+    return userRegister;
+  }
+
+
+  public void setUserName(String userName) throws IOException {
+    this.userName = userName;
+    createNewRegisters(userName);
+  }
+
+  private void createNewRegisters(String userName) throws IOException {
+
+    Files.createDirectories(Path.of("src/main/resources/registers/" + userName));
+
+    this.budgetRegister = new BudgetRegister(userName + "/budgets");
+    this.saleRegister = new SaleRegister(userName + "/sales");
+    this.expenseRegister = new ExpenseRegister(userName + "/expenses");
+    this.customerRegister = new ContactRegister(userName + "/customers");
+    this.supplierRegister = new ContactRegister(userName + "/suppliers");
+  }
+
+  public String getUserName() {
+    return userName;
+  }
 
 }

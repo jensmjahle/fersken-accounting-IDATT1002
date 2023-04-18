@@ -58,7 +58,7 @@ public class EditSupplierController extends CreateSupplierController {
   private void onConfirmChanges(MouseEvent mouseEvent) throws IOException {
     try {
       createSupplier();
-      RegisterManager.getInstance().getCustomerRegister().removeObject(supplier);
+      RegisterManager.getInstance().getSupplierRegister().removeObject(supplier);
       switchToListOfAllSuppliersScene(mouseEvent);
     } catch (NumberFormatException e) {
       Alert alert = new Alert(AlertType.WARNING, e.getMessage() + " is not a valid number");
