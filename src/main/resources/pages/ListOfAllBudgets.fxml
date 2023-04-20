@@ -5,70 +5,109 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-  prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17"
-  xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="edu.ntnu.idatt1002.controllers.ListOfAllBudgetsController">
-  <top>
-    <Pane prefHeight="49.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-      <children>
-        <Button layoutX="31.0" layoutY="12.0" mnemonicParsing="false"
-          onMouseClicked="#switchToMainMenuScene" text="Return"/>
-      </children>
-    </Pane>
-  </top>
-  <center>
-    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-      <children>
-        <Label alignment="TOP_CENTER" text="All Budgets">
-          <font>
-            <Font size="30.0"/>
-          </font>
-        </Label>
-        <HBox alignment="CENTER" prefHeight="478.0" prefWidth="749.0">
-          <children>
-            <TableView fx:id="budgetTable" prefHeight="478.0" prefWidth="700.0">
-              <columns>
-                <TableColumn fx:id="budgetNameColumn" prefWidth="175.0" resizable="false"
-                  text="Name"/>
-                <TableColumn fx:id="budgetExpensesColumn" prefWidth="175.0" resizable="false"
-                  text="Expenses"/>
-                <TableColumn fx:id="budgetIncomesColumn" prefWidth="175.0" resizable="false"
-                  text="Income"/>
-                <TableColumn fx:id="budgetDifferenceColumn" prefWidth="175.0" resizable="false"
-                  text="Difference"/>
-              </columns>
-              <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-              </columnResizePolicy>
-              <HBox.margin>
-                <Insets left="20.0"/>
-              </HBox.margin>
-            </TableView>
-          </children>
-        </HBox>
-      </children>
-    </VBox>
-  </center>
-  <right>
-    <VBox alignment="CENTER" prefHeight="551.0" prefWidth="83.0" spacing="20.0"
-      BorderPane.alignment="CENTER">
-      <Button fx:id="openButton" mnemonicParsing="false" onMouseClicked="#switchToOpenBudgetScene"
-        text="Open"/>
-      <Button fx:id="deleteButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false"
-        onMouseClicked="#deleteButtonClicked" text="Delete"/>
-      <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false"
-        onMouseClicked="#switchToEditBudgetScene" text="Edit"/>
-      <StackPane layoutX="40" layoutY="40">
-        <ImageView fx:id="infoIcon" fitWidth="40" preserveRatio="true"/>
-      </StackPane>
-    </VBox>
-  </right>
-</BorderPane>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.ListOfAllBudgetsController">
+   <children>
+      <Rectangle height="600.0" stroke="#ffcaca" strokeType="INSIDE" width="800.0">
+         <fill>
+            <LinearGradient endX="0.6872037914691943" endY="0.7582938388625593" startY="0.6824644549763034">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9647058844566345" green="0.6313725709915161" blue="0.572549045085907" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9490196108818054" green="0.8352941274642944" blue="0.5686274766921997" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+        <top>
+          <Pane prefHeight="102.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+            <children>
+              <Label alignment="CENTER" layoutX="325.0" layoutY="29.0" text="All Budgets">
+                <font>
+                  <Font size="30.0" />
+                </font>
+              </Label>
+              <Button layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#switchToMainMenuScene" style="-fx-background-color: #76b5c5; -fx-border-color: #000000; -fx-border-width: 2;" text="Return" underline="true">
+                     <font>
+                        <Font name="Verdana" size="20.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="82.0" fitWidth="75.0" layoutX="489.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/icon_information.png" />
+                     </image>
+                  </ImageView>
+            </children>
+          </Pane>
+        </top>
+        <center>
+          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+              <HBox alignment="CENTER_LEFT" prefHeight="435.0" prefWidth="683.0">
+                <children>
+                  <TableView fx:id="budgetTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="660.0">
+                    <columns>
+                      <TableColumn fx:id="budgetNameColumn" prefWidth="165.0" resizable="false" text="Name" />
+                      <TableColumn fx:id="budgetExpensesColumn" prefWidth="165.0" resizable="false" text="Expenses" />
+                      <TableColumn fx:id="budgetIncomesColumn" prefWidth="165.0" resizable="false" text="Income" />
+                      <TableColumn fx:id="budgetDifferenceColumn" prefWidth="165.0" resizable="false" text="Difference" />
+                    </columns>
+                    <columnResizePolicy>
+                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                    <HBox.margin>
+                      <Insets left="20.0" />
+                    </HBox.margin>
+                  </TableView>
+                </children>
+              </HBox>
+            </children>
+          </VBox>
+        </center>
+        <right>
+          <VBox alignment="CENTER" prefHeight="551.0" prefWidth="117.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <Button fx:id="openButton" mnemonicParsing="false" onMouseClicked="#switchToOpenBudgetScene" style="-fx-background-color: #76b5c5; -fx-border-color: #000000; -fx-border-width: 2;" text="Open" underline="true">
+                  <font>
+                     <Font name="Verdana" size="20.0" />
+                  </font>
+               </Button>
+            <Button fx:id="deleteButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#deleteButtonClicked" style="-fx-background-color: ff0000; -fx-border-color: #000000; -fx-border-width: 2;" text="Delete" textFill="WHITE" underline="true">
+                  <font>
+                     <Font name="Verdana" size="20.0" />
+                  </font>
+               </Button>
+            <Button fx:id="editButton" layoutX="31.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#switchToEditBudgetScene" style="-fx-background-color: #76b5c5; -fx-border-color: #000000; -fx-border-width: 2;" text="Edit" underline="true">
+                  <font>
+                     <Font name="Verdana" size="20.0" />
+                  </font>
+               </Button>
+            <StackPane layoutX="40" layoutY="40">
+              <ImageView fx:id="infoIcon" fitWidth="40" preserveRatio="true" />
+            </StackPane>
+          </VBox>
+        </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

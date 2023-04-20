@@ -88,6 +88,8 @@ public class ListOfAllBudgetsController implements Initializable {
    * Updates the tableview with updated values for the displayed objects.
    */
   private void updateTable() {
+    budgetTable.getItems().clear();
+    
     budgetRegister = RegisterManager.getInstance().getBudgetRegister();
     budgetNameColumn.setCellValueFactory(new PropertyValueFactory<>("projectName"));
     budgetExpensesColumn.setCellValueFactory(new PropertyValueFactory<>("sumOfExpenses"));
@@ -107,7 +109,7 @@ public class ListOfAllBudgetsController implements Initializable {
     Alert alert = new Alert(AlertType.CONFIRMATION);
     List<Budget> selectedBudgets = budgetTable.getSelectionModel().getSelectedItems();
     alert.setContentText(
-        "Are you sure you want to delete: " + selectedBudgets.size() + " customer(s)?");
+        "Are you sure you want to delete: " + selectedBudgets.size() + " budget(s)?");
     alert.showAndWait();
     if (alert.getResult() == ButtonType.OK) {
 

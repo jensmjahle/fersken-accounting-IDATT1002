@@ -9,16 +9,15 @@ import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.io.IOException;
 import java.util.List;
+
+import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -47,6 +46,10 @@ public class EditBudgetController {
   private TableColumn<Sale, String> incomeNameColumn;
   @FXML
   private TableColumn<Sale, String> incomeAmountColumn;
+  @FXML
+  private Button deleteExpenseButton;
+  @FXML
+  private Button deleteIncomeButton;
 
 
   private List<Expense> listOfExpenses;
@@ -55,6 +58,10 @@ public class EditBudgetController {
   private Budget budgetToRemove;
 
 
+  public void initialize() {
+    disableDeleteExpenseButtonWhileInvalid();
+    disableDeleteIncomeButtonWhileInvalid();
+  }
   public void setBudgetToRemove(Budget budgetToRemove) {
     this.budgetToRemove = budgetToRemove;
     listOfIncomes = budgetToRemove.getListOfSales();
@@ -260,5 +267,17 @@ public class EditBudgetController {
       Alert alert = new Alert(AlertType.WARNING, "Cannot remove sale");
       alert.showAndWait();
     }
+  }
+  private void disableDeleteExpenseButtonWhileInvalid() {
+    deleteExpenseButton.disableProperty().bind(selectedItemsNotNullBindingExpense().not());
+  }
+  private void disableDeleteIncomeButtonWhileInvalid() {
+    deleteIncomeButton.disableProperty().bind(selectedItemsNotNullBindingIncome().not());
+  }
+  private BooleanBinding selectedItemsNotNullBindingExpense() {
+    return expenseTable.getSelectionModel().selectedItemProperty().isNotNull();
+  }
+  private BooleanBinding selectedItemsNotNullBindingIncome() {
+    return incomeTable.getSelectionModel().selectedItemProperty().isNotNull();
   }
 }
