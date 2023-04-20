@@ -6,7 +6,6 @@ import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.registers.ExpenseRegister;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -28,10 +27,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Controller for the list of all expenses fxml file. Shows a table of suppliers to the user.
@@ -45,7 +44,7 @@ public class ListOfAllExpensesController implements Initializable {
   @FXML
   private Button deleteButton;
   @FXML
-  private ImageView infoIcon;
+  private Pane informationPane;
   @FXML
   private TableView<Expense> expenseTableView;
   @FXML
@@ -98,7 +97,6 @@ public class ListOfAllExpensesController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     updateTable();
     disableButtonsWhileInvalid();
-    enableInformationIcon();
     enableMultiSelection();
     installToolTip();
   }
@@ -142,20 +140,7 @@ public class ListOfAllExpensesController implements Initializable {
     updateTable();
   }
 
-  @FXML
-  private void editButtonClicked() {
 
-    List<Expense> selectedExpenses = expenseTableView.getSelectionModel().getSelectedItems();
-    if (selectedExpenses.size() != 1) {
-      Alert alert = new Alert(AlertType.WARNING, "Can only edit 1 item at once");
-      alert.showAndWait();
-      return;
-    }
-    //TODO add editing button functionality
-
-    updateTable();
-
-  }
 
   /**
    * Enables the disabling of buttons when their actions are not possible to perform.
@@ -196,21 +181,11 @@ public class ListOfAllExpensesController implements Initializable {
         Unhighlight expense : press left click on a marked expense
         Mark multiple expenses : hold ctrl while highlighting
         """);
-    Tooltip.install(infoIcon, tooltip);
+    tooltip.setShowDelay(Duration.seconds(0));
+    Tooltip.install(informationPane, tooltip);
   }
 
-  /**
-   * Adds an information icon to the current scene.
-   */
-  private void enableInformationIcon() {
-    try {
-      File imageFile = new File("src/main/resources/Icons/icon_information.png");
-      Image image = new Image(imageFile.toURI().toString());
-      infoIcon.setImage(image);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
-  }
+
 
   /**
    * Enables multi-selection in the tableview.

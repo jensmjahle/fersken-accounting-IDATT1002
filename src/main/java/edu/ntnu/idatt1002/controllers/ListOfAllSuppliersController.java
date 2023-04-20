@@ -31,7 +31,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Controller for the list of all suppliers fxml file. Shows a table of suppliers to the user.
@@ -40,7 +43,7 @@ import javafx.stage.Stage;
 public class ListOfAllSuppliersController implements Initializable {
 
   @FXML
-  private ImageView infoIcon;
+  private Pane informationPane;
   @FXML
   private Button deleteButton;
   @FXML
@@ -104,7 +107,6 @@ public class ListOfAllSuppliersController implements Initializable {
     updateTable();
     disableButtonsWhileInvalid();
     enableMultiSelection();
-    enableInformationIcon();
     installToolTip();
   }
 
@@ -156,20 +158,6 @@ public class ListOfAllSuppliersController implements Initializable {
 
   }
 
-  @FXML
-  private void editButtonClicked() {
-
-    List<Contact> selectedSuppliers = supplierTable.getSelectionModel().getSelectedItems();
-    if (selectedSuppliers.size() != 1) {
-      Alert alert = new Alert(AlertType.WARNING, "Can only edit 1 item at once");
-      alert.showAndWait();
-      return;
-    }
-    //TODO add editing button functionality
-
-    updateTable();
-
-  }
 
   /**
    * Enables the disabling of buttons when their actions are not possible to perform.
@@ -200,18 +188,6 @@ public class ListOfAllSuppliersController implements Initializable {
         supplierTable.getSelectionModel().getSelectedItems());
   }
 
-  /**
-   * Installs a tooltip to the info icon to show the user how to use the controls for deleting and
-   * editing objects.
-   */
-  public void installToolTip() {
-    Tooltip tooltip = new Tooltip("""
-        Highlight supplier : left click
-        Unhighlight supplier : press left click on a marked supplier
-        Mark multiple supplier : hold ctrl while highlighting
-        """);
-    Tooltip.install(infoIcon, tooltip);
-  }
 
   /**
    * Enables multi-selection in the tableview.
@@ -223,13 +199,14 @@ public class ListOfAllSuppliersController implements Initializable {
   /**
    * Adds an information icon to the current scene.
    */
-  private void enableInformationIcon() {
-    try {
-      File imageFile = new File("src/main/resources/Icons/icon_information.png");
-      Image image = new Image(imageFile.toURI().toString());
-      infoIcon.setImage(image);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
+  private void installToolTip() {
+    Tooltip tooltip = new Tooltip("""
+        Highlight sale : left click
+        Unhighlight sdale : press left click on a marked sale
+        Mark multiple sales : hold ctrl while highlighting
+        """);
+    tooltip.setFont(Font.font(20));
+    tooltip.setShowDelay(Duration.ZERO);
+    Tooltip.install(informationPane, tooltip);
   }
 }
