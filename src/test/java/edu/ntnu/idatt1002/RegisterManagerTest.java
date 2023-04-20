@@ -3,12 +3,14 @@ package edu.ntnu.idatt1002;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import edu.ntnu.idatt1002.registers.BudgetRegister;
 import edu.ntnu.idatt1002.registers.ContactRegister;
 import edu.ntnu.idatt1002.registers.ExpenseRegister;
 import edu.ntnu.idatt1002.registers.SaleRegister;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,23 +21,30 @@ class RegisterManagerTest {
   RegisterManager registerManager;
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
     registerManager = RegisterManager.getInstance();
+    User user = new User("TestUser123456789", "testPassword123");
+    if (!registerManager.getUserRegister().userNameExists(user.getUserName())) {
+      RegisterManager.getInstance().getUserRegister().addObject(user);
+    }
+    registerManager.setUserName("TestUser123456789");
   }
 
   @AfterEach
-  void tearDown() {
+  void tearDown() throws NoSuchAlgorithmException, InvalidKeySpecException {
+    RegisterManager.getInstance().getUserRegister()
+        .removeObject(new User("TestUser123456789", "testPassword123"));
   }
 
   @Test
   @DisplayName("getInstance() returns same instance")
-  void getInstance() {
+  void shouldGetInstance() {
     RegisterManager instance1 = RegisterManager.getInstance();
     RegisterManager instance2 = registerManager;
+
     assertSame(instance1, instance2);
 
     assertNotNull(instance1);
-    assertTrue(instance1 instanceof RegisterManager);
 
   }
 
@@ -47,7 +56,7 @@ class RegisterManagerTest {
     assertSame(instance1, instance2);
 
     assertNotNull(instance1);
-    assertTrue(registerManager.getBudgetRegister() instanceof BudgetRegister);
+    assertNotNull(registerManager.getBudgetRegister());
   }
 
 
@@ -59,27 +68,25 @@ class RegisterManagerTest {
     assertSame(instance1, instance2);
 
     assertNotNull(instance1);
-    assertTrue(registerManager.getSaleRegister() instanceof SaleRegister);
+    assertNotNull(registerManager.getSaleRegister());
   }
 
   @Test
   @DisplayName("ExpenseRegister singleton instance is returned by getExpenseRegister()")
   void shouldGetExpenseRegister() {
     ExpenseRegister instance1 = registerManager.getExpenseRegister();
-    ExpenseRegister instance2 = registerManager.getExpenseRegister();
 
     assertNotNull(instance1);
-    assertTrue(registerManager.getExpenseRegister() instanceof ExpenseRegister);
+    assertNotNull(registerManager.getExpenseRegister());
   }
 
   @Test
   @DisplayName("CustomerRegister singleton instance is returned by getCostumerRegister()")
   void shouldGetCustomerRegister() {
     ContactRegister instance1 = registerManager.getCustomerRegister();
-    ContactRegister instance2 = registerManager.getCustomerRegister();
 
     assertNotNull(instance1);
-    assertTrue(registerManager.getCustomerRegister() instanceof ContactRegister);
+    assertNotNull(registerManager.getCustomerRegister());
   }
 
   @Test
@@ -90,7 +97,7 @@ class RegisterManagerTest {
     assertSame(instance1, instance2);
 
     assertNotNull(instance1);
-    assertTrue(registerManager.getSupplierRegister() instanceof ContactRegister);
+    assertNotNull(registerManager.getSupplierRegister());
   }
 
   @Test

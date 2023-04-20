@@ -14,9 +14,9 @@ public class ContactTest {
 
   @BeforeEach
   void setUp(){
-    contact = new Contact("name", "email", "street", 1,
-        "12345678", "00000000000", "1234");
-    contactWithOrganizationNumber = new Contact("name", "email", "street", 1,
+    contact = new Contact("name", "email@email.com", "street", 1,
+        "12345678", "00000000000", "1234", "1234");
+    contactWithOrganizationNumber = new Contact("name", "email@email.com", "street", 1,
         "12345678", "00000000000", "1234", "12345");
   }
 
@@ -26,14 +26,14 @@ public class ContactTest {
     @Test
     @DisplayName("Create contact without organization number")
     void createContactWithoutOrganizationNumber(){
-      assertDoesNotThrow(() -> {Contact contact = new Contact("name", "email", "street", 1,
-          "12345678", "00000000000", "1234");});
+      assertDoesNotThrow(() -> {Contact contact = new Contact("name", "email@email.com", "street", 1,
+          "12345678", "00000000000", "1234", "1234");});
     }
 
     @Test
     @DisplayName("Create contact with organization number")
     void createContactWithOrganizationNumber(){
-      assertDoesNotThrow(() -> {Contact contact = new Contact("name", "email", "street", 1,
+      assertDoesNotThrow(() -> {Contact contact = new Contact("name", "email@email.com", "street", 1,
           "12345678", "00000000000", "1234", "123");});
     }
 
@@ -41,9 +41,9 @@ public class ContactTest {
     @Test
     @DisplayName("Empty name throws IllegalArgumentException")
     void emptyNameThrowsIllegalArgumentException() {
-      assertThrows(IllegalArgumentException.class, () -> new Contact("", "email",
+      assertThrows(IllegalArgumentException.class, () -> new Contact("", "email@email.com",
           "street", 1, "12345678",
-          "00000000000", "1234"));
+          "00000000000", "1234", "1234"));
     }
 
     @Test
@@ -51,15 +51,15 @@ public class ContactTest {
     void emptyEMailThrowsIllegalArgumentException() {
       assertThrows(IllegalArgumentException.class, () -> new Contact("name", "",
           "street", 1, "12345678",
-          "00000000000", "1234"));
+          "00000000000", "1234", "1234"));
     }
 
     @Test
     @DisplayName("Empty phone number throws IllegalArgumentException")
     void emptyPhoneNumberThrowsIllegalArgumentException() {
-      assertThrows(IllegalArgumentException.class, () -> new Contact("name", "email",
+      assertThrows(IllegalArgumentException.class, () -> new Contact("name", "email@email.com",
           "street", 1, "",
-          "00000000000", "1234"));
+          "00000000000", "1234", "1234"));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class ContactTest {
     @Test
     @DisplayName("Should get e-mail")
     void shouldGetEmail() {
-      String expected = "email";
+      String expected = "email@email.com";
       String actual = contact.getEmail();
       assertEquals(expected, actual);
     }
@@ -161,10 +161,10 @@ public class ContactTest {
     @Test
     @DisplayName("Contacts should be equal")
     void contactsShouldBeEqual() {
-      Contact contact1 = new Contact("name", "email", "street", 1,
-          "12345678", "00000000000", "1234");
-      Contact contact2 = new Contact("name", "email", "street", 1,
-          "12345678", "00000000000", "1234");
+      Contact contact1 = new Contact("name", "email@email.com", "street", 1,
+          "12345678", "00000000000", "1234", "1234");
+      Contact contact2 = new Contact("name", "email@email.com", "street", 1,
+          "12345678", "00000000000", "1234", "1234");
 
       assertEquals(contact1, contact2);
     }
@@ -172,10 +172,10 @@ public class ContactTest {
     @Test
     @DisplayName("Contacts should not be equal")
     void contactsShouldNotBeEqual(){
-      Contact contact1 = new Contact("name", "email", "street", 1,
-          "12345678", "00000000000", "1234");
-      Contact contact2 = new Contact("unequal name", "unequal email", "a", 2,
-          "12345678", "00000000000", "1234");
+      Contact contact1 = new Contact("name", "email@email.com", "street", 1,
+          "12345678", "00000000000", "1234", "1234");
+      Contact contact2 = new Contact("unequal name", "email@otheremail.com", "a", 2,
+          "12345678", "00000000000", "1234", "1234");
 
       assertNotEquals(contact1, contact2);
     }

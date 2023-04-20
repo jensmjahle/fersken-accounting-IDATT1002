@@ -3,6 +3,7 @@ package edu.ntnu.idatt1002.registers;
 import edu.ntnu.idatt1002.Budget;
 import edu.ntnu.idatt1002.Contact;
 import edu.ntnu.idatt1002.Expense;
+import edu.ntnu.idatt1002.RegisterManager;
 import edu.ntnu.idatt1002.Sale;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +36,7 @@ class BudgetRegisterTest {
     sales = new ArrayList<>();
     budget = new Budget("Project");
     date = new Date();
-    contact = new Contact("name", "email", "street", 12, "12345678", "11111111111", "7043");
+    contact = new Contact("name", "email@email.com", "street", 12, "12345678", "11111111111", "7043", "1234");
     Sale sale = new Sale(contact, date, "product", "22222222222", 100);
     file = new File("BudgetTest");
     budgetRegister = new BudgetRegister(file.getPath());
