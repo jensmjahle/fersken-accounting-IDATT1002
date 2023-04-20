@@ -13,84 +13,102 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-
-<BorderPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f6d992;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.CreateUserController">
-   <right>
-      <AnchorPane prefHeight="454.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-         <children>
-       <TextField fx:id="userNameTextField" layoutX="117.0" layoutY="215.0" promptText="Username" />
-       <PasswordField fx:id="passwordTextField" layoutX="117.0" layoutY="277.0" promptText="New password" />
-       <PasswordField fx:id="secondaryPasswordTextField" layoutX="117.0" layoutY="340.0" promptText="Confirm password" />
-            <Label layoutX="70.0" layoutY="108.0" text="Create new account" underline="true">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="43.0" fitWidth="48.0" layoutX="70.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Icons/Sample_User_Icon.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="67.0" fitWidth="69.0" layoutX="58.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Icons/lock-icon.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="67.0" fitWidth="69.0" layoutX="58.0" layoutY="249.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Icons/lock-icon.png" />
-               </image>
-            </ImageView>
-            <Button alignment="CENTER" layoutX="138.0" layoutY="434.0" mnemonicParsing="false" onMouseClicked="#onCreateUserClicked" prefHeight="43.0" prefWidth="151.0" style="-fx-background-color: #57de5b; -fx-border-width: 2; -fx-border-color: #000000;" text="Continue" underline="true">
-               <font>
-                  <Font name="Verdana" size="20.0" />
-               </font>
-            </Button>
-            <Button alignment="CENTER" layoutX="116.0" layoutY="526.0" mnemonicParsing="false" onMouseClicked="#switchToLoginScene" prefHeight="43.0" prefWidth="194.0" style="-fx-background-color: #76b5c5; -fx-border-width: 2; -fx-border-color: #000000;" text="Return to login">
-               <font>
-                  <Font name="Verdana" size="20.0" />
-               </font>
-            </Button>
-            <Label layoutX="205.0" layoutY="488.0" text="or" textFill="#495599">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </right>
-   <left>
-      <AnchorPane prefHeight="600.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-         <children>
-            <Rectangle height="600.0" smooth="false" stroke="#ffcaca" strokeType="INSIDE" strokeWidth="0.0" width="400.0">
-               <fill>
-                  <LinearGradient endX="0.3783749964975786" endY="0.116149691489002" startY="0.22274881516587677">
-                     <stops>
-                        <Stop>
-                           <color>
-                              <Color red="0.9647058844566345" green="0.6313725709915161" blue="0.572549045085907" />
-                           </color>
-                        </Stop>
-                        <Stop offset="1.0">
-                           <color>
-                              <Color red="0.9647058844566345" green="0.8509804010391235" blue="0.572549045085907" />
-                           </color>
-                        </Stop>
-                     </stops>
-                  </LinearGradient>
-               </fill>
-            </Rectangle>
-            <ImageView fitHeight="419.0" fitWidth="399.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Icons/logo_transparent.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="60.0" layoutY="214.0" prefHeight="151.0" prefWidth="279.0" text="&quot;Accelerating business accounting since 2023 - Streamline your finances and boost your productivity with Fersken Regnskap.&quot;" textFill="#495599" wrapText="true">
-               <font>
-                  <Font name="System Italic" size="12.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </left>
+<BorderPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f6d992;"
+  xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="edu.ntnu.idatt1002.controllers.CreateUserController">
+  <right>
+    <AnchorPane prefHeight="454.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+      <children>
+        <TextField fx:id="userNameTextField" layoutX="117.0" layoutY="215.0" promptText="Username"/>
+        <PasswordField fx:id="passwordTextField" layoutX="117.0" layoutY="277.0"
+          promptText="New password"/>
+        <PasswordField fx:id="secondaryPasswordTextField" layoutX="117.0" layoutY="340.0"
+          promptText="Confirm password"/>
+        <Label layoutX="70.0" layoutY="108.0" text="Create new account" underline="true">
+          <font>
+            <Font size="28.0"/>
+          </font>
+        </Label>
+        <ImageView fitHeight="43.0" fitWidth="48.0" layoutX="70.0" layoutY="206.0"
+          pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../Icons/Sample_User_Icon.png"/>
+          </image>
+        </ImageView>
+        <ImageView fitHeight="67.0" fitWidth="69.0" layoutX="58.0" layoutY="319.0"
+          pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../Icons/lock-icon.png"/>
+          </image>
+        </ImageView>
+        <ImageView fitHeight="67.0" fitWidth="69.0" layoutX="58.0" layoutY="249.0"
+          pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../Icons/lock-icon.png"/>
+          </image>
+        </ImageView>
+        <Button alignment="CENTER" layoutX="138.0" layoutY="434.0" mnemonicParsing="false"
+          onMouseClicked="#onCreateUserClicked" prefHeight="43.0" prefWidth="151.0"
+          style="-fx-background-color: #57de5b; -fx-border-width: 2; -fx-border-color: #000000;"
+          text="Continue" underline="true">
+          <font>
+            <Font name="Verdana" size="20.0"/>
+          </font>
+        </Button>
+        <Button alignment="CENTER" layoutX="116.0" layoutY="526.0" mnemonicParsing="false"
+          onMouseClicked="#switchToLoginScene" prefHeight="43.0" prefWidth="194.0"
+          style="-fx-background-color: #76b5c5; -fx-border-width: 2; -fx-border-color: #000000;"
+          text="Return to login">
+          <font>
+            <Font name="Verdana" size="20.0"/>
+          </font>
+        </Button>
+        <Label layoutX="205.0" layoutY="488.0" text="or" textFill="#495599">
+          <font>
+            <Font name="System Bold" size="16.0"/>
+          </font>
+        </Label>
+      </children>
+    </AnchorPane>
+  </right>
+  <left>
+    <AnchorPane prefHeight="600.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+      <children>
+        <Rectangle height="600.0" smooth="false" stroke="#ffcaca" strokeType="INSIDE"
+          strokeWidth="0.0" width="400.0">
+          <fill>
+            <LinearGradient endX="0.3783749964975786" endY="0.116149691489002"
+              startY="0.22274881516587677">
+              <stops>
+                <Stop>
+                  <color>
+                    <Color red="0.9647058844566345" green="0.6313725709915161"
+                      blue="0.572549045085907"/>
+                  </color>
+                </Stop>
+                <Stop offset="1.0">
+                  <color>
+                    <Color red="0.9647058844566345" green="0.8509804010391235"
+                      blue="0.572549045085907"/>
+                  </color>
+                </Stop>
+              </stops>
+            </LinearGradient>
+          </fill>
+        </Rectangle>
+        <ImageView fitHeight="419.0" fitWidth="399.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../Icons/logo_transparent.png"/>
+          </image>
+        </ImageView>
+        <Label layoutX="60.0" layoutY="214.0" prefHeight="151.0" prefWidth="279.0"
+          text="&quot;Accelerating business accounting since 2023 - Streamline your finances and boost your productivity with Fersken Regnskap.&quot;"
+          textFill="#495599" wrapText="true">
+          <font>
+            <Font name="System Italic" size="12.0"/>
+          </font>
+        </Label>
+      </children>
+    </AnchorPane>
+  </left>
 </BorderPane>

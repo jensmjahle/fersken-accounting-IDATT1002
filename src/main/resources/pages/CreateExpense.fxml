@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
   prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f6d992;"
-  xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+  xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
   fx:controller="edu.ntnu.idatt1002.controllers.CreateExpenseController">
   <left>
     <AnchorPane prefHeight="600.0" prefWidth="400.0" BorderPane.alignment="CENTER">
@@ -100,13 +100,14 @@
         </font>
       </Label>
       <DatePicker fx:id="datePicker" layoutX="13.0" layoutY="319.0" prefHeight="30.0"
-        prefWidth="295.0" promptText="Date of expense" showWeekNumbers="true"/>
+        prefWidth="295.0" promptText="Date of expense" showWeekNumbers="true"
+        style="-fx-border-color: #000000;"/>
       <TextField fx:id="productTextField" layoutX="13.0" layoutY="219.0" prefHeight="30.0"
-        prefWidth="296.0" promptText="Product"/>
+        prefWidth="296.0" promptText="Product" style="-fx-border-color: #000000;"/>
       <TextField fx:id="amountTextField" layoutX="13.0" layoutY="269.0" prefHeight="30.0"
-        prefWidth="295.0" promptText="Amount"/>
+        prefWidth="295.0" promptText="Amount" style="-fx-border-color: #000000;"/>
       <ComboBox fx:id="supplierComboBox" layoutX="16.0" layoutY="368.0" prefHeight="30.0"
-        prefWidth="290.0"/>
+        prefWidth="290.0" style="-fx-border-color: #000000;"/>
       <Button alignment="CENTER" layoutX="13.0" layoutY="526.0" mnemonicParsing="false"
         onMouseClicked="#clearAllFields" prefHeight="43.0" prefWidth="206.0"
         style="-fx-background-color: #76b5c5; -fx-border-width: 2; -fx-border-color: #000000;"
