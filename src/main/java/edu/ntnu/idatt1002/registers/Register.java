@@ -8,44 +8,46 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * This class is a super class for all register classes.
- * It stores data of objects that must be defined in subclasses.
+ * This class is a super class for all register classes. It stores data of objects that must be
+ * defined in subclasses.
  *
  * @param <T> Object type of witch the register stores. Must be defined in subclasses.
  */
-public class Register <T>{
+public class Register<T> {
+
   private final String fileName;
   private final List<T> objectRegister;
+  private static final Logger LOGGER = Logger.getLogger(Register.class.getName());
 
   /**
-   * Constructor for the super class that is used to create instances of subclasses of Register.
-   * It reads data stored in resources from the given file name if the file exists.
-   * This data is then added to the register.
+   * Constructor for the super class that is used to create instances of subclasses of Register. It
+   * reads data stored in resources from the given file name if the file exists. This data is then
+   * added to the register.
    *
    * @param fileName The file name of where to store the register. Used as filepath
    */
-  protected Register(String fileName){
+  protected Register(String fileName) {
     Objects.requireNonNull(fileName, "File name cannot be null");
-    this.fileName = "src/main/resources/registers/" + Objects.requireNonNull(fileName, "File name cannot be null.") + ".txt";
-      objectRegister = new ArrayList<>(readFiles());
+    this.fileName = "src/main/resources/registers/" + Objects.requireNonNull(fileName,
+        "File name cannot be null.") + ".txt";
+    objectRegister = new ArrayList<>(readFiles());
   }
 
   /**
-   * This method saves all objects stored in the register to a .txt file in resources.
-   * It uses fileName as the filepath.
+   * This method saves all objects stored in the register to a .txt file in resources. It uses
+   * fileName as the filepath.
    */
-  public void writeToFile(){
-    try (FileOutputStream output = new FileOutputStream(fileName)){
+  public void writeToFile() {
+    try (FileOutputStream output = new FileOutputStream(fileName)) {
 
       ObjectOutputStream objectOutput = new ObjectOutputStream(output);
 
-
       objectOutput.writeObject(objectRegister);
-
       objectOutput.close();
-
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -53,44 +55,40 @@ public class Register <T>{
   }
 
   /**
-   * Retrieves a list of objects from a .txt file stored in resources.
-   * It uses fileName as the filepath.
-   * If the file does not exist it wil return an empty ArrayList.
+   * Retrieves a list of objects from a .txt file stored in resources. It uses fileName as the
+   * filepath. If the file does not exist it wil return an empty ArrayList.
    *
    * @return A list of objects from a .txt file if the file exists or an empty ArrayList if not
    */
   private List<T> readFiles() {
     ArrayList<T> fileData = new ArrayList<>();
 
-
-     File file = new File(fileName);
+    File file = new File(fileName);
     if (file.exists()) {
 
-       try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+      try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
 
-         fileData = (ArrayList<T>) ois.readObject();
+        fileData = (ArrayList<T>) ois.readObject();
 
-       } catch (java.io.IOException | ClassNotFoundException e) {
-         e.printStackTrace();
+      } catch (java.io.IOException | ClassNotFoundException e) {
+        LOGGER.log(Level.SEVERE, "Error reading files" + e);
+      }
 
-       }
-
-     }
+    }
     return fileData;
   }
 
   /**
-   * This method removes an object of type T from the objectRegister list.
-   * It returns true if the removal is successful and false if the removal is unsuccessful.
+   * This method removes an object of type T from the objectRegister list. It returns true if the
+   * removal is successful and false if the removal is unsuccessful.
    *
    * @param objectToRemove Object to be removed from objectRegister. Object of type T
-   *
    * @return True if the removal is successful and false if the removal is unsuccessful
    */
-  public boolean removeObject(T objectToRemove){
+  public boolean removeObject(T objectToRemove) {
     Objects.requireNonNull(objectToRemove, "Cannot remove null object from register");
-    for (T object : objectRegister){
-      if (object.equals(objectToRemove)){
+    for (T object : objectRegister) {
+      if (object.equals(objectToRemove)) {
         objectRegister.remove(objectToRemove);
         writeToFile();
         return true;
