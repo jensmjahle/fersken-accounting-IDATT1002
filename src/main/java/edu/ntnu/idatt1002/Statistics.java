@@ -33,6 +33,7 @@ public class Statistics {
    * @param month The month used to find the total sale price.
    * @return The total sale price for the specified month
    */
+  @SuppressWarnings({"deprecation", "MagicConstant"})
   public double getSaleTotalForMonth(YearMonth month) {
     return saleRegister.getObjects().stream()
         .filter(sale -> sale.getDate() != null)
@@ -48,6 +49,7 @@ public class Statistics {
    * @param month The month used to find the total expense cost.
    * @return The total expense cost for the specified month
    */
+  @SuppressWarnings({"deprecation", "MagicConstant"})
   public double getExpenseTotalForMonth(YearMonth month) {
     return expenseRegister.getObjects().stream().filter(
             expense -> expense.getDate() != null
@@ -117,7 +119,6 @@ public class Statistics {
         endDate);
   }
 
-
   /**
    * Finds out the total sales amount for a specified date.
    *
@@ -135,6 +136,7 @@ public class Statistics {
    * @param year The year used to find the total sale price.
    * @return The total sale price for the specified year
    */
+  @SuppressWarnings("deprecation")
   public double getSaleTotalForYear(Year year) {
     return saleRegister.getObjects().stream()
         .filter(sale -> sale.getDate() != null)
@@ -148,6 +150,7 @@ public class Statistics {
    * @param year The year used to find the total sale price.
    * @return The total expense costs for the specified year
    */
+  @SuppressWarnings("deprecation")
   public double getExpenseTotalForYear(Year year) {
     return expenseRegister.getObjects().stream()
         .filter(expense -> expense.getDate() != null)
@@ -155,6 +158,11 @@ public class Statistics {
         .mapToDouble(Expense::getAmount).sum();
   }
 
+  /**
+   * Finds the total difference between the sale sum and expense sum for a specified year.
+   * @param year The year used to calculate the total difference for.
+   * @return the total difference between the sale sum and expense sum for a specified year.
+   */
   public double getDifferenceTotalForYear(Year year) {
     return getSaleTotalForYear(year) - getExpenseTotalForYear(year);
   }
