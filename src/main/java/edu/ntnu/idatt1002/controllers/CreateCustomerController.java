@@ -11,6 +11,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Represents a controller used to create a customer, used in the "createCustomer" fxml file.
+ */
 public class CreateCustomerController {
 
 
@@ -35,6 +38,13 @@ public class CreateCustomerController {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
+  /**
+   * Creates a customer object and adds it to the register.
+   *
+   * @throws IllegalArgumentException If the fields are empty or the customer cannot be created with
+   *                                  selected values.
+   * @throws NullPointerException     If any of the constructor inputs are null
+   */
   public void createCustomer() throws IllegalArgumentException, NullPointerException {
     if (nameField.getText().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be empty");
@@ -74,14 +84,16 @@ public class CreateCustomerController {
         postCode, organizationNumber);
     RegisterManager.getInstance().getCustomerRegister().addObject(newCustomer);
     clearAllFields();
-
-
   }
 
+  /**
+   * Tries to create a customer, if it's not able to, an error message will be shown to the user
+   * with the cause of error.
+   */
   public void onCreateCustomer() {
     try {
       createCustomer();
-    } catch (NumberFormatException e){
+    } catch (NumberFormatException e) {
       Alert alert = new Alert(AlertType.WARNING, e.getMessage() + " is not a valid number");
       alert.showAndWait();
 
@@ -91,7 +103,9 @@ public class CreateCustomerController {
     }
   }
 
-
+  /**
+   * Clears all input fields of selected data.
+   */
   public void clearAllFields() {
     nameField.clear();
     emailField.clear();

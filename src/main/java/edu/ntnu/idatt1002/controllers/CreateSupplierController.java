@@ -11,6 +11,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Represents a controller used to create a supplier, used in the "createSupplier" fxml file.
+ */
 public class CreateSupplierController {
 
 
@@ -31,10 +34,22 @@ public class CreateSupplierController {
   @FXML
   private TextField streetNumberField;
 
+  /**
+   * Loads the main menu fxml into the scene.
+   *
+   * @param event event that triggers the method execution
+   * @throws IOException if there is an error loading the main menu
+   */
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
+  /**
+   * Creates a supplier if all input fields have valid fields.
+   *
+   * @throws IllegalArgumentException If input fields are empty or the supplier cannot be created
+   *                                  because of restrictions in constructor
+   */
   public void createSupplier() throws IllegalArgumentException {
     if (nameField.getText().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be empty");
@@ -77,19 +92,25 @@ public class CreateSupplierController {
 
   }
 
+  /**
+   * Tries to create a supplier, if it's not possible, an alert will be shown to the user
+   */
   public void onCreateSupplier() {
     try {
       createSupplier();
-    } catch (NumberFormatException e){
+    } catch (NumberFormatException e) {
       Alert alert = new Alert(AlertType.WARNING, e.getMessage() + " is not a valid number");
       alert.showAndWait();
 
-    } catch (IllegalArgumentException e) {
+    } catch (Exception e) {
       Alert alert = new Alert(AlertType.WARNING, "Cannot save Customer because: " + e.getMessage());
       alert.showAndWait();
     }
   }
 
+  /**
+   * Clears all input fields
+   */
   public void clearAllFields() {
     nameField.clear();
     emailField.clear();
