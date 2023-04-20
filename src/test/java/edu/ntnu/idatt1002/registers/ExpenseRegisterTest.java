@@ -32,7 +32,7 @@ class ExpenseRegisterTest {
 
     expenseRegister = new ExpenseRegister(file.getPath());
     date = new Date();
-    contact = new Contact("name", "email", "street", 12, "12345678", "11111111111", "7043");
+    contact = new Contact("name", "email@email.com", "street", 12, "12345678", "11111111111", "7043", "1234");
     expense = new Expense(contact, 150, date, "product");
   }
 
