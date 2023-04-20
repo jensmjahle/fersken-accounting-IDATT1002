@@ -13,7 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 public class EditSaleController extends CreateSaleController {
 
   @FXML
-  private ChoiceBox<String> customerChoiceBox;
+  private ComboBox<String> customerComboBox;
   @FXML
   private DatePicker datePicker;
   @FXML
@@ -52,21 +52,21 @@ public class EditSaleController extends CreateSaleController {
    */
   @Override
   public void initialize() {
-    fillCustomerChoiceBox();
+    fillContactBox();
   }
 
   /**
    * Tries to create a new sale. If the sale is created the old sale will be deleted.
    */
   @FXML
-  private void replaceSale(MouseEvent event) throws IOException{
+  private void replaceSale(MouseEvent event) throws IOException {
 
     try {
 
       createSale();
       RegisterManager.getInstance().getSaleRegister().removeObject(sale);
       switchToListOfSales(event);
-    } catch (NumberFormatException e){
+    } catch (NumberFormatException e) {
       Alert alert = new Alert(AlertType.WARNING, e.getMessage() + " is not a valid number");
       alert.showAndWait();
 
@@ -85,7 +85,8 @@ public class EditSaleController extends CreateSaleController {
    */
   @FXML
   public void switchToListOfSales(MouseEvent mouseEvent) throws IOException {
-    Parent root = FXMLLoader.load(PathUtility.getResourcePath(View.LIST_OF_ALL_SALES.getFileName()));
+    Parent root = FXMLLoader.load(
+        PathUtility.getResourcePath(View.LIST_OF_ALL_SALES.getFileName()));
     Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setScene(scene);
@@ -98,8 +99,7 @@ public class EditSaleController extends CreateSaleController {
   @FXML
   public void fillFieldsWithCurrentInfo() {
     try {
-      customerChoiceBox.setValue(sale.getCustomerName());
-
+      customerComboBox.setValue(sale.getCustomerName());
 
       datePicker.setValue(sale.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
       accountTextField.setText(sale.getReceiverAccount());

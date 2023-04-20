@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -27,8 +28,7 @@ import javafx.stage.Stage;
 public class EditExpenseController extends CreateExpenseController {
 
   @FXML
-  private ChoiceBox<String> supplierChoiceBox;
-
+  private ComboBox<String> supplierComboBox;
   @FXML
   private TextField amountTextField;
   @FXML
@@ -53,7 +53,7 @@ public class EditExpenseController extends CreateExpenseController {
    */
 
   public void initialize() {
-    fillSupplierChoiceBox();
+    fillSupplierComboBox();
   }
 
   /**
@@ -99,7 +99,8 @@ public class EditExpenseController extends CreateExpenseController {
   @FXML
   public void fillFieldsWithCurrentInfo() {
     try {
-      supplierChoiceBox.setValue(expense.getSupplierName());
+      supplierComboBox.setEditable(true);
+      supplierComboBox.setValue(expense.getSupplierName());
       amountTextField.setText(String.valueOf(expense.getAmount()));
       datePicker.setValue(
           expense.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
@@ -112,10 +113,10 @@ public class EditExpenseController extends CreateExpenseController {
   }
 
 
-  public void fillSupplierChoiceBox() {
+  public void fillSupplierComboBox() {
     ContactRegister contactRegister = RegisterManager.getInstance().getSupplierRegister();
     for (Contact contact : contactRegister.getObjects()) {
-      supplierChoiceBox.getItems().add(contact.getName());
+      supplierComboBox.getItems().add(contact.getName());
     }
   }
 }
