@@ -17,26 +17,6 @@ public class Contact implements Serializable {
   private String accountNumber;
   private String postCode;
 
-  /**
-   * Creates an instance of the contact object without organization number.
-   *
-   * @param name          The name of the contact.
-   * @param email         The e-mail of the contact.
-   * @param street        The street name of the address of the contact.
-   * @param streetNumber  The street number of the address of the contact. Should not be negative or
-   *                      equal to zero.
-   * @param phoneNumber   The phone number that can be used to contact the contact. Should be 8
-   *                      digits long.
-   * @param accountNumber The account number of the contact. Should be 11 digits long.
-   * @param postCode      The postCode of the address of the contact. Should be 4 digits long.
-   * @throws IllegalArgumentException if the name, email, phone number, account number, post code or
-   *                                  organization number are in the wrong format.
-   */
-  public Contact(String name, String email, String street, int streetNumber, String phoneNumber,
-                 String accountNumber, String postCode) throws IllegalArgumentException {
-
-    this(name, email, street, streetNumber, phoneNumber, accountNumber, postCode, "");
-  }
 
   /**
    * Creates an instance of the Contact object with organization number.
