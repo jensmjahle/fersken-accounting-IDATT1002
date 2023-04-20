@@ -31,7 +31,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Controller for the list of all customers fxml file. Shows a table of suppliers to the user.
@@ -39,6 +42,7 @@ import javafx.stage.Stage;
  */
 public class ListOfAllCustomersController implements Initializable {
 
+  public Pane informationPane;
   @FXML
   private Button deleteButton;
   @FXML
@@ -89,7 +93,7 @@ public class ListOfAllCustomersController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     updateTable();
     disableButtonsWhileInvalid();
-    enableInformationIcon();
+
     enableMultiSelection();
     installToolTip();
   }
@@ -181,21 +185,11 @@ public class ListOfAllCustomersController implements Initializable {
         Unhighlight customer : press left click on a marked customer
         Mark multiple customer : hold ctrl while highlighting
         """);
+    tooltip.setFont(Font.font(20));
+    tooltip.setShowDelay(Duration.ZERO);
     Tooltip.install(infoIcon, tooltip);
   }
 
-  /**
-   * Adds an information icon to the current scene.
-   */
-  private void enableInformationIcon() {
-    try {
-      File imageFile = new File("src/main/resources/Icons/icon_information.png");
-      Image image = new Image(imageFile.toURI().toString());
-      infoIcon.setImage(image);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
-  }
 
   /**
    * Enables multi-selection in the tableview.

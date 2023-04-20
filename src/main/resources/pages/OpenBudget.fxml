@@ -7,50 +7,62 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.OpenBudgetController">
-   <top>
-      <Pane prefHeight="108.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="budgetNameField" layoutX="336.0" layoutY="21.0" text="Budget">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Button layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onMousePressed="#switchToListOfAllBudgetsScene" text="Return" />
-         </children>
-      </Pane>
-   </top>
-   <center>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-         <children>
-            <TableView fx:id="expensesTableView" layoutX="14.0" layoutY="78.0" prefHeight="405.0" prefWidth="380.0">
-              <columns>
-                <TableColumn fx:id="expenseSupplierColumn" prefWidth="95.0" resizable="false" text="Supplier" />
-                <TableColumn fx:id="expenseDateColumn" prefWidth="95.0" resizable="false" text="Date" />
-                  <TableColumn fx:id="expenseAmountColumn" prefWidth="95.0" resizable="false" text="Amount" />
-                  <TableColumn fx:id="expenseProductColumn" prefWidth="95.0" resizable="false" text="Product" />
-              </columns>
-            </TableView>
-            <TableView fx:id="incomeTableView" layoutX="411.0" layoutY="78.0" prefHeight="405.0" prefWidth="380.0">
-              <columns>
-                <TableColumn fx:id="incomeCustomerColumn" prefWidth="95.0" resizable="false" text="Customer" />
-                <TableColumn fx:id="incomeDateColumn" prefWidth="95.0" resizable="false" text="Date" />
-                  <TableColumn fx:id="incomeAmountColumn" prefWidth="95.0" resizable="false" text="Amount" />
-                  <TableColumn fx:id="incomeProductColumn" prefWidth="95.0" resizable="false" text="Product" />
-              </columns>
-            </TableView>
-            <Label layoutX="144.0" layoutY="34.0" text="Expenses">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="556.0" layoutY="34.0" text="Income">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-   </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="edu.ntnu.idatt1002.controllers.OpenBudgetController">
+  <top>
+    <Pane prefHeight="108.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <children>
+        <Label fx:id="budgetNameField" layoutX="336.0" layoutY="21.0" text="Budget">
+          <font>
+            <Font size="40.0"/>
+          </font>
+        </Label>
+        <Button layoutX="14.0" layoutY="25.0" mnemonicParsing="false"
+          onMousePressed="#switchToListOfAllBudgetsScene" text="Return"/>
+      </children>
+    </Pane>
+  </top>
+  <center>
+    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="500.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <children>
+        <TableView fx:id="expensesTableView" layoutX="14.0" layoutY="78.0" prefHeight="405.0"
+          prefWidth="380.0">
+          <columns>
+            <TableColumn fx:id="expenseSupplierColumn" prefWidth="95.0" resizable="false"
+              text="Supplier"/>
+            <TableColumn fx:id="expenseDateColumn" prefWidth="95.0" resizable="false" text="Date"/>
+            <TableColumn fx:id="expenseAmountColumn" prefWidth="95.0" resizable="false"
+              text="Amount"/>
+            <TableColumn fx:id="expenseProductColumn" prefWidth="95.0" resizable="false"
+              text="Product"/>
+          </columns>
+        </TableView>
+        <TableView fx:id="incomeTableView" layoutX="411.0" layoutY="78.0" prefHeight="405.0"
+          prefWidth="380.0">
+          <columns>
+            <TableColumn fx:id="incomeCustomerColumn" prefWidth="95.0" resizable="false"
+              text="Customer"/>
+            <TableColumn fx:id="incomeDateColumn" prefWidth="95.0" resizable="false" text="Date"/>
+            <TableColumn fx:id="incomeAmountColumn" prefWidth="95.0" resizable="false"
+              text="Amount"/>
+            <TableColumn fx:id="incomeProductColumn" prefWidth="95.0" resizable="false"
+              text="Product"/>
+          </columns>
+        </TableView>
+        <Label layoutX="144.0" layoutY="34.0" text="Expenses">
+          <font>
+            <Font size="25.0"/>
+          </font>
+        </Label>
+        <Label layoutX="556.0" layoutY="34.0" text="Income">
+          <font>
+            <Font size="25.0"/>
+          </font>
+        </Label>
+      </children>
+    </Pane>
+  </center>
 </BorderPane>
