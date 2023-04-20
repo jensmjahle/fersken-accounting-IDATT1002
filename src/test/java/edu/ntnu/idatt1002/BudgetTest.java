@@ -18,8 +18,8 @@ public class BudgetTest {
   void setUpBudget() {
     budget = new Budget("ProjectTest");
     expense = new Expense(100, new Date(),"product");
-    contact = new Contact("name", "email", "street",
-        12, "12345678", "11111111111", "7043");
+    contact = new Contact("name", "email@email.com", "street",
+        12, "12345678", "11111111111", "7043", "1234");
     sale = new Sale(contact, new Date(), "product", "22222222222", 100);
   }
 

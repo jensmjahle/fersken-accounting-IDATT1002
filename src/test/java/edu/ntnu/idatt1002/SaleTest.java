@@ -1,11 +1,12 @@
 package edu.ntnu.idatt1002;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SaleTest {
 
@@ -17,24 +18,24 @@ class SaleTest {
   @DisplayName("Set up")
   void setUp() {
     date = new Date();
-    contact = new Contact("Name", "abc@email.com","Street", 10, "12345678", "12345678910", "1234");
+    contact = new Contact("Name", "abc@email.com", "Street", 10, "12345678", "12345678910", "1234", "1234");
     sale = new Sale(contact, date, "Product", "98765432111", 100);
   }
 
   @Test
   @DisplayName("Invalid sales amount throws IllegalArgumentException")
-  void invalidSalesAmountThrowsIllegalArgumentException(){
-    assertThrows(IllegalArgumentException.class, () ->
-    {Sale invalidSale = new Sale(contact, date, "Product", "98765432111", -1);
+  void invalidSalesAmountThrowsIllegalArgumentException() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      Sale invalidSale = new Sale(contact, date, "Product", "98765432111", -1);
     });
 
   }
 
   @Test
   @DisplayName("Invalid account number throws IllegalArgumentException")
-  void invalidAccountNumberThrowsIllegalArgumentException(){
-    assertThrows(IllegalArgumentException.class, () ->
-    {Sale invalidSale = new Sale(contact, date, "Product", "12345", 100);
+  void invalidAccountNumberThrowsIllegalArgumentException() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      Sale invalidSale = new Sale(contact, date, "Product", "12345", 100);
     });
 
   }
@@ -43,7 +44,8 @@ class SaleTest {
   @Test
   @DisplayName("Should get customer")
   void shouldGetCustomer() {
-    Contact expected = new Contact("Name", "abc@email.com","Street", 10, "12345678", "12345678910", "1234");
+    Contact expected = new Contact("Name", "abc@email.com", "Street", 10, "12345678", "12345678910",
+        "1234", "1234");
     Contact actual = sale.getContact();
     assertEquals(expected, actual);
   }
@@ -75,7 +77,7 @@ class SaleTest {
 
   @Test
   @DisplayName("Should get date")
-  void shouldGetDate(){
+  void shouldGetDate() {
     Date expected = date;
     Date actual = sale.getDate();
     assertEquals(expected, actual);
@@ -83,13 +85,12 @@ class SaleTest {
 
   @Test
   @DisplayName("Should get ToString")
-  void shouldGetToString(){
-    String expected = "Sale{customer=Contact{name='Name'," +
-        " email='abc@email.com', street='Street', streetNumber=10," +
-        " phoneNumber='12345678', accountNumber='12345678910'," +
-        " postCode='1234', organizationNumber=''}," +
-        " date=" + date.toString() + "," +
-        " product='Product', receiverAccount='98765432111', amount=100.0}";
+  void shouldGetToString() {
+    String expected = "Sale{customer=Contact{name='Name',"
+        + " email='abc@email.com', street='Street', streetNumber=10,"
+        + " phoneNumber='12345678', accountNumber='12345678910',"
+        + " postCode='1234', organizationNumber='1234'}," + " date=" + date.toString() + ","
+        + " product='Product', receiverAccount='98765432111', amount=100.0}";
     String actual = sale.toString();
     assertEquals(expected, actual);
   }

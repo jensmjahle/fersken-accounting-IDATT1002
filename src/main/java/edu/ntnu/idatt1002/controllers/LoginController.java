@@ -12,6 +12,9 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -27,6 +30,10 @@ public class LoginController implements Initializable {
   public TextField userNameTextField;
   public PasswordField passwordTextField;
   private UserRegister userRegister;
+  private int loginAttempts;
+  private int loginDelays;
+  private boolean activeTimer;
+  private static final int maxLoginAttempts = 4;
 
 
   @FXML
@@ -48,6 +55,10 @@ public class LoginController implements Initializable {
   private void login(MouseEvent event)
       throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
 
+    if (loginAttempts > maxLoginAttempts) {
+      handleTooManyLogins();
+    }
+
     if (userNameTextField.getText().isEmpty()) {
       throw new IllegalArgumentException("You have to enter your user name");
     }
@@ -61,14 +72,57 @@ public class LoginController implements Initializable {
     String userName = userNameTextField.getText();
     User currentUser = userRegister.findUserByName(userName);
 
+    checkPassword(event, currentUser);
+
+
+  }
+
+  private void handleTooManyLogins() {
+    int delayMinutes = (int) Math.pow(2, loginDelays);
+    System.out.println(delayMinutes);
+    if (!activeTimer) {
+      loginDelays++;
+      createEnteringDelay(delayMinutes);
+      throw new IllegalArgumentException(
+          "You have tried to log in to many times\nPlease try again in: " + delayMinutes
+              + " minutes");
+    }
+    throw new IllegalArgumentException("The " + delayMinutes + " minute timer is not finished");
+  }
+
+  private void checkPassword(MouseEvent event, User currentUser)
+      throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
     if (Arrays.equals(currentUser.getHash(),
         createHash(passwordTextField.getText(), currentUser.getSalt()))) {
       confirmLoginSuccessful();
       switchToMainMenuScene(event);
 
     } else {
-      throw new IllegalArgumentException("Wrong password or user name");
+      loginAttempts++;
+      int attemptsLeft = 6 - loginAttempts;
+      throw new IllegalArgumentException(
+          "Wrong password or user name\n" + "You have " + attemptsLeft + " attempts left");
     }
+  }
+
+  private void createEnteringDelay(int delayMinutes) {
+
+    Timer timer = new Timer();
+    activeTimer = true;
+
+    TimerTask timerTask = new TimerTask() {
+      @Override
+      public void run() {
+        Platform.runLater(() -> {
+          Alert alert = new Alert(AlertType.CONFIRMATION, "You can now try to log in again");
+          alert.showAndWait();
+          activeTimer = false;
+          loginAttempts = 0;
+        });
+      }
+    };
+
+    timer.schedule(timerTask, delayMinutes * 60L * 1000);
 
 
   }
@@ -88,14 +142,16 @@ public class LoginController implements Initializable {
   }
 
 
-
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     userRegister = RegisterManager.getInstance().getUserRegister();
+    activeTimer = false;
+
+
   }
 
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
-    RegisterManager.getInstance().setUserName(userNameTextField.getText()); 
+    RegisterManager.getInstance().setUserName(userNameTextField.getText());
     ViewManager.switchToScene(event, View.MAIN_MENU);
 
   }

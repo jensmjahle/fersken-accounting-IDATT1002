@@ -24,15 +24,15 @@ class ContactRegisterTest {
   void setUp() {
     file = new File("ContactsTest");
     contactRegister = new ContactRegister("ContactsTest");
-    contact = new Contact("name", "email","street",
-        50,"12345678", "12345678910", "1740");
+    contact = new Contact("name", "email@email.com","street",
+        50,"12345678", "12345678910", "1740", "1234");
   }
 
   @Test
   @DisplayName("Should find contact by name")
   void shouldFindContactByName(){
-    Contact expectedContact = new Contact("ExpectedContact", "email","street",
-        50,"12345678", "12345678910", "1740");
+    Contact expectedContact = new Contact("ExpectedContact", "email@email.com","street",
+        50,"12345678", "12345678910", "1740", "1234");
     contactRegister.addObject(expectedContact);
     Contact actualContact = contactRegister.findContactFromName("ExpectedContact");
 
@@ -65,7 +65,7 @@ class ContactRegisterTest {
   void ShouldNotRemoveContact() {
     contactRegister.addObject(contact);
 
-    Contact unequalContact = new Contact("name2", "email2", "street2", 60, "87654321", "10987654321", "4070");
+    Contact unequalContact = new Contact("name2", "email@email.com", "street2", 60, "87654321", "10987654321", "4070", "1234");
     boolean stateOfRemoval = contactRegister.removeObject(unequalContact);
     assertFalse(stateOfRemoval);
 

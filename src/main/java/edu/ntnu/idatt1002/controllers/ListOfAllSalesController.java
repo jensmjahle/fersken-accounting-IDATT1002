@@ -31,7 +31,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Controller for the list of all sales fxml file. Shows a table of suppliers to the user. Enables
@@ -44,7 +47,7 @@ public class ListOfAllSalesController implements Initializable {
   @FXML
   public Button deleteButton;
   @FXML
-  public ImageView infoIcon;
+  public Pane informationPane;
   @FXML
   private TableView<Sale> salesTableView;
   @FXML
@@ -98,7 +101,6 @@ public class ListOfAllSalesController implements Initializable {
     updateTable();
     disableButtonsWhileInvalid();
     enableMultiSelection();
-    enableInformationIcon();
     installToolTip();
 
 
@@ -111,18 +113,7 @@ public class ListOfAllSalesController implements Initializable {
     salesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
   }
 
-  /**
-   * Adds an information icon to the current scene.
-   */
-  private void enableInformationIcon() {
-    try {
-      File imageFile = new File("src/main/resources/Icons/icon_information.png");
-      Image image = new Image(imageFile.toURI().toString());
-      infoIcon.setImage(image);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
-  }
+
 
   /**
    * Updates the tableview with updated values for the displayed objects.
@@ -204,7 +195,9 @@ public class ListOfAllSalesController implements Initializable {
         Unhighlight sale : press left click on a marked sale
         Mark multiple sales : hold ctrl while highlighting
         """);
-    Tooltip.install(infoIcon, tooltip);
+    tooltip.setFont(Font.font(20));
+    tooltip.setShowDelay(Duration.ZERO);
+    Tooltip.install(informationPane, tooltip);
   }
 
 

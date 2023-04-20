@@ -23,10 +23,14 @@ public class RegisterManager {
   private final UserRegister userRegister;
   private String userName;
 
-  private RegisterManager(){
+  /**
+   * Private singleton constructor for the Register manager. Tries to create a directory for storing
+   * users if it does not already exist. Instantiates the user register.
+   */
+  private RegisterManager() {
     try {
       Files.createDirectories(Path.of("src/main/resources/registers/users"));
-    } catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
     }
     this.userRegister = new UserRegister("users");
@@ -90,16 +94,35 @@ public class RegisterManager {
     return supplierRegister;
   }
 
+  /**
+   * Returns the user register.
+   *
+   * @return the user register.
+   */
   public UserRegister getUserRegister() {
     return userRegister;
   }
 
 
+  /**
+   * Sets a new current user by providing a username, changing the registers to the registers of the
+   * new user.
+   *
+   * @param userName The username of the new user.
+   * @throws IOException If there are any files that are not found.
+   */
   public void setUserName(String userName) throws IOException {
     this.userName = userName;
     createNewRegisters(userName);
   }
 
+  /**
+   * Creates a new directory for the new user if it does not exist. After, it creates a set of all
+   * registers in the new directory
+   *
+   * @param userName The name of the selected user.
+   * @throws IOException If it is impossible to create the new directory.
+   */
   private void createNewRegisters(String userName) throws IOException {
 
     Files.createDirectories(Path.of("src/main/resources/registers/" + userName));
@@ -111,6 +134,11 @@ public class RegisterManager {
     this.supplierRegister = new ContactRegister(userName + "/suppliers");
   }
 
+  /**
+   * Returns the username of the current user.
+   *
+   * @return The username of the current user.
+   */
   public String getUserName() {
     return userName;
   }

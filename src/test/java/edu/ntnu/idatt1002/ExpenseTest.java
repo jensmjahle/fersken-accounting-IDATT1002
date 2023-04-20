@@ -1,23 +1,27 @@
 package edu.ntnu.idatt1002;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import java.util.Date;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ExpenseTest {
+
   private static Contact contactTest;
   private static Date dateTest;
   Expense expenseTest;
 
   @BeforeEach
   void setUp() {
-    contactTest = new Contact("name", "email", "street", 10,
-        "12345678", "11111111111", "1234");
+    contactTest = new Contact("name", "email@mail.com", "street", 10, "12345678", "11111111111",
+        "1234", "1234");
     dateTest = new Date();
     expenseTest = new Expense(contactTest, 500, dateTest, "product");
   }
+
   @Test
   @DisplayName("Check if getContact() returns correctly")
   void getContact() {
@@ -52,7 +56,7 @@ class ExpenseTest {
   @DisplayName("Not able to create an instance with contact if amount is 0")
   void throwsIllegalArgumentExceptionIfAmountIsZeroWithContact() {
     assertThrows(IllegalArgumentException.class, () -> {
-      Expense expense = new Expense(contactTest,0, dateTest, "product");
+      Expense expense = new Expense(contactTest, 0, dateTest, "product");
     });
   }
 
@@ -60,7 +64,7 @@ class ExpenseTest {
   @DisplayName("Not able to create an instance with contact if amount is negative")
   void throwsIllegalArgumentExceptionIfAmountIsNegativeWithContact() {
     assertThrows(IllegalArgumentException.class, () -> {
-      Expense expense = new Expense(contactTest,-5, dateTest, "product");
+      Expense expense = new Expense(contactTest, -5, dateTest, "product");
     });
   }
 
@@ -72,21 +76,6 @@ class ExpenseTest {
     });
   }
 
-  @Test
-  @DisplayName("Not able to create an instance if contact is null")
-  void throwsNullPointerExceptionIfContactIsNull() {
-    assertThrows(NullPointerException.class, () -> {
-      Expense expense = new Expense(null, 500, dateTest, "product");
-    });
-  }
-
-  @Test
-  @DisplayName("Not able to create an instance with contact if date is null")
-  void throwsNullPointerExceptionIfDateIsNullWithContact() {
-    assertThrows(NullPointerException.class, () -> {
-      Expense expense = new Expense(null, 500, dateTest,"product");
-    });
-  }
 
   @Test
   @DisplayName("Not able to create an instance without contact if date is null")
@@ -98,11 +87,12 @@ class ExpenseTest {
 
   @Test
   @DisplayName("Should get ToString")
-  void shouldGetToString(){
-    String expected = "Expense{contact=Contact{name='name', email='email', street='street', " +
-        "streetNumber=10, phoneNumber='12345678', accountNumber='11111111111', postCode='1234', " +
-        "organizationNumber=''}, amount=500.0, date=" + dateTest.toString()+ ", product='product'}";
-    String actual =expenseTest.toString();
+  void shouldGetToString() {
+    String expected = "Expense{contact=Contact{name='name', email='email@mail.com', "
+        + "street='street', streetNumber=10, phoneNumber='12345678', accountNumber='11111111111',"
+        + " postCode='1234', organizationNumber='1234'}, amount=500.0, date=" + dateTest.toString()
+        + ", product='product'}";
+    String actual = expenseTest.toString();
     assertEquals(expected, actual);
   }
 

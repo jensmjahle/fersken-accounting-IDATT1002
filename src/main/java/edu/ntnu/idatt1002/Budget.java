@@ -5,22 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Budget class with variables that make up a budget.
+ * The Budget class represents a budget with lists of expenses and sales, used to keep track of the
+ * different projects of the user.
  */
 public class Budget implements Serializable {
+
   private String projectName;
   private final ArrayList<Expense> listOfExpenses;
   private final ArrayList<Sale> listOfSales;
 
 
   /**
-   * Constructor that initializes a budget.
-   * throws exception is project name is empty or blank
+   * Constructor that initializes a budget. throws exception is project name is empty or blank
    *
    * @param project name of project budget is connected to
    */
   public Budget(String project) {
-
+    if (project.isEmpty()) {
+      throw new IllegalArgumentException("Project cannot be empty");
+    }
     setProject(project);
     this.listOfExpenses = new ArrayList<>();
     this.listOfSales = new ArrayList<>();
@@ -103,27 +106,33 @@ public class Budget implements Serializable {
     listOfSales.add(newSale);
   }
 
+  /**
+   * Gets the total expense sum for the expense costs in the budget.
+   *
+   * @return The total expense sum for the budget.
+   */
   public double getSumOfExpenses() {
-    double sum = 0;
-    for(Expense expense: listOfExpenses) {
-      sum += expense.getAmount();
-    }
-
-    return sum;
+    return listOfExpenses.stream().mapToDouble(Expense::getAmount).sum();
   }
 
+  /**
+   * Gets the total sum of all sale amounts in the budget.
+   *
+   * @return The total sale sum for the budget.
+   */
   public double getSumOfSales() {
-    double sum = 0;
-    for(Sale sale: listOfSales) {
-      sum += sale.getAmount();
-    }
-
-    return sum;
+    return listOfSales.stream().mapToDouble(Sale::getAmount).sum();
   }
 
+  /**
+   * Finds out the difference between sale sum and expense sum for the project.
+   *
+   * @return The difference between sale sum and expense sum for the project.
+   */
   public double getDifference() {
     return getSumOfSales() - getSumOfExpenses();
   }
+
   /**
    * Creates a string that holds budget info.
    *
@@ -131,10 +140,7 @@ public class Budget implements Serializable {
    */
   @Override
   public String toString() {
-    return "Budget{" +
-        "project='" + projectName + '\'' +
-        ", listOfExpenses=" + listOfExpenses +
-        ", listOfSales=" + listOfSales +
-        '}';
+    return "Budget{" + "project='" + projectName + '\'' + ", listOfExpenses=" + listOfExpenses
+        + ", listOfSales=" + listOfSales + '}';
   }
 }

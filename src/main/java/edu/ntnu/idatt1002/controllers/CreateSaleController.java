@@ -24,7 +24,6 @@ import javafx.util.Duration;
  */
 public class CreateSaleController {
 
-
   @FXML
   private ComboBox<String> customerComboBox;
   @FXML
@@ -35,45 +34,52 @@ public class CreateSaleController {
   private TextField productTextField;
   @FXML
   private TextField amountTextField;
+  private View pageToReturnTo;
 
   /**
-   * Method for switching back to main menu.
+   * Method for switching back to main menu. If a different page is specified by the pageToReturnTo
+   * parameter, the method will try to go to that page instead.
    *
    * @param event Type of event that brings you back to main menu.
    * @throws IOException if method can't find filepath.
    */
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
-    ViewManager.switchToScene(event, View.MAIN_MENU);
+    try {
+      ViewManager.switchToScene(event, pageToReturnTo);
+    } catch (Exception e) {
+      ViewManager.switchToScene(event, View.MAIN_MENU);
+    }
   }
 
   /**
-   * Initializes nodes on register sale page.
+   * Initializes nodes on create sale page.
    */
   @FXML
   public void initialize() {
-    fillCustomerChoiceBox();
-
-
+    fillContactBox();
   }
 
   /**
-   * Method for creating a sale from input values.
+   * Tries to create a sale and add it to the register, if the sale cannot be created because of
+   * invalid values, the method will throw exceptions.
+   *
+   * @throws IllegalArgumentException if Any of the input fields are invalid values for a sale
+   * @throws NullPointerException     if any of the input fields are null
    */
-
   public void createSale() throws IllegalArgumentException, NullPointerException {
-    if (customerComboBox.getValue() == null){
+    if (customerComboBox.getValue() == null || customerComboBox.getValue().isBlank()) {
       throw new IllegalArgumentException("customer has to be chosen");
     }
-    if (datePicker.getValue() == null){
+    if (datePicker.getValue() == null) {
       throw new IllegalArgumentException("Date has to be chosen");
     }
-    if (amountTextField.getText().isEmpty()){
+    if (amountTextField.getText().isEmpty()) {
       throw new IllegalArgumentException("Amount has to be chosen");
     }
-    if (accountTextField.getText().isEmpty()){
+    if (accountTextField.getText().isEmpty()) {
       throw new IllegalArgumentException("Account has to be chosen");
     }
-    if (productTextField.getText().isEmpty()){
+    if (productTextField.getText().isEmpty()) {
       throw new IllegalArgumentException("Product has to be chosen");
     }
 
@@ -85,19 +91,26 @@ public class CreateSaleController {
     String product = productTextField.getText();
     double amount = (Double.parseDouble(amountTextField.getText()));
 
-    Sale newSale = new Sale(contact, date, product, receiverAccount, amount);
+    Sale newSale;
+    if (contact != null) {
+      newSale = new Sale(contact, date, product, receiverAccount, amount);
+    } else {
+      newSale = new Sale(customer, date, product, receiverAccount, amount);
+    }
     RegisterManager.getInstance().getSaleRegister().addObject(newSale);
+
     clearAllFields();
-
     confirmSaleIsCreated();
-
-
   }
 
+  /**
+   * Tries to create a sale, if the sale is not created, the method will show an alert informing the
+   * user of the problem.
+   */
   public void onCreateSale() {
     try {
       createSale();
-    } catch (NumberFormatException e){
+    } catch (NumberFormatException e) {
       Alert alert = new Alert(AlertType.WARNING, e.getMessage() + " is not a valid number");
       alert.showAndWait();
 
@@ -107,6 +120,9 @@ public class CreateSaleController {
     }
   }
 
+  /**
+   * Shows an alert that a sale has been created for 1 second.
+   */
   public void confirmSaleIsCreated() {
     Alert saleHasBeenCreated = new Alert(AlertType.CONFIRMATION, "Sale has been saved");
     saleHasBeenCreated.show();
@@ -127,11 +143,23 @@ public class CreateSaleController {
     amountTextField.clear();
   }
 
-
-  public void fillCustomerChoiceBox() {
+  /**
+   * Fills the contact box with existing contacts.
+   */
+  public void fillContactBox() {
     ContactRegister contactRegister = RegisterManager.getInstance().getCustomerRegister();
+    customerComboBox.setEditable(true);
     for (Contact contact : contactRegister.getObjects()) {
       customerComboBox.getItems().add(contact.getName());
     }
+  }
+
+  /**
+   * Sets a new page to return on return button pressed or when sale has been created.
+   *
+   * @param view The location of the page that should be loaded
+   */
+  public void setPageToReturnTo(View view) {
+    this.pageToReturnTo = view;
   }
 }

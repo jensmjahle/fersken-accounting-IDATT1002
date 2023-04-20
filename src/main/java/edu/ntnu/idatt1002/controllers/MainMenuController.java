@@ -75,8 +75,13 @@ public class MainMenuController implements Initializable {
     lineChart.getXAxis().setAutoRanging(true);
     lineChart.getYAxis().setAutoRanging(true);
 
+    income.getNode().setStyle("-fx-stroke: #384c6b;");
+    difference.getNode().setStyle("-fx-stroke: #e28a2b");
+    expenses.getNode().setStyle("-fx-stroke: #859bba");
+    lineChart.setLegendVisible(false);
 
   }
+
 
   public void switchToCreateBudgetScene(MouseEvent event) throws IOException {
     ViewManager.switchToScene(event, View.CREATE_BUDGET);

@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -35,6 +34,8 @@ public class CreateExpenseController implements Initializable {
   private DatePicker datePicker;
   @FXML
   private TextField productTextField;
+  private View pageToReturnTo;
+
 
   /**
    * Method for switching back to main menu.
@@ -43,7 +44,15 @@ public class CreateExpenseController implements Initializable {
    * @throws IOException if method can't find filepath
    */
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
-    ViewManager.switchToScene(event, View.MAIN_MENU);
+    try {
+      ViewManager.switchToScene(event, pageToReturnTo);
+    } catch (Exception e) {
+      ViewManager.switchToScene(event, View.MAIN_MENU);
+    }
+  }
+
+  public void setPageToReturnTo(View pageToReturnTo) {
+    this.pageToReturnTo = pageToReturnTo;
   }
 
 
@@ -53,16 +62,16 @@ public class CreateExpenseController implements Initializable {
 
   public void createExpense() throws IllegalArgumentException, NullPointerException {
 
-    if (supplierComboBox.getValue() == null){
+    if (supplierComboBox.getValue() == null || supplierComboBox.getValue().isBlank()) {
       throw new IllegalArgumentException("Supplier has to be chosen");
     }
-    if (datePicker.getValue() == null){
+    if (datePicker.getValue() == null) {
       throw new IllegalArgumentException("Date has to be chosen");
     }
-    if (amountTextField.getText().isEmpty()){
+    if (amountTextField.getText().isEmpty()) {
       throw new IllegalArgumentException("Amount has to be chosen");
     }
-    if (productTextField.getText() == null){
+    if (productTextField.getText() == null) {
       throw new IllegalArgumentException("Product has to be chosen");
     }
 
@@ -74,22 +83,26 @@ public class CreateExpenseController implements Initializable {
     double amount = (Double.parseDouble(amountTextField.getText()));
     String product = productTextField.getText();
 
-    if (contact != null){
+    if (contact != null) {
       System.out.println(contact);
-      Expense newExpense = new Expense(contact, amount, date, product); 
-          RegisterManager.getInstance().getExpenseRegister().addObject(newExpense);   
+      Expense newExpense = new Expense(contact, amount, date, product);
+      RegisterManager.getInstance().getExpenseRegister().addObject(newExpense);
     } else {
       Expense newExpense = new Expense(supplierComboBox.getValue(), amount, date, product);
-      RegisterManager.getInstance().getExpenseRegister().addObject(newExpense);  
+      RegisterManager.getInstance().getExpenseRegister().addObject(newExpense);
     }
 
     clearAllFields();
   }
 
-  public void onCreateExpense(){
+  /**
+   * Tries to create an expense, if it's not able to, an error message will be shown to the user
+   * with the cause of error.
+   */
+  public void onCreateExpense() {
     try {
       createExpense();
-    } catch (NumberFormatException e){
+    } catch (NumberFormatException e) {
       Alert alert = new Alert(AlertType.WARNING, e.getMessage() + " is not a valid number");
       alert.showAndWait();
 
@@ -110,12 +123,24 @@ public class CreateExpenseController implements Initializable {
     productTextField.clear();
   }
 
+  /**
+   * Initializes the controller with necessary data by updating the supplier choice box.
+   *
+   * @param url            The location used to resolve relative paths for the root object, or null
+   *                       if the location is not known.
+   * @param resourceBundle The resources used to localize the root object, or null if the root
+   *                       object was not localized.
+   */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    fillSupplierChoiceBox();
+    fillSupplierComboBox();
+
   }
 
-  public void fillSupplierChoiceBox(){
+  /**
+   * Fills the supplier combo box with all suppliers.
+   */
+  public void fillSupplierComboBox() {
     supplierComboBox.setEditable(true);
     ContactRegister supplierRegister = RegisterManager.getInstance().getSupplierRegister();
     for (Contact supplier : supplierRegister.getObjects()) {
