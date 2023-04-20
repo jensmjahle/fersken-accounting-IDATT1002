@@ -17,6 +17,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 
 public class MainMenuController implements Initializable {
@@ -80,6 +83,25 @@ public class MainMenuController implements Initializable {
     expenses.getNode().setStyle("-fx-stroke: #859bba");
     lineChart.setLegendVisible(false);
 
+  }
+
+  public void highlightText(Text text) {
+      text.setFont(Font.font("System", FontWeight.BOLD, 16));
+      text.setUnderline(true);
+  }
+
+  @FXML
+  public void onMouseEntered(MouseEvent event) {
+    highlightText((Text) event.getSource());
+  }
+  @FXML
+  public void onMouseExited(MouseEvent event) {
+    returnTextToNormal((Text) event.getSource());
+  }
+
+  public void returnTextToNormal(Text text) {
+      text.setFont(Font.font("System", 16));
+      text.setUnderline(false);
   }
 
 

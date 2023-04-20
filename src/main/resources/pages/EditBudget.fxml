@@ -1,124 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.EditBudgetController">
-    <bottom>
-        <HBox alignment="BOTTOM_RIGHT" prefHeight="40.0" prefWidth="600.0" spacing="40.0" BorderPane.alignment="BOTTOM_RIGHT">
-            <children>
-                <Button mnemonicParsing="false" onMouseClicked="#clearAllFields" text="Delete draft" />
-                <Button mnemonicParsing="false" onMouseClicked="#replaceBudget" text="Confirm changes" />
-            </children>
-            <BorderPane.margin>
-                <Insets />
-            </BorderPane.margin>
-            <padding>
-                <Insets bottom="10.0" left="10.0" right="30.0" top="10.0" />
-            </padding>
-        </HBox>
-    </bottom>
-    <top>
-        <HBox alignment="CENTER" prefHeight="77.0" prefWidth="600.0" BorderPane.alignment="BOTTOM_CENTER">
-            <children>
-                <Pane prefHeight="200.0" prefWidth="300.0">
-                    <children>
-                        <Button layoutX="30.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#switchToMainMenuScene" text="Return" />
-                    </children>
-                </Pane>
-                <Label minWidth="275.0" text="Edit budget">
-                    <font>
-                        <Font size="30.0" />
-                    </font>
-                </Label>
-                <Pane prefHeight="200.0" prefWidth="300.0" />
-            </children>
-        </HBox>
-    </top>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="600.0" spacing="10.0">
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.EditBudgetController">
+   <children>
+      <Rectangle height="600.0" smooth="false" stroke="#ffcaca" strokeType="INSIDE" strokeWidth="0.0" width="800.0">
+         <fill>
+            <LinearGradient endX="0.49289099526066354" endY="0.4881516587677726" startX="0.7061611374407584" startY="0.8246445497630331">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9647058844566345" green="0.6313725709915161" blue="0.572549045085907" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9490196108818054" green="0.8352941274642944" blue="0.5686274766921997" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Project name:" />
-                  <TextField fx:id="projectNameField" />
-               </children>
-            </HBox>
-              <HBox alignment="TOP_CENTER" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="87.0" prefWidth="800.0">
-                  <children>
-                      <VBox alignment="CENTER" prefHeight="310.0" prefWidth="493.0">
-                          <children>
-                              <Label alignment="CENTER" text="Expenses">
-                                  <VBox.margin>
-                                      <Insets bottom="10.0" />
-                                  </VBox.margin>
-                                  <font>
-                                      <Font name="System Bold" size="15.0" />
-                                  </font>
+                  <HBox alignment="CENTER" prefHeight="77.0" prefWidth="800.0" spacing="10.0" />
+                    <HBox alignment="TOP_CENTER" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="171.0" prefWidth="800.0">
+                        <children>
+                            <VBox alignment="BOTTOM_CENTER" prefHeight="310.0" prefWidth="493.0">
+                                <children>
+                                    <Label alignment="CENTER" text="Expenses">
+                                        <VBox.margin>
+                                            <Insets bottom="10.0" />
+                                        </VBox.margin>
+                                        <font>
+                                            <Font name="System Bold" size="15.0" />
+                                        </font>
+                                    </Label>
+                              <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
+                                 <children>
+                                    <TextField fx:id="expenseNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Expense name" />
+                                    <TextField fx:id="expenseAmountField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Amount" />
+                                    <Button mnemonicParsing="false" onMouseClicked="#onAddExpenseClicked" style="-fx-border-color: #000000; -fx-background-color: #a7e58c; -fx-border-width: 2;" text="Add expense">
+                                       <font>
+                                          <Font name="Verdana" size="12.0" />
+                                       </font>
+                                    </Button>
+      
+                                 </children>
+                              </VBox>
+                                </children>
+                            </VBox>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="310.0" prefWidth="493.0">
+                           <children>
+                              <Label alignment="CENTER" text="Income">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
                               </Label>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
-                           <children>
-                              <Button mnemonicParsing="false" onMouseClicked="#onAddExpenseClicked" text="Add expense" />
-                              <Button mnemonicParsing="false" onMouseClicked="#onDeleteExpenseClicked" text="Delete expense" />
-
+                              <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
+                                 <children>
+                                    <TextField fx:id="incomeNameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Income name" />
+                                    <TextField fx:id="incomeAmountField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Amount" />
+                                    <Button mnemonicParsing="false" onMouseClicked="#onAddIncomeClicked" style="-fx-border-color: #000000; -fx-border-width: 2; -fx-background-color: #a7e58c;" text="Add income">
+                                       <font>
+                                          <Font name="Verdana" size="12.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
                            </children>
                         </VBox>
-                          </children>
-                      </VBox>
-                  <VBox alignment="CENTER" prefHeight="310.0" prefWidth="493.0">
+                        </children>
+                    </HBox>
+                  <HBox alignment="CENTER" fillHeight="false" maxWidth="-Infinity" prefHeight="286.0" prefWidth="800.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
                      <children>
-                        <Label alignment="CENTER" text="Income">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
-                           <children>
-                              <Button mnemonicParsing="false" onMouseClicked="#onAddIncomeClicked" text="Add income" />
-                              <Button mnemonicParsing="false" onMouseClicked="#onDeleteIncomeClicked" text="Delete income" />
-                           </children>
-                        </VBox>
+                        <TableView fx:id="expenseTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="380.0" HBox.hgrow="ALWAYS">
+                          <columns>
+                            <TableColumn fx:id="expenseNameColumn" prefWidth="150.66666162014008" text="Expense name" />
+                            <TableColumn fx:id="expenseAmountColumn" prefWidth="148.6666717529297" text="Amount" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <HBox.margin>
+                              <Insets left="10.0" right="5.0" />
+                           </HBox.margin>
+                        </TableView>
+                        <TableView fx:id="incomeTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="380.0" HBox.hgrow="ALWAYS">
+                          <columns>
+                            <TableColumn fx:id="incomeNameColumn" prefWidth="75.0" text="Income name" />
+                            <TableColumn fx:id="incomeAmountColumn" prefWidth="75.0" text="Amount" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <HBox.margin>
+                              <Insets left="5.0" right="10.0" />
+                           </HBox.margin>
+                        </TableView>
                      </children>
-                  </VBox>
-                  </children>
-              </HBox>
-            <HBox alignment="CENTER" fillHeight="false" maxWidth="-Infinity" prefHeight="350.0" prefWidth="800.0">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-               <children>
-                  <TableView fx:id="expenseTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="380.0" HBox.hgrow="ALWAYS">
-                    <columns>
-                      <TableColumn fx:id="expenseNameColumn" prefWidth="150.66666162014008" text="Expense name" />
-                      <TableColumn fx:id="expenseAmountColumn" prefWidth="148.6666717529297" text="Amount" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                     <HBox.margin>
-                        <Insets left="10.0" right="5.0" />
-                     </HBox.margin>
-                  </TableView>
-                  <TableView fx:id="incomeTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="380.0" HBox.hgrow="ALWAYS">
-                    <columns>
-                      <TableColumn fx:id="incomeNameColumn" prefWidth="75.0" text="Income name" />
-                      <TableColumn fx:id="incomeAmountColumn" prefWidth="75.0" text="Amount" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                     <HBox.margin>
-                        <Insets left="5.0" right="10.0" />
-                     </HBox.margin>
-                  </TableView>
+                  </HBox>
                </children>
-            </HBox>
-         </children>
-      </VBox>
-   </center>
-</BorderPane>
+            </VBox>
+         </center>
+         <bottom>
+             <Pane prefHeight="186.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+                 <Button alignment="CENTER" layoutX="321.0" layoutY="128.0" mnemonicParsing="false"
+                         onMouseClicked="#replaceBudget"
+                         style="-fx-background-color: #6cb74b; -fx-border-color: #000000; -fx-border-width: 2;"
+                         text="Confirm changes" textAlignment="CENTER" underline="true">
+                    <font>
+                         <Font name="Verdana" size="16.0"/>
+                     </font>
+                 </Button>
+                 <Button alignment="CENTER" layoutX="312.0" layoutY="127.0" mnemonicParsing="false"
+                         onMouseClicked="#replaceBudget"
+                         style="-fx-background-color: #00ff68; -fx-border-color: #000000; -fx-border-width: 2;"
+                         text="Confirm changes" textAlignment="CENTER">
+                    <font>
+                        <Font name="Verdana Bold" size="16.0"/>
+                    </font>
+                 </Button>
+                 <HBox alignment="CENTER" layoutY="50.0" prefHeight="59.0" prefWidth="800.0" spacing="300.0">
+                    <children>
+                        <Button fx:id="deleteExpenseButton" mnemonicParsing="false"
+                                onMouseClicked="#onDeleteExpenseClicked"
+                                style="-fx-background-color: #aaaaaa; -fx-border-color: #000000; -fx-border-width: 2;"
+                                text="Delete expense" textFill="WHITE">
+                            <font>
+                                <Font name="Verdana" size="12.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="deleteIncomeButton" mnemonicParsing="false"
+                                onMouseClicked="#onDeleteIncomeClicked"
+                                style="-fx-background-color: #aaaaaa; -fx-border-color: #000000; -fx-border-width: 2;"
+                                text="Delete income" textFill="WHITE">
+                            <font>
+                                <Font name="Verdana" size="12.0"/>
+                            </font>
+                        </Button>
+                    </children>
+                 </HBox>
+             </Pane>
+         </bottom>
+         <top>
+            <Pane prefHeight="77.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" fillHeight="false" prefHeight="100.0" prefWidth="800.0" spacing="10.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edit budget:">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="projectNameField" alignment="CENTER" prefHeight="19.0" prefWidth="185.0" promptText="Project name" />
+                     </children>
+                  </HBox>
+                  <Button layoutX="50.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#switchToListOfBudgets" style="-fx-background-color: #76b5c5; -fx-border-width: 2; -fx-border-color: #000000;" text="Return">
+                     <font>
+                        <Font name="Verdana" size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>
