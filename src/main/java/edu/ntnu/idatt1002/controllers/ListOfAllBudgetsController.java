@@ -29,8 +29,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
- * Controller for the list of all budgets fxml file. Shows a table of suppliers to the user.
- * Enables the user to delete and edit existing suppliers
+ * Controller for the list of all budgets fxml file. Shows a table of budgets to the user.
+ * Enables the user to open, delete and edit existing budgets.
  */
 public class ListOfAllBudgetsController implements Initializable {
 
@@ -120,6 +120,14 @@ public class ListOfAllBudgetsController implements Initializable {
     }
     updateTable();
   }
+
+  /**
+   * Switches to open budget page.
+   * Opens the currently highlighted budget.
+   *
+   * @param event Event that triggers switch to open budget page.
+   * @throws IOException If the resource path is invalid.
+   */
   @FXML
   private void switchToOpenBudgetScene(MouseEvent event) throws  IOException{
 
@@ -134,6 +142,13 @@ public class ListOfAllBudgetsController implements Initializable {
     stage.show();
   }
 
+  /**
+   * Switches to edit budget page.
+   * Displays the currently highlighted budget and allows for edits.
+   *
+   * @param event Event that triggers switch to edit budget page.
+   * @throws IOException If the resource path is invalid.
+   */
   @FXML
   private void switchToEditBudgetScene(MouseEvent event) throws IOException{
 

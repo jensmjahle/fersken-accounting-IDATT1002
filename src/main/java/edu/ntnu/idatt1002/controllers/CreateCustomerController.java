@@ -34,6 +34,12 @@ public class CreateCustomerController {
   @FXML
   private TextField streetNumberField;
 
+  /**
+   * Method for switching back to the main menu.
+   *
+   * @param event Event that triggers switch back to main menu.
+   * @throws IOException If the resource path is invalid.
+   */
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }

@@ -57,6 +57,14 @@ public class CreateBudgetController implements Initializable {
   private ObservableList<Expense> selectedExpenses;
   private ObservableList<Sale> selectedSales;
 
+  /**
+   * Initializes the controller with necessary methods.
+   *
+   * @param url The location used to resolve relative paths for the root object, or null
+   *    *                       if the location is not known.
+   * @param resourceBundle The resources used to localize the root object, or null if the root
+   *    *                       object was not localized.
+   */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     updateTables();
@@ -120,11 +128,17 @@ public class CreateBudgetController implements Initializable {
     stage.show();
   }
 
+  /**
+   * Updates both tables with recently added values.
+   */
   private void updateTables() {
     updateExpenseTable();
     updateSalesTable();
   }
 
+  /**
+   * Updates expense table with all recently added expenses.
+   */
   private void updateExpenseTable() {
     expenseTable.getItems().removeAll(expenseTable.getItems());
     ExpenseRegister expenseRegister = RegisterManager.getInstance().getExpenseRegister();
@@ -137,6 +151,9 @@ public class CreateBudgetController implements Initializable {
     }
   }
 
+  /**
+   * Updates sales table with all recently added sales.
+   */
   private void updateSalesTable() {
     final SaleRegister saleRegister = RegisterManager.getInstance().getSaleRegister();
     incomeTable.getItems().removeAll(incomeTable.getItems());
@@ -163,8 +180,8 @@ public class CreateBudgetController implements Initializable {
 
   /**
    * Tries to create a budget with the selected sales and expenses
-   * @throws IllegalArgumentException If the project name is empty or the
-   * @throws NullPointerException
+   * @throws IllegalArgumentException If the project name is empty
+   * @throws NullPointerException If the project name is null
    */
   private void createBudget() throws IllegalArgumentException, NullPointerException {
     if (projectNameField.getText().isEmpty()) {
@@ -184,6 +201,12 @@ public class CreateBudgetController implements Initializable {
 
   }
 
+  /**
+   * Method for checking the difference in a budget.
+   * Presents a confirmation alert if difference is not zero.
+   * @return true if difference is zero or if user wants to proceed,
+   * false if user cancels the operation.
+   */
   private boolean checkDifferenceIsZero() {
     selectedExpenses = expenseTable.getSelectionModel().getSelectedItems();
     selectedSales = incomeTable.getSelectionModel().getSelectedItems();
@@ -208,6 +231,10 @@ public class CreateBudgetController implements Initializable {
     return true;
   }
 
+  /**
+   * Method for presenting a confirmation box to the user.
+   * Confirming that a budget has been created.
+   */
   private void confirmBudgetIsCreated() {
     Alert budgetHasBeenCreated = new Alert(AlertType.CONFIRMATION, "Budget has been created");
     budgetHasBeenCreated.show();
@@ -216,6 +243,9 @@ public class CreateBudgetController implements Initializable {
     delay.play();
   }
 
+  /**
+   * Method that clears all input fields and tables.
+   */
   public void clearAllFields() {
     projectNameField.clear();
     expenseTable.getItems().clear();

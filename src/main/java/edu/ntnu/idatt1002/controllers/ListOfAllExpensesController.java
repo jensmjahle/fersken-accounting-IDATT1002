@@ -68,8 +68,13 @@ public class ListOfAllExpensesController implements Initializable {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
-
-
+  /**
+   * Switches to edit expense page.
+   * Displays the currently highlighted expense and allows for edits.
+   *
+   * @param event Event that triggers switch to edit expense page.
+   * @throws IOException If the resource path is invalid.
+   */
   @FXML
   private void switchToEditExpenseScene(MouseEvent event) throws IOException {
 

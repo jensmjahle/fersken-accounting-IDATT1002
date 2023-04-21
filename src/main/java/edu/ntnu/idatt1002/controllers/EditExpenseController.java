@@ -112,7 +112,10 @@ public class EditExpenseController extends CreateExpenseController {
     }
   }
 
-
+  /**
+   * Fills ComboBox with existing suppliers from
+   * the supplier register.
+   */
   public void fillSupplierComboBox() {
     ContactRegister contactRegister = RegisterManager.getInstance().getSupplierRegister();
     for (Contact contact : contactRegister.getObjects()) {

@@ -37,8 +37,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- * Controller for the list of all sales fxml file. Shows a table of suppliers to the user. Enables
- * the user to delete and edit existing suppliers
+ * Controller for the list of all sales fxml file. Shows a table of sales to the user. Enables
+ * the user to delete and edit existing sales.
  */
 public class ListOfAllSalesController implements Initializable {
 
@@ -73,6 +73,13 @@ public class ListOfAllSalesController implements Initializable {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
+  /**
+   * Switches to edit sale page.
+   * Displays the currently highlighted sale and allows for edited.
+   *
+   * @param event Event that triggers switch to edit sale page.
+   * @throws IOException If the resource path is invalid.
+   */
   @FXML
   private void switchToEditSaleScene(MouseEvent event) throws IOException {
 

@@ -93,7 +93,7 @@ public class CreateSupplierController {
   }
 
   /**
-   * Tries to create a supplier, if it's not possible, an alert will be shown to the user
+   * Tries to create a supplier, if it's not possible, an alert will be shown to the user.
    */
   public void onCreateSupplier() {
     try {
@@ -109,7 +109,7 @@ public class CreateSupplierController {
   }
 
   /**
-   * Clears all input fields
+   * Clears all input fields.
    */
   public void clearAllFields() {
     nameField.clear();
