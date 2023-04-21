@@ -198,6 +198,13 @@ public class ListOfAllCustomersController implements Initializable {
     customerTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
   }
 
+  /**
+   * Switches to edit customer page.
+   * Displays the highlighted customer and allows for edits.
+   *
+   * @param event Event that triggers switch to edit customer page.
+   * @throws IOException If the resource path is invalid.
+   */
   @FXML
   private void switchToEditCustomerScene(MouseEvent event) throws IOException {
 

@@ -21,7 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 /**
- * Controller class for the register expense page.
+ * Controller class for the create expense page.
  */
 public class CreateExpenseController implements Initializable {
 
@@ -51,6 +51,11 @@ public class CreateExpenseController implements Initializable {
     }
   }
 
+  /**
+   * Sets a new page to return on return button pressed or when sale has been created.
+   *
+   * @param pageToReturnTo Page to return to.
+   */
   public void setPageToReturnTo(View pageToReturnTo) {
     this.pageToReturnTo = pageToReturnTo;
   }

@@ -11,6 +11,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Controller class for the edit customer FXML file.
+ */
 public class EditCustomerController extends CreateCustomerController {
 
   @FXML
@@ -31,12 +34,20 @@ public class EditCustomerController extends CreateCustomerController {
   private TextField streetNumberField;
   private Contact customer;
 
-
+  /**
+   * Sets the customer and updates fields with current info.
+   *
+   * @param customer Customer to be displayed and edited.
+   */
   public void setCustomer(Contact customer) {
     this.customer = customer;
     fillFieldsWithExistingInfo();
   }
 
+  /**
+   * Method for displaying info about the customer.
+   * Throws exception if fields could not be filled.
+   */
   @FXML
   private void fillFieldsWithExistingInfo() {
     try {
@@ -55,6 +66,13 @@ public class EditCustomerController extends CreateCustomerController {
     }
   }
 
+  /**
+   * Creates new customer with updated info.
+   *
+   * @param mouseEvent Event that creates customer and
+   *                   switches back to list of all customers.
+   * @throws IOException If the resource path is invalid.
+   */
   @FXML
   private void onConfirmChanges(MouseEvent mouseEvent) throws IOException {
     try {
@@ -71,6 +89,12 @@ public class EditCustomerController extends CreateCustomerController {
     }
   }
 
+  /**
+   * Method that switches to list of all customers.
+   *
+   * @param event Event that triggers switch back to list of all customers.
+   * @throws IOException If the resource path is invalid.
+   */
   @FXML
   private void switchToListOfAllCustomersScene(MouseEvent event) throws IOException {
     ViewManager.switchToScene(event, View.LIST_OF_ALL_CUSTOMERS);

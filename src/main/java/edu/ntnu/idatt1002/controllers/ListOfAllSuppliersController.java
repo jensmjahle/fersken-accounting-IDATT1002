@@ -79,7 +79,13 @@ public class ListOfAllSuppliersController implements Initializable {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
-
+  /**
+   * Switches to edit supplier page.
+   * Displays the currently highlighted supplier and allows for edits.
+   *
+   * @param event Event that triggers switch to edit supplier page.
+   * @throws IOException If the resource path is invalid.
+   */
   @FXML
   private void switchToEditScene(MouseEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath(View.EDIT_SUPPLIER.getFileName()));

@@ -11,6 +11,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Controller class for edit supplier FXML file.
+ */
 public class EditSupplierController extends CreateSupplierController {
 
   @FXML
@@ -31,11 +34,20 @@ public class EditSupplierController extends CreateSupplierController {
   private TextField streetNumberField;
   private Contact supplier;
 
+  /**
+   * Sets the supplier and updates fields with current info.
+   *
+   * @param supplier Supplier to be displayed.
+   */
   public void setSupplier(Contact supplier){
     this.supplier = supplier;
     fillFieldsWithExistingInfo();
   }
 
+  /**
+   * Displays info about supplier to be edited.
+   * Throws exception if fields could not be filled.
+   */
   @FXML
   private void fillFieldsWithExistingInfo(){
     try {
@@ -53,7 +65,13 @@ public class EditSupplierController extends CreateSupplierController {
     }
   }
 
-
+  /**
+   * Creates new supplier with updated info.
+   *
+   * @param mouseEvent Event that creates supplier and
+   *                   switches back to list of all suppliers.
+   * @throws IOException If the resource path is invalid.
+   */
   @FXML
   private void onConfirmChanges(MouseEvent mouseEvent) throws IOException {
     try {
@@ -70,6 +88,12 @@ public class EditSupplierController extends CreateSupplierController {
     }
   }
 
+  /**
+   * Switches back to list of all suppliers page.
+   *
+   * @param event Event that triggers switch back to list of all suppliers page.
+   * @throws IOException If the resource path is invalid.
+   */
   @FXML
   private void switchToListOfAllSuppliersScene(MouseEvent event) throws IOException {
     ViewManager.switchToScene(event, View.LIST_OF_ALL_SUPPLIERS);

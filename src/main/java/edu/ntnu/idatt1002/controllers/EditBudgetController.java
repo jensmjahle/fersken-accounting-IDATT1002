@@ -22,6 +22,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/**
+ * Controller for the Edit Budget fxml file.
+ */
+
 public class EditBudgetController {
 
   @FXML
@@ -55,25 +59,40 @@ public class EditBudgetController {
   private List<Expense> listOfExpenses;
   private List<Sale> listOfIncomes;
 
-  private Budget budgetToRemove;
+  private Budget budgetToBeEdited;
 
-
+  /**
+   * Method that initializes the scene.
+   */
   public void initialize() {
     disableDeleteExpenseButtonWhileInvalid();
     disableDeleteIncomeButtonWhileInvalid();
   }
-  public void setBudgetToRemove(Budget budgetToRemove) {
-    this.budgetToRemove = budgetToRemove;
-    listOfIncomes = budgetToRemove.getListOfSales();
-    listOfExpenses = budgetToRemove.getListOfExpenses();
+
+  /**
+   * Method that retrieves info about the budget to be edited.
+   *
+   * @param budgetToBeEdited the budget to be edited
+   */
+  public void setBudgetToRemove(Budget budgetToBeEdited) {
+    this.budgetToBeEdited = budgetToBeEdited;
+    listOfIncomes = budgetToBeEdited.getListOfSales();
+    listOfExpenses = budgetToBeEdited.getListOfExpenses();
     fillFieldsWithCurrentInfo();
   }
 
+  /**
+   * Method for replacing the original budget with an updated version.
+   *
+   * @param event Event that brings you back to the list of budgets,
+   *              with the updated budget.
+   * @throws IOException if the resource path is invalid.
+   */
   @FXML
   private void replaceBudget(MouseEvent event) throws IOException {
     try {
       createBudget();
-      RegisterManager.getInstance().getBudgetRegister().removeObject(budgetToRemove);
+      RegisterManager.getInstance().getBudgetRegister().removeObject(budgetToBeEdited);
       switchToListOfBudgets(event);
     } catch (NumberFormatException e) {
       Alert alert = new Alert(AlertType.WARNING, e.getMessage() + " is not a valid number");
@@ -85,6 +104,12 @@ public class EditBudgetController {
     }
   }
 
+  /**
+   * Method that creates a new budget.
+   *
+   * @throws IllegalArgumentException if project name is empty.
+   * @throws NullPointerException if the project name is null.
+   */
   public void createBudget() throws IllegalArgumentException, NullPointerException {
     if (projectNameField.getText().isEmpty()) {
       throw new IllegalArgumentException("Project name cannot be empty");
@@ -100,7 +125,12 @@ public class EditBudgetController {
     clearAllFields();
   }
 
-
+  /**
+   * Method that switches to list of all budgets.
+   *
+   * @param mouseEvent event that triggers switch back to list of all budgets.
+   * @throws IOException if the resource file is invalid.
+   */
   @FXML
   public void switchToListOfBudgets(MouseEvent mouseEvent) throws IOException {
     Parent root = FXMLLoader.load(
@@ -111,10 +141,13 @@ public class EditBudgetController {
     stage.show();
   }
 
+  /**
+   * Method that fills the fields with current info about the relevant budget.
+   */
   public void fillFieldsWithCurrentInfo() {
     try {
 
-      projectNameField.setText(budgetToRemove.getProjectName());
+      projectNameField.setText(budgetToBeEdited.getProjectName());
 
       expenseNameColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
 
@@ -127,8 +160,8 @@ public class EditBudgetController {
       expenseTable.getItems().clear();
       incomeTable.getItems().clear();
 
-      listOfIncomes = budgetToRemove.getListOfSales();
-      listOfExpenses = budgetToRemove.getListOfExpenses();
+      listOfIncomes = budgetToBeEdited.getListOfSales();
+      listOfExpenses = budgetToBeEdited.getListOfExpenses();
       for (Expense expense : listOfExpenses) {
         expenseTable.getItems().add(expense);
       }
@@ -142,7 +175,9 @@ public class EditBudgetController {
     }
   }
 
-
+  /**
+   * Method that clears all fields.
+   */
   public void clearAllFields() {
     projectNameField.clear();
     incomeNameField.clear();
@@ -151,10 +186,20 @@ public class EditBudgetController {
     expenseAmountField.clear();
   }
 
+  /**
+   * Method that switches back to main menu.
+   *
+   * @param event event that brings you back to main menu.
+   * @throws IOException if there is an error loading the FXML file.
+   */
   public void switchToMainMenuScene(MouseEvent event) throws IOException {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
+  /**
+   * Method that tries to add an expense.
+   * Shows warning alerts if any fields are incorrectly filled out.
+   */
   @FXML
   private void onAddExpenseClicked() {
     try {
@@ -169,6 +214,12 @@ public class EditBudgetController {
     }
   }
 
+  /**
+   * Method that creates a new sale.
+   *
+   * @throws IllegalArgumentException If any text fields are not filled out.
+   * @throws NullPointerException If any text fields are null.
+   */
   public void addIncome() throws IllegalArgumentException, NullPointerException {
     if (incomeNameField.getText().isEmpty()) {
       throw new IllegalArgumentException("Expense name cannot be empty");
@@ -186,10 +237,14 @@ public class EditBudgetController {
     incomeAmountField.clear();
 
     updateTables();
-
-
   }
 
+  /**
+   * Method that creates a new expense.
+   *
+   * @throws IllegalArgumentException If any text fields are not filled out.
+   * @throws NullPointerException If any text fields are null.
+   */
   public void addExpense() throws IllegalArgumentException, NullPointerException {
     if (expenseNameField.getText().isEmpty()) {
       throw new IllegalArgumentException("Expense name cannot be empty");
@@ -211,6 +266,10 @@ public class EditBudgetController {
 
   }
 
+  /**
+   * Method that tries to add a sale.
+   * Shows warning alert if any fields are incorrectly filled out.
+   */
   @FXML
   private void onAddIncomeClicked() {
     try {
@@ -225,6 +284,9 @@ public class EditBudgetController {
     }
   }
 
+  /**
+   * Method that updates tables with recently added values.
+   */
   public void updateTables() {
     expenseNameColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
 
@@ -246,6 +308,9 @@ public class EditBudgetController {
     }
   }
 
+  /**
+   * Method that deletes an expense from the budget.
+   */
   public void onDeleteExpenseClicked() {
     try {
       Expense expenseToRemove = expenseTable.getSelectionModel().getSelectedItem();
@@ -257,7 +322,9 @@ public class EditBudgetController {
     }
   }
 
-
+  /**
+   * Method that deletes a sale from the budget.
+   */
   public void onDeleteIncomeClicked() {
     try {
       Sale saleToRemove = incomeTable.getSelectionModel().getSelectedItem();
@@ -268,15 +335,35 @@ public class EditBudgetController {
       alert.showAndWait();
     }
   }
+
+  /**
+   * Method that disables delete expense button if no expenses are selected.
+   */
   private void disableDeleteExpenseButtonWhileInvalid() {
     deleteExpenseButton.disableProperty().bind(selectedItemsNotNullBindingExpense().not());
   }
+
+  /**
+   * Method that disables delete income if no sales are selected.
+   */
   private void disableDeleteIncomeButtonWhileInvalid() {
     deleteIncomeButton.disableProperty().bind(selectedItemsNotNullBindingIncome().not());
   }
+
+  /**
+   * Boolean binding that checks if there are any selected items.
+   *
+   * @return a Boolean binding that represents if there are any selected items or not.
+   */
   private BooleanBinding selectedItemsNotNullBindingExpense() {
     return expenseTable.getSelectionModel().selectedItemProperty().isNotNull();
   }
+
+  /**
+   * Boolean binding that checks if there are any selected items.'
+   *
+   * @return a Boolean binding that represents if there are any selected items or not.
+   */
   private BooleanBinding selectedItemsNotNullBindingIncome() {
     return incomeTable.getSelectionModel().selectedItemProperty().isNotNull();
   }

@@ -16,6 +16,10 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller class for open budget page.
+ * Displays expenses and income about a given budget.
+ */
 public class OpenBudgetController {
   @FXML
   private Label budgetNameField;
@@ -42,6 +46,14 @@ public class OpenBudgetController {
   private Budget budget;
   private List<Expense> listOfExpenses;
   private List<Sale> listOfIncome;
+
+  /**
+   * Set the budget to be shown and retrieves a list of expenses
+   * and a list of sales from the budget.
+   * Fills fields with current info about the budget.
+   *
+   * @param budget The budget to be displayed.
+   */
   public void budgetToBeShown(Budget budget) {
     this.budget = budget;
     listOfExpenses = budget.getListOfExpenses();
@@ -49,12 +61,20 @@ public class OpenBudgetController {
     fillFieldsWithCurrentInfo();
   }
 
+  /**
+   * Switches to list of all budgets page.
+   *
+   * @param event Event that triggers switch to list of all budgets.
+   * @throws IOException If resource path is invalid.
+   */
   @FXML
   private void switchToListOfAllBudgetsScene(MouseEvent event) throws IOException {
     ViewManager.switchToScene(event, View.LIST_OF_ALL_BUDGETS);
   }
 
-
+  /**
+   * Fills fields with current info about the budget.
+   */
   @FXML
   private void fillFieldsWithCurrentInfo() {
     try {
