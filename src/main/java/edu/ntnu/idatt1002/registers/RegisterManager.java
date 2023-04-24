@@ -1,8 +1,11 @@
 package edu.ntnu.idatt1002.registers;
 
+import edu.ntnu.idatt1002.applications.AccountingApplication;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * Singleton class that contains all different registers used to store information for the user.
@@ -15,7 +18,7 @@ public class RegisterManager {
   private ContactRegister supplierRegister;
   private SaleRegister saleRegister;
   private ExpenseRegister expenseRegister;
-  private final UserRegister userRegister;
+  private UserRegister userRegister;
   private String userName;
 
   /**
@@ -23,12 +26,15 @@ public class RegisterManager {
    * users if it does not already exist. Instantiates the user register.
    */
   private RegisterManager() {
+
     try {
-      Files.createDirectories(Path.of("src/main/resources/registers/users"));
-    } catch (Exception e) {
-      e.printStackTrace();
+      Files.createDirectories(Path.of("src/main/java/registers"));
+      userRegister = new UserRegister("src/main/java/registers" + "/users.txt");
+    } catch (Exception e){
+      Alert alert = new Alert(AlertType.ERROR, "CANNOT CREATE DIRECTORY" + e);
+      alert.showAndWait();
     }
-    this.userRegister = new UserRegister("users");
+
   }
 
   /**
@@ -120,13 +126,13 @@ public class RegisterManager {
    */
   private void createNewRegisters(String userName) throws IOException {
 
-    Files.createDirectories(Path.of("src/main/resources/registers/" + userName));
-
-    this.budgetRegister = new BudgetRegister(userName + "/budgets");
-    this.saleRegister = new SaleRegister(userName + "/sales");
-    this.expenseRegister = new ExpenseRegister(userName + "/expenses");
-    this.customerRegister = new ContactRegister(userName + "/customers");
-    this.supplierRegister = new ContactRegister(userName + "/suppliers");
+    Files.createDirectories(Path.of("src/main/java/registers/" + userName));
+    String startOfLocation = "src/main/java/registers/" + userName;
+    this.budgetRegister = new BudgetRegister(startOfLocation + "/budgets.txt");
+    this.saleRegister = new SaleRegister(startOfLocation + "/sales.txt");
+    this.expenseRegister = new ExpenseRegister(startOfLocation + "/expenses.txt");
+    this.customerRegister = new ContactRegister(startOfLocation + "/customers.txt");
+    this.supplierRegister = new ContactRegister(startOfLocation + "/suppliers.txt");
   }
 
   /**
