@@ -1,23 +1,19 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.PathUtility;
-import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.Sale;
+import edu.ntnu.idatt1002.registers.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Sale;
 import edu.ntnu.idatt1002.viewmanagement.View;
-import java.io.IOException;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.time.ZoneId;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  * Controller for the Edit Sale fxml file.
@@ -59,7 +55,7 @@ public class EditSaleController extends CreateSaleController {
    * Tries to create a new sale. If the sale is created the old sale will be deleted.
    */
   @FXML
-  private void replaceSale(MouseEvent event) throws IOException {
+  private void replaceSale(InputEvent event) {
 
     try {
 
@@ -81,16 +77,10 @@ public class EditSaleController extends CreateSaleController {
    * Loads the list of sales fxml file.
    *
    * @param mouseEvent the event that triggers the switch back to list of sales.
-   * @throws IOException if the resource path is invalid.
    */
   @FXML
-  public void switchToListOfSales(MouseEvent mouseEvent) throws IOException {
-    Parent root = FXMLLoader.load(
-        PathUtility.getResourcePath(View.LIST_OF_ALL_SALES.getFileName()));
-    Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+  public void switchToListOfSales(InputEvent mouseEvent) {
+    ViewManager.switchToScene(mouseEvent, View.LIST_OF_ALL_SALES);
   }
 
   /**
@@ -109,6 +99,20 @@ public class EditSaleController extends CreateSaleController {
       e.printStackTrace();
       Alert alert = new Alert(AlertType.ERROR, "Cannot present all fields for selected expense");
       alert.showAndWait();
+    }
+  }
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+      replaceSale(keyEvent);
+    } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToListOfSales(keyEvent);
     }
   }
 

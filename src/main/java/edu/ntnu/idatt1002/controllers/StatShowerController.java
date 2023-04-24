@@ -1,10 +1,9 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.Statistics;
+import edu.ntnu.idatt1002.registers.RegisterManager;
+import edu.ntnu.idatt1002.utility.Statistics;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Year;
@@ -30,7 +29,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -105,6 +106,7 @@ public class StatShowerController implements Initializable {
     expenseInPeriod.setName("Expenses");
     differenceInPeriod.setName("Difference");
 
+
   }
 
   /**
@@ -150,9 +152,8 @@ public class StatShowerController implements Initializable {
    * Switches the application back to the main menu.
    *
    * @param event Event to trigger the action.
-   * @throws IOException If the location of the main menu scene is invalid.
    */
-  public void switchToMainMenuScene(MouseEvent event) throws IOException {
+  public void switchToMainMenuScene(InputEvent event) {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
@@ -239,7 +240,7 @@ public class StatShowerController implements Initializable {
    * Filters the list of data series depending on which sets the user wants to see.
    *
    * @return A list of data series that contain only the data series that the user wants to have
-   *        shown in the chart.
+   * shown in the chart.
    */
   private List<Series<String, Number>> filterSelectedLines() {
     List<Series<String, Number>> dataSetsToAdd = new ArrayList<>();
@@ -279,17 +280,16 @@ public class StatShowerController implements Initializable {
     lineChart.getYAxis().setAutoRanging(true);
     chartPane.getChildren().removeAll(chartPane.getChildren());
     chartPane.getChildren().add(lineChart);
-    setSeriesColours();
+    setSeriesStyling();
 
     lineChart.setLegendVisible(false);
   }
 
-  private void setSeriesColours() {
-    incomeInPeriod.getNode().setStyle("-fx-stroke: #384c6b; -fx-stroke-width: 5; ");
-    differenceInPeriod.getNode().setStyle(
-        "-fx-stroke: #e28a2b; -fx-stroke-width: 5; -fx-border-color: #000000; -fx-border-width: 5");
-    expenseInPeriod.getNode().setStyle("-fx-stroke: #859bba; -fx-stroke-width: 5; ");
+  private void setSeriesStyling() {
 
+    incomeInPeriod.getNode().setStyle("-fx-stroke: #384c6b;");
+    differenceInPeriod.getNode().setStyle("-fx-stroke: #e28a2b; -fx-stroke-dash-array: 2 6 6 2 ");
+    expenseInPeriod.getNode().setStyle("-fx-stroke: #859bba");
 
   }
 
@@ -316,7 +316,7 @@ public class StatShowerController implements Initializable {
     chartPane.getChildren().removeAll(chartPane.getChildren());
     chartPane.getChildren().add(barChart);
     barChart.setLegendVisible(false);
-    setSeriesColours();
+
   }
 
   /**
@@ -436,5 +436,18 @@ public class StatShowerController implements Initializable {
    */
   public void handleShowDifferenceToggle() {
     updateChart();
+  }
+
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToMainMenuScene(keyEvent);
+    }
   }
 }

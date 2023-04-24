@@ -1,15 +1,16 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Contact;
-import edu.ntnu.idatt1002.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Contact;
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
-import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  * Controller class for edit supplier FXML file.
@@ -39,17 +40,17 @@ public class EditSupplierController extends CreateSupplierController {
    *
    * @param supplier Supplier to be displayed.
    */
-  public void setSupplier(Contact supplier){
+  public void setSupplier(Contact supplier) {
     this.supplier = supplier;
     fillFieldsWithExistingInfo();
   }
 
   /**
-   * Displays info about supplier to be edited.
-   * Throws exception if fields could not be filled.
+   * Displays info about supplier to be edited. Throws exception if fields could not be filled.
    */
   @FXML
-  private void fillFieldsWithExistingInfo(){
+  @SuppressWarnings("Duplicates")
+  private void fillFieldsWithExistingInfo() {
     try {
       nameField.setText(supplier.getName());
       emailField.setText(supplier.getEmail());
@@ -59,7 +60,7 @@ public class EditSupplierController extends CreateSupplierController {
       postCodeField.setText(supplier.getPostCode());
       streetField.setText(supplier.getStreet());
       streetNumberField.setText(String.valueOf(supplier.getStreetNumber()));
-    } catch (Exception e){
+    } catch (Exception e) {
       Alert alert = new Alert(AlertType.WARNING, "Could not fill out all fields correctly");
       alert.showAndWait();
     }
@@ -68,12 +69,10 @@ public class EditSupplierController extends CreateSupplierController {
   /**
    * Creates new supplier with updated info.
    *
-   * @param mouseEvent Event that creates supplier and
-   *                   switches back to list of all suppliers.
-   * @throws IOException If the resource path is invalid.
+   * @param mouseEvent Event that creates supplier and switches back to list of all suppliers.
    */
   @FXML
-  private void onConfirmChanges(MouseEvent mouseEvent) throws IOException {
+  private void onConfirmChanges(InputEvent mouseEvent) {
     try {
       createSupplier();
       RegisterManager.getInstance().getSupplierRegister().removeObject(supplier);
@@ -92,10 +91,23 @@ public class EditSupplierController extends CreateSupplierController {
    * Switches back to list of all suppliers page.
    *
    * @param event Event that triggers switch back to list of all suppliers page.
-   * @throws IOException If the resource path is invalid.
    */
   @FXML
-  private void switchToListOfAllSuppliersScene(MouseEvent event) throws IOException {
+  private void switchToListOfAllSuppliersScene(InputEvent event) {
     ViewManager.switchToScene(event, View.LIST_OF_ALL_SUPPLIERS);
+  }
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+      onConfirmChanges(keyEvent);
+    } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToListOfAllSuppliersScene(keyEvent);
+    }
   }
 }

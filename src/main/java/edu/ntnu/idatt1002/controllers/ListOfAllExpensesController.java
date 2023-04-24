@@ -1,12 +1,11 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Expense;
-import edu.ntnu.idatt1002.PathUtility;
-import edu.ntnu.idatt1002.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Expense;
+import edu.ntnu.idatt1002.utility.PathUtility;
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.registers.ExpenseRegister;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -27,8 +26,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -61,32 +63,30 @@ public class ListOfAllExpensesController implements Initializable {
    * Switches the application back to the main menu scene.
    *
    * @param event The event that triggers the switch back to the main menu.
-   * @throws IOException If the resource cannot be found
    */
   @FXML
-  private void switchToMainMenuScene(MouseEvent event) throws IOException {
+  private void switchToMainMenuScene(InputEvent event) {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
-  /**
-   * Switches to edit expense page.
-   * Displays the currently highlighted expense and allows for edits.
-   *
-   * @param event Event that triggers switch to edit expense page.
-   * @throws IOException If the resource path is invalid.
-   */
+
   @FXML
-  private void switchToEditExpenseScene(MouseEvent event) throws IOException {
+  private void switchToEditExpenseScene(InputEvent event) {
+    try {
+      FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath("EditExpense"));
+      Parent root = loader.load();
+      EditExpenseController controller = loader.getController();
+      controller.setExpense(expenseTableView.getSelectionModel().getSelectedItems().get(0));
 
-    FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath("EditExpense"));
-    Parent root = loader.load();
-    EditExpenseController controller = loader.getController();
-    controller.setExpense(expenseTableView.getSelectionModel().getSelectedItems().get(0));
-
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      Scene scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      Alert alert = new Alert(AlertType.ERROR,
+          "Cannot switch to selected page\nPlease contact customer service");
+      alert.showAndWait();
+    }
   }
 
   /**
@@ -146,7 +146,6 @@ public class ListOfAllExpensesController implements Initializable {
   }
 
 
-
   /**
    * Enables the disabling of buttons when their actions are not possible to perform.
    */
@@ -187,9 +186,9 @@ public class ListOfAllExpensesController implements Initializable {
         Mark multiple expenses : hold ctrl while highlighting
         """);
     tooltip.setShowDelay(Duration.seconds(0));
+    tooltip.setFont(Font.font(20));
     Tooltip.install(informationPane, tooltip);
   }
-
 
 
   /**
@@ -197,6 +196,20 @@ public class ListOfAllExpensesController implements Initializable {
    */
   private void enableMultiSelection() {
     expenseTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+  }
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+      switchToEditExpenseScene(keyEvent);
+    } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToMainMenuScene(keyEvent);
+    }
   }
 }
   

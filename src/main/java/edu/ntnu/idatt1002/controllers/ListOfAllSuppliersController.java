@@ -1,13 +1,11 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Contact;
-import edu.ntnu.idatt1002.PathUtility;
-import edu.ntnu.idatt1002.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Contact;
+import edu.ntnu.idatt1002.utility.PathUtility;
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.registers.ContactRegister;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,9 +26,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -72,31 +70,36 @@ public class ListOfAllSuppliersController implements Initializable {
    * Switches the application back to the main menu scene.
    *
    * @param event The event that triggers the switch back to the main menu.
-   * @throws IOException If the resource cannot be found
    */
   @FXML
-  private void switchToMainMenuScene(MouseEvent event) throws IOException {
+  private void switchToMainMenuScene(InputEvent event) {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
   /**
-   * Switches to edit supplier page.
-   * Displays the currently highlighted supplier and allows for edits.
+   * Switches to edit supplier page. Displays the currently highlighted supplier and allows for
+   * edits.
    *
    * @param event Event that triggers switch to edit supplier page.
-   * @throws IOException If the resource path is invalid.
    */
   @FXML
-  private void switchToEditScene(MouseEvent event) throws IOException {
-    FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath(View.EDIT_SUPPLIER.getFileName()));
-    Parent root = loader.load();
-    EditSupplierController controller = loader.getController();
-    controller.setSupplier(supplierTable.getSelectionModel().getSelectedItems().get(0));
+  private void switchToEditScene(InputEvent event) {
+    try {
+      FXMLLoader loader = new FXMLLoader(
+          PathUtility.getResourcePath(View.EDIT_SUPPLIER.getFileName()));
+      Parent root = loader.load();
+      EditSupplierController controller = loader.getController();
+      controller.setSupplier(supplierTable.getSelectionModel().getSelectedItems().get(0));
 
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      Scene scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      Alert alert = new Alert(AlertType.ERROR,
+          "Cannot change to selected page\nPlease contact customer support or try again");
+      alert.showAndWait();
+    }
   }
 
   /**
@@ -119,6 +122,7 @@ public class ListOfAllSuppliersController implements Initializable {
   /**
    * Updates the tableview with updated values for the displayed objects.
    */
+  @SuppressWarnings("Duplicates")
   private void updateTable() {
     supplierTable.getItems().removeAll(supplierTable.getItems());
     supplierRegister = RegisterManager.getInstance().getSupplierRegister();
@@ -186,7 +190,7 @@ public class ListOfAllSuppliersController implements Initializable {
    * Creates a boolean binding that checks if only one item is selected.
    *
    * @return a boolean binding that represents information about if only one item is selected in the
-   * table.
+   *        table.
    */
   private BooleanBinding onlyOneSelectedItemBinding() {
     return Bindings.createBooleanBinding(
@@ -214,5 +218,19 @@ public class ListOfAllSuppliersController implements Initializable {
     tooltip.setFont(Font.font(20));
     tooltip.setShowDelay(Duration.ZERO);
     Tooltip.install(informationPane, tooltip);
+  }
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+      switchToEditScene(keyEvent);
+    } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToMainMenuScene(keyEvent);
+    }
   }
 }

@@ -1,17 +1,14 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Budget;
-import edu.ntnu.idatt1002.PathUtility;
-import edu.ntnu.idatt1002.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Budget;
+import edu.ntnu.idatt1002.utility.PathUtility;
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.registers.BudgetRegister;
-import java.io.File;
-import java.io.IOException;
+import edu.ntnu.idatt1002.viewmanagement.View;
+import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import edu.ntnu.idatt1002.viewmanagement.View;
-import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
@@ -20,28 +17,38 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
- * Controller for the list of all budgets fxml file. Shows a table of budgets to the user.
- * Enables the user to open, delete and edit existing budgets.
+ * Controller for the list of all budgets fxml file. Shows a table of budgets to the user. Enables
+ * the user to open, delete and edit existing budgets.
  */
 public class ListOfAllBudgetsController implements Initializable {
 
+  @FXML
+  private Pane informationPane;
   @FXML
   private Button deleteButton;
   @FXML
   private Button editButton;
   @FXML
   private Button openButton;
-  @FXML
-  private ImageView infoIcon;
   @FXML
   private TableView<Budget> budgetTable;
   @FXML
@@ -59,10 +66,9 @@ public class ListOfAllBudgetsController implements Initializable {
    * Switches the application back to the main menu scene.
    *
    * @param event The event that triggers the switch back to the main menu.
-   * @throws IOException If the resource cannot be found
    */
   @FXML
-  private void switchToMainMenuScene(MouseEvent event) throws IOException {
+  private void switchToMainMenuScene(InputEvent event) {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
@@ -79,7 +85,6 @@ public class ListOfAllBudgetsController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     updateTable();
     disableButtonsWhileInvalid();
-    enableInformationIcon();
     enableMultiSelection();
     installToolTip();
   }
@@ -89,7 +94,7 @@ public class ListOfAllBudgetsController implements Initializable {
    */
   private void updateTable() {
     budgetTable.getItems().clear();
-    
+
     budgetRegister = RegisterManager.getInstance().getBudgetRegister();
     budgetNameColumn.setCellValueFactory(new PropertyValueFactory<>("projectName"));
     budgetExpensesColumn.setCellValueFactory(new PropertyValueFactory<>("sumOfExpenses"));
@@ -122,46 +127,55 @@ public class ListOfAllBudgetsController implements Initializable {
   }
 
   /**
-   * Switches to open budget page.
-   * Opens the currently highlighted budget.
+   * Switches to open budget page. Opens the currently highlighted budget.
    *
    * @param event Event that triggers switch to open budget page.
-   * @throws IOException If the resource path is invalid.
    */
   @FXML
-  private void switchToOpenBudgetScene(MouseEvent event) throws  IOException{
+  private void switchToOpenBudgetScene(MouseEvent event) {
+    try {
 
-    FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath(View.OPEN_BUDGET.getFileName()));
-    Parent root = loader.load();
-    OpenBudgetController controller = loader.getController();
-    controller.budgetToBeShown(budgetTable.getSelectionModel().getSelectedItems().get(0));
+      FXMLLoader loader = new FXMLLoader(
+          PathUtility.getResourcePath(View.OPEN_BUDGET.getFileName()));
+      Parent root = loader.load();
+      OpenBudgetController controller = loader.getController();
+      controller.budgetToBeShown(budgetTable.getSelectionModel().getSelectedItems().get(0));
 
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      Scene scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      Alert alert = new Alert(AlertType.ERROR,
+          "Cannot switch to selected page\nPlease contact customer service");
+      alert.showAndWait();
+    }
   }
 
   /**
-   * Switches to edit budget page.
-   * Displays the currently highlighted budget and allows for edits.
+   * Switches to edit budget page. Displays the currently highlighted budget and allows for edits.
    *
    * @param event Event that triggers switch to edit budget page.
-   * @throws IOException If the resource path is invalid.
    */
   @FXML
-  private void switchToEditBudgetScene(MouseEvent event) throws IOException{
+  private void switchToEditBudgetScene(InputEvent event) {
+    try {
 
-    FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath(View.EDIT_BUDGET.getFileName()));
-    Parent root = loader.load();
-    EditBudgetController controller = loader.getController();
-    controller.setBudgetToRemove(budgetTable.getSelectionModel().getSelectedItems().get(0));
+      FXMLLoader loader = new FXMLLoader(
+          PathUtility.getResourcePath(View.EDIT_BUDGET.getFileName()));
+      Parent root = loader.load();
+      EditBudgetController controller = loader.getController();
+      controller.setBudgetToRemove(budgetTable.getSelectionModel().getSelectedItems().get(0));
 
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
-
+      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      Scene scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      Alert alert = new Alert(AlertType.ERROR,
+          "Cannot switch to selected page\nPlease contact customer service");
+      alert.showAndWait();
+    }
 
   }
 
@@ -205,27 +219,31 @@ public class ListOfAllBudgetsController implements Initializable {
         Unhighlight budget : press left click on a marked budget
         Mark multiple budgets : hold ctrl while highlighting
         """);
-    Tooltip.install(infoIcon, tooltip);
+    tooltip.setFont(Font.font(20));
+    tooltip.setShowDelay(Duration.ZERO);
+    Tooltip.install(informationPane, tooltip);
   }
 
-  /**
-   * Adds an information icon to the current scene.
-   */
-  private void enableInformationIcon() {
-    try {
-      File imageFile = new File("src/main/resources/Icons/icon_information.png");
-      Image image = new Image(imageFile.toURI().toString());
-      infoIcon.setImage(image);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
-  }
 
   /**
    * Enables multi-selection in the tableview.
    */
   private void enableMultiSelection() {
     budgetTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+  }
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+      switchToEditBudgetScene(keyEvent);
+    } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToMainMenuScene(keyEvent);
+    }
   }
 
 
