@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002.registers;
 
-import edu.ntnu.idatt1002.Expense;
+import edu.ntnu.idatt1002.storageitems.Expense;
 
 /**
  * This class represents an expense register that stores object of type "Expense".
