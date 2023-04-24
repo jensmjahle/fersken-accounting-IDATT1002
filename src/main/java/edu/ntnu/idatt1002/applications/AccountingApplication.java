@@ -28,12 +28,12 @@ public class AccountingApplication extends Application {
 
   @Override
   @SuppressWarnings("SpellCheckingInspection")
-  public void start(Stage primaryStage) throws Exception {
+  public void start(Stage primaryStage) {
     try {
 
       FXMLLoader loader = new FXMLLoader();
-      addAdminUserManually();
-      URL url = new File("src/main/resources/pages/MainMenu.fxml").toURI().toURL();
+      //addAdminUserManually();
+      URL url = new File("src/main/resources/pages/Login.fxml").toURI().toURL();
       loader.setLocation(url);
       Pane pane = loader.load();
 

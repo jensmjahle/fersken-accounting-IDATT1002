@@ -32,8 +32,7 @@ public class Register<T> {
    */
   protected Register(String fileName) {
     Objects.requireNonNull(fileName, "File name cannot be null");
-    this.fileName = "src/main/resources/registers/" + Objects.requireNonNull(fileName,
-        "File name cannot be null.") + ".txt";
+    this.fileName = fileName;
     objectRegister = new ArrayList<>(readFiles());
   }
 
