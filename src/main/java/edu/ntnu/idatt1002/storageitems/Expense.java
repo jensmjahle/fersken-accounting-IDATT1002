@@ -1,6 +1,5 @@
 package edu.ntnu.idatt1002.storageitems;
 
-import edu.ntnu.idatt1002.storageitems.Contact;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -68,12 +67,10 @@ public class Expense implements Serializable {
   }
 
   /**
-   * Constructor for an expense object with o
+   * Constructor for an expense object with only amount and product.
    *
-   * @param nameOfContact information about the contact. As a Contact
-   * @param amount        of money in NOK. As a double
-   * @param date          of the expense. As a Date
-   * @param product       the product connected to the expense.
+   * @param amount  of money in NOK.
+   * @param product the product connected to the expense.
    */
   public Expense(double amount, String product)
       throws IllegalArgumentException, NullPointerException {
