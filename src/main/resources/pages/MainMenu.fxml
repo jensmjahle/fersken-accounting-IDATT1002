@@ -1,150 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.MainMenuController">
-   <left>
-      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="160.0" spacing="13.0" BorderPane.alignment="CENTER">
-         <Label alignment="CENTER" text="Transactions" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="24.0"/>
-            </font>
-         </Label>
-         <Text onMouseClicked="#switchToRegisterExpenseScene" onMouseEntered="#onMouseEntered"
-               onMouseExited="#onMouseExited" text="Add expense">
-            <cursor>
-               <Cursor fx:constant="HAND"/>
-            </cursor>
-            <font>
-               <Font size="16.0"/>
-            </font>
-         </Text>
-         <Text onMouseClicked="#switchToListOfAllExpensesScene" onMouseEntered="#onMouseEntered"
-               onMouseExited="#onMouseExited" text="View expenses">
-            <cursor>
-               <Cursor fx:constant="HAND"/>
-            </cursor>
-            <font>
-               <Font size="16.0"/>
-            </font>
-         </Text>
-         <Text onMouseClicked="#switchToRegisterSaleScene" onMouseEntered="#onMouseEntered"
-               onMouseExited="#onMouseExited" text="Add sale">
-            <cursor>
-               <Cursor fx:constant="HAND"/>
-            </cursor>
-            <font>
-               <Font size="16.0"/>
-            </font>
-         </Text>
-         <Text onMouseClicked="#switchToListOfAllSalesScene" onMouseEntered="#onMouseEntered"
-               onMouseExited="#onMouseExited" text="View sales">
-            <cursor>
-               <Cursor fx:constant="HAND"/>
-            </cursor>
-            <font>
-               <Font size="16.0"/>
-            </font>
-         </Text>
-         <Label alignment="CENTER" text="Partners" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="24.0"/>
-            </font>
-         </Label>
-         <Text onMouseClicked="#switchToCreateCustomerScene" onMouseEntered="#onMouseEntered"
-               onMouseExited="#onMouseExited" text="Create Customer">
-            <cursor>
-               <Cursor fx:constant="HAND"/>
-            </cursor>
-            <font>
-               <Font size="16.0"/>
-            </font>
-         </Text>
-         <Text onMouseClicked="#switchToListOfAllCustomersScene" onMouseEntered="#onMouseEntered"
-               onMouseExited="#onMouseExited" text="View customer">
-            <cursor>
-               <Cursor fx:constant="HAND"/>
-            </cursor>
-            <font>
-               <Font size="16.0"/>
-            </font>
-         </Text>
-         <Text onMouseClicked="#switchToCreateSupplierScene" onMouseEntered="#onMouseEntered"
-               onMouseExited="#onMouseExited" text="Create supplier">
-            <cursor>
-               <Cursor fx:constant="HAND"/>
-            </cursor>
-            <font>
-               <Font size="16.0"/>
-            </font>
-         </Text>
-         <Text onMouseClicked="#switchToListOfAllSuppliersScene" onMouseEntered="#onMouseEntered"
-               onMouseExited="#onMouseExited" text="View suppliers">
-            <cursor>
-               <Cursor fx:constant="HAND"/>
-            </cursor>
-            <font>
-               <Font size="16.0"/>
-            </font>
-         </Text>
-         <Label alignment="CENTER" text="Budget" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="24.0"/>
-            </font>
-         </Label>
-         <Text onMouseClicked="#switchToCreateBudgetScene" onMouseEntered="#onMouseEntered"
-               onMouseExited="#onMouseExited" text="Create budget">
-            <cursor>
-               <Cursor fx:constant="HAND"/>
-            </cursor>
-            <font>
-               <Font size="16.0"/>
-            </font>
-         </Text>
-         <Text onMouseClicked="#switchToListOfAllBudgetsScene" onMouseEntered="#onMouseEntered"
-               onMouseExited="#onMouseExited" text="View budgets">
-            <cursor>
-               <Cursor fx:constant="HAND"/>
-            </cursor>
-            <font>
-               <Font size="16.0"/>
-            </font>
-         </Text>
-         <Label alignment="CENTER" text="Statistics" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="24.0"/>
-            </font>
-         </Label>
-         <Text onMouseClicked="#switchToShowStatsScene" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited"
-               text="Show statistics">
-            <cursor>
-               <Cursor fx:constant="HAND"/>
-            </cursor>
-            <font>
-               <Font size="16.0"/>
-            </font>
-         </Text>
+<AnchorPane  xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.MainMenuController">
+   <children>
+      <Rectangle height="600.0" smooth="false" stroke="#ffcaca" strokeType="INSIDE" strokeWidth="0.0" width="800.0">
+         <fill>
+            <LinearGradient endX="0.7964015440507367" endY="0.6922348484848484" startX="0.7850379149119059" startY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9647058844566345" green="0.6313725709915161" blue="0.572549045085907" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9490196108818054" green="0.8352941274642944" blue="0.5686274766921997" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="160.0" style="-fx-background-color: #f2d591; -fx-border-color: #000000;">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="163.0" prefWidth="158.0" spacing="10.0">
+               <children>
+                  <Label alignment="CENTER" text="Transactions" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Text onMouseClicked="#switchToRegisterSaleScene" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="Add sale">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text onMouseClicked="#switchToListOfAllSalesScene" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="View sales">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text onMouseClicked="#switchToRegisterExpenseScene" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="Add expense">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text onMouseClicked="#switchToListOfAllExpensesScene" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="View expenses">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+               <children>
+                  <Label alignment="CENTER" text="Partners" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Text onMouseClicked="#switchToCreateCustomerScene" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="Create Customer">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text onMouseClicked="#switchToListOfAllCustomersScene" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="View customers">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text onMouseClicked="#switchToCreateSupplierScene" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="Create supplier">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text onMouseClicked="#switchToListOfAllSuppliersScene" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="View suppliers">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+               <children>
+                  <Label alignment="CENTER" text="Budget" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Text onMouseClicked="#switchToCreateBudgetScene" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="Create budget">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text onMouseClicked="#switchToListOfAllBudgetsScene" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="View budgets">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+               <children>
+                  <Label alignment="CENTER" text="Statistics" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Text onMouseClicked="#switchToShowStatsScene" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" text="Show statistics">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+         </children>
       </VBox>
-   </left>
-   <center>
-      <LineChart fx:id="lineChart" legendSide="TOP" maxHeight="543.0" maxWidth="575.0" prefHeight="543.0" prefWidth="575.0" BorderPane.alignment="CENTER">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
+      <LineChart fx:id="lineChart" layoutX="185.0" layoutY="88.0" legendSide="TOP" maxHeight="543.0" maxWidth="592.0" prefHeight="398.0" prefWidth="592.0">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
 
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT">
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT">
                <tickLabelFont>
                   <Font size="10.0" />
-               </tickLabelFont></NumberAxis>
-        </yAxis>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
+               </tickLabelFont>
+            </NumberAxis>
+         </yAxis>
       </LineChart>
-   </center>
-</BorderPane>
+      <Button alignment="CENTER" layoutX="659.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#handleLogOutClicked" prefHeight="43.0" prefWidth="110.0" style="-fx-background-color: #76b5c5; -fx-border-width: 2; -fx-border-color: #000000;" text="Log out" underline="true">
+         <font>
+            <Font name="Verdana" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <AnchorPane layoutX="397.0" layoutY="490.0" prefHeight="98.0" prefWidth="168.0" style="-fx-border-color: #000000; -fx-background-color: #FFFFFF;">
+         <children>
+            <Circle fill="DODGERBLUE" layoutX="25.0" layoutY="20.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #384c6b;" />
+            <Circle fill="DODGERBLUE" layoutX="25.0" layoutY="50.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #e28a2b;" />
+            <Circle fill="DODGERBLUE" layoutX="25.0" layoutY="80.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #859bba;" />
+            <Label layoutX="43.0" layoutY="11.0" text="Sales" />
+            <Label layoutX="43.0" layoutY="42.0" text="Difference" />
+            <Label layoutX="43.0" layoutY="72.0" text="Expenses" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

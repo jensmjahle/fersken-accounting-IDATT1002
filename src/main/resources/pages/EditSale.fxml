@@ -1,36 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-  prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f6d992;"
-  xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="edu.ntnu.idatt1002.controllers.EditSaleController">
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane onKeyPressed="#handleKeyPressed" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f6d992;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.EditSaleController">
 
 
-  <Rectangle height="600.0" smooth="false" stroke="#ffcaca" strokeType="INSIDE" strokeWidth="0.0"
-    width="800.0">
+  <Rectangle height="600.0" smooth="false" stroke="#ffcaca" strokeType="INSIDE" strokeWidth="0.0" width="800.0">
     <fill>
-      <LinearGradient endX="0.7964015440507367" endY="0.6922348484848484"
-        startX="0.7850379149119059" startY="1.0">
+      <LinearGradient endX="0.37121211940591986" endY="0.5303030447526411" startX="0.03125003251162434">
         <stops>
           <Stop>
             <color>
-              <Color red="0.9647058844566345" green="0.6313725709915161" blue="0.572549045085907"/>
+              <Color red="0.9647058844566345" green="0.6313725709915161" blue="0.572549045085907" />
             </color>
           </Stop>
           <Stop offset="1.0">
             <color>
-              <Color red="0.949999988079071" green="0.8360000252723694" blue="0.5699999928474426"/>
+              <Color red="0.949999988079071" green="0.8360000252723694" blue="0.5699999928474426" />
             </color>
           </Stop>
         </stops>
@@ -39,67 +30,62 @@
   </Rectangle>
   <Label layoutX="316.0" layoutY="40.0" text="Edit Sale">
     <font>
-      <Font size="34.0"/>
+      <Font size="34.0" />
     </font>
   </Label>
   <Label layoutX="247.0" layoutY="372.0" style="-fx-border-color: #000000;" text=" Customer ">
     <font>
-      <Font size="21.0"/>
+      <Font size="21.0" />
     </font>
   </Label>
   <Label layoutX="263.0" layoutY="255.0" style="-fx-border-color: #000000;" text=" Amount ">
     <font>
-      <Font size="21.0"/>
+      <Font size="21.0" />
     </font>
   </Label>
   <Label layoutX="288.0" layoutY="423.0" style="-fx-border-color: #000000;" text=" Date ">
     <font>
-      <Font size="21.0"/>
+      <Font size="21.0" />
     </font>
   </Label>
   <Label layoutX="264.0" layoutY="195.0" style="-fx-border-color: #000000;" text=" Product ">
     <font>
-      <Font size="21.0"/>
+      <Font size="21.0" />
     </font>
   </Label>
-  <TextField fx:id="productTextField" layoutX="367.0" layoutY="196.0" prefHeight="30.0"
-    prefWidth="296.0" promptText="Product" style="-fx-border-color: #000000;"/>
-  <TextField fx:id="amountTextField" layoutX="367.0" layoutY="256.0" prefHeight="30.0"
-    prefWidth="296.0" promptText="Amount" style="-fx-border-color: #000000;"/>
-  <DatePicker fx:id="datePicker" layoutX="367.0" layoutY="424.0" prefHeight="30.0" prefWidth="295.0"
-    promptText="Date" showWeekNumbers="true" style="-fx-border-color: #000000;"/>
+  <TextField fx:id="productTextField" layoutX="367.0" layoutY="196.0" prefHeight="30.0" prefWidth="296.0" promptText="Product" style="-fx-border-color: #000000;" />
+  <TextField fx:id="amountTextField" layoutX="367.0" layoutY="256.0" prefHeight="30.0" prefWidth="296.0" promptText="Amount" style="-fx-border-color: #000000;" />
+  <DatePicker fx:id="datePicker" layoutX="367.0" layoutY="424.0" prefHeight="30.0" prefWidth="295.0" promptText="Date" showWeekNumbers="true" style="-fx-border-color: #000000;" />
   <Label layoutX="183.0" layoutY="314.0" style="-fx-border-color: #000000;" text=" Account number ">
     <font>
-      <Font size="21.0"/>
+      <Font size="21.0" />
     </font>
   </Label>
-  <TextField fx:id="accountTextField" layoutX="367.0" layoutY="315.0" prefHeight="30.0"
-    prefWidth="296.0" promptText="Account number" style="-fx-border-color: #000000;"/>
-  <ComboBox fx:id="customerComboBox" layoutX="369.0" layoutY="373.0" prefHeight="30.0"
-    prefWidth="290.0" style="-fx-border-color: #000000;"/>
-  <Button alignment="CENTER" layoutX="51.0" layoutY="44.0" mnemonicParsing="false"
-    onMouseClicked="#switchToListOfSales" prefHeight="43.0" prefWidth="110.0"
-    style="-fx-background-color: #76b5c5; -fx-border-width: 2; -fx-border-color: #000000;"
-    text="Return" underline="true">
+  <TextField fx:id="accountTextField" layoutX="367.0" layoutY="315.0" prefHeight="30.0" prefWidth="296.0" promptText="Account number" style="-fx-border-color: #000000;" />
+  <ComboBox fx:id="customerComboBox" layoutX="369.0" layoutY="373.0" prefHeight="30.0" prefWidth="290.0" style="-fx-border-color: #000000;" />
+  <Button alignment="CENTER" layoutX="51.0" layoutY="44.0" mnemonicParsing="false" onMouseClicked="#switchToListOfSales" prefHeight="43.0" prefWidth="110.0" style="-fx-background-color: #76b5c5; -fx-border-width: 2; -fx-border-color: #000000;" text="Return" underline="true">
     <font>
-      <Font name="Verdana" size="20.0"/>
+      <Font name="Verdana" size="20.0" />
     </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
   </Button>
-  <Button alignment="CENTER" layoutX="400.0" layoutY="535.0" mnemonicParsing="false"
-    onMouseClicked="#clearAllFields" prefHeight="43.0" prefWidth="206.0"
-    style="-fx-background-color: #76b5c5; -fx-border-width: 2; -fx-border-color: #000000;"
-    text="Clear all fields" underline="true">
+  <Button alignment="CENTER" layoutX="400.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#clearAllFields" prefHeight="43.0" prefWidth="206.0" style="-fx-background-color: #76b5c5; -fx-border-width: 2; -fx-border-color: #000000;" text="Clear all fields" underline="true">
     <font>
-      <Font name="Verdana" size="20.0"/>
+      <Font name="Verdana" size="20.0" />
     </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
   </Button>
-  <Button alignment="CENTER" layoutX="644.0" layoutY="535.0" mnemonicParsing="false"
-    onMouseClicked="#replaceSale" prefHeight="43.0" prefWidth="110.0"
-    style="-fx-background-color: #57de5b; -fx-border-width: 2; -fx-border-color: #000000;"
-    text="Confirm changes" underline="true">
+  <Button alignment="CENTER" layoutX="631.0" layoutY="535.0" mnemonicParsing="false" onMouseClicked="#replaceSale" prefHeight="43.0" prefWidth="151.0" style="-fx-background-color: #57de5b; -fx-border-width: 2; -fx-border-color: #000000;" text="Confirm" underline="true">
     <font>
-      <Font name="Verdana" size="20.0"/>
+      <Font name="Verdana" size="20.0" />
     </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
   </Button>
 
 </AnchorPane>

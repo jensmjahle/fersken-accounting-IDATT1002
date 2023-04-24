@@ -1,118 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="edu.ntnu.idatt1002.controllers.StatShowerController">
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane onKeyPressed="#handleKeyPressed" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.StatShowerController">
   <Label text="Statistics">
     <font>
-      <Font size="30.0"/>
+      <Font size="30.0" />
     </font>
   </Label>
-  <Rectangle height="600.0" smooth="false" stroke="#ffcaca" strokeType="INSIDE" strokeWidth="0.0"
-    width="800.0">
+  <Rectangle height="600.0" smooth="false" stroke="#ffcaca" strokeType="INSIDE" strokeWidth="0.0" width="800.0">
     <fill>
-      <LinearGradient endX="0.7964015440507367" endY="0.6922348484848484"
-        startX="0.7850379149119059" startY="1.0">
+      <LinearGradient endX="0.5265151515151515" endY="0.15530300862861401" startX="0.5227272582776619">
         <stops>
           <Stop>
             <color>
-              <Color red="0.9647058844566345" green="0.6313725709915161"
-                blue="0.572549045085907"/>
+              <Color red="0.9647058844566345" green="0.6313725709915161" blue="0.572549045085907" />
             </color>
           </Stop>
           <Stop offset="1.0">
             <color>
-              <Color red="0.9490196108818054" green="0.8352941274642944"
-                blue="0.5686274766921997"/>
+              <Color red="0.9490196108818054" green="0.8352941274642944" blue="0.5686274766921997" />
             </color>
           </Stop>
         </stops>
       </LinearGradient>
     </fill>
   </Rectangle>
-  <VBox layoutX="196.0" layoutY="527.0" prefHeight="56.0" prefWidth="242.0" spacing="3.0"
-    style="-fx-border-color: #000000; -fx-background-color: #FFFFFF">
-    <Text fx:id="expenseInPeriodText"/>
-    <Text fx:id="saleInPeriodText"/>
-    <Text fx:id="differenceInPeriodText"/>
+  <VBox layoutX="61.0" layoutY="521.0" prefHeight="56.0" prefWidth="242.0" spacing="3.0" style="-fx-border-color: #000000; -fx-background-color: #FFFFFF">
+    <Text fx:id="expenseInPeriodText" />
+    <Text fx:id="saleInPeriodText" />
+    <Text fx:id="differenceInPeriodText" />
   </VBox>
   <Label layoutX="342.0" layoutY="31.0" text="Statistics">
     <font>
-      <Font size="30.0"/>
+      <Font size="30.0" />
     </font>
   </Label>
-  <ChoiceBox fx:id="graphChooser" layoutX="613.0" layoutY="113.0" onAction="#handleGraphChooser"
-    prefHeight="30.0" prefWidth="150.0" style="-fx-border-color: #000000;"/>
-  <ChoiceBox fx:id="dataSpacingChooser" layoutX="612.0" layoutY="180.0"
-    onAction="#handleSpacingChooser" prefHeight="30.0" prefWidth="150.0"
-    style="-fx-border-color: #000000;"/>
-  <DatePicker fx:id="datePicker1" layoutX="612.0" layoutY="243.0" onAction="#handleDatePicker1"
-    prefHeight="30.0" prefWidth="150.0" style="-fx-border-color: #000000;"/>
-  <DatePicker fx:id="datePicker2" layoutX="612.0" layoutY="285.0" onAction="#handleDatePicker2"
-    prefHeight="30.0" prefWidth="150" style="-fx-border-color: #000000;"/>
-  <CheckBox fx:id="showExpenses" layoutX="613.0" layoutY="362.0"
-    onAction="#handleShowExpenseToggle" prefHeight="30.0" prefWidth="150" selected="true"
-    style="-fx-border-color: #000000;" text="Show expenses"/>
-  <CheckBox fx:id="showSales" layoutX="613.0" layoutY="399.0" onAction="#handleShowSalesToggle"
-    prefHeight="30.0" prefWidth="150" selected="true" style="-fx-border-color: #000000;"
-    text="Show sales"/>
-  <CheckBox fx:id="showDifference" layoutX="613.0" layoutY="440.0"
-    onAction="#handleShowDifferenceToggle" prefHeight="30.0" prefWidth="150" selected="true"
-    style="-fx-border-color: #000000;" text="Show difference"/>
-  <Button alignment="CENTER" layoutX="35.0" layoutY="32.0" mnemonicParsing="false"
-    onMouseClicked="#switchToMainMenuScene" prefHeight="43.0" prefWidth="110.0"
-    style="-fx-background-color: #76b5c5; -fx-border-width: 2; -fx-border-color: #000000;"
-    text="Return" underline="true">
+  <ChoiceBox fx:id="graphChooser" layoutX="613.0" layoutY="113.0" onAction="#handleGraphChooser" prefHeight="30.0" prefWidth="150.0" style="-fx-border-color: #000000;" />
+  <ChoiceBox fx:id="dataSpacingChooser" layoutX="612.0" layoutY="180.0" onAction="#handleSpacingChooser" prefHeight="30.0" prefWidth="150.0" style="-fx-border-color: #000000;" />
+  <DatePicker fx:id="datePicker1" layoutX="612.0" layoutY="243.0" onAction="#handleDatePicker1" prefHeight="30.0" prefWidth="150.0" style="-fx-border-color: #000000;" />
+  <DatePicker fx:id="datePicker2" layoutX="612.0" layoutY="285.0" onAction="#handleDatePicker2" prefHeight="30.0" prefWidth="150" style="-fx-border-color: #000000;" />
+  <CheckBox fx:id="showExpenses" alignment="CENTER" layoutX="613.0" layoutY="362.0" onAction="#handleShowExpenseToggle" prefHeight="30.0" prefWidth="150" selected="true" style="-fx-border-color: #000000; -fx-background-color: #FFFFFF;" text="Show expenses">
+      <padding>
+         <Insets left="10.0" />
+      </padding></CheckBox>
+  <CheckBox fx:id="showSales" alignment="CENTER" layoutX="613.0" layoutY="399.0" onAction="#handleShowSalesToggle" prefHeight="30.0" prefWidth="150" selected="true" style="-fx-border-color: #000000; -fx-background-color: #FFFFFF;" text="Show sales" textAlignment="CENTER">
+      <padding>
+         <Insets left="10.0" />
+      </padding></CheckBox>
+  <CheckBox fx:id="showDifference" alignment="CENTER" layoutX="613.0" layoutY="440.0" onAction="#handleShowDifferenceToggle" prefHeight="30.0" prefWidth="150" selected="true" style="-fx-border-color: #000000; -fx-background-color: #FFFFFF;" text="Show difference">
+      <padding>
+         <Insets left="10.0" />
+      </padding></CheckBox>
+  <Button alignment="CENTER" layoutX="35.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#switchToMainMenuScene" prefHeight="43.0" prefWidth="110.0" style="-fx-background-color: #76b5c5; -fx-border-width: 2; -fx-border-color: #000000;" text="Return" underline="true">
     <font>
-      <Font name="Verdana" size="20.0"/>
+      <Font name="Verdana" size="20.0" />
     </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
   </Button>
-  <Button alignment="CENTER" layoutX="613.0" layoutY="512.0" mnemonicParsing="false"
-    onMouseClicked="#updateChart" prefHeight="43.0" prefWidth="150.0"
-    style="-fx-background-color: #57de5b; -fx-border-width: 2; -fx-border-color: #000000;"
-    text="Update" underline="true">
+  <Button alignment="CENTER" layoutX="613.0" layoutY="512.0" mnemonicParsing="false" onMouseClicked="#updateChart" prefHeight="43.0" prefWidth="150.0" style="-fx-background-color: #57de5b; -fx-border-width: 2; -fx-border-color: #000000;" text="Update" underline="true">
     <font>
-      <Font name="Verdana" size="20.0"/>
+      <Font name="Verdana" size="20.0" />
     </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
   </Button>
   <Label layoutX="660.0" layoutY="330.0" text="Filters">
     <font>
-      <Font size="21.0"/>
+      <Font size="21.0" />
     </font>
   </Label>
   <Label layoutX="659.0" layoutY="211.0" text="Dates">
     <font>
-      <Font size="21.0"/>
+      <Font size="21.0" />
     </font>
   </Label>
   <Label layoutX="648.0" layoutY="152.0" text="Spacing">
     <font>
-      <Font size="21.0"/>
+      <Font size="21.0" />
     </font>
   </Label>
   <Label layoutX="662.0" layoutY="81.0" text="Type">
     <font>
-      <Font size="21.0"/>
+      <Font size="21.0" />
     </font>
   </Label>
-  <Pane fx:id="chartPane" layoutX="14.0" layoutY="95.0" prefHeight="410.0" prefWidth="585.0"
-    style="-fx-border-color: #000000;"/>
-  <Label layoutX="104.0" layoutY="539.0" text="Key stats">
+  <Pane fx:id="chartPane" layoutX="14.0" layoutY="95.0" prefHeight="393.0" prefWidth="585.0" style="-fx-border-color: #000000;" />
+  <Label layoutX="141.0" layoutY="484.0" text="Key stats">
     <font>
-      <Font size="21.0"/>
+      <Font size="21.0" />
     </font>
   </Label>
+  <AnchorPane layoutX="400.0" layoutY="492.0" prefHeight="98.0" prefWidth="168.0" style="-fx-border-color: #000000; -fx-background-color: #FFFFFF;">
+    <Circle fill="DODGERBLUE" layoutX="25.0" layoutY="20.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #384c6b;" />
+    <Circle fill="DODGERBLUE" layoutX="25.0" layoutY="50.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #e28a2b;" />
+    <Circle fill="DODGERBLUE" layoutX="25.0" layoutY="80.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #859bba;" />
+    <Label layoutX="43.0" layoutY="11.0" text="Sales" />
+    <Label layoutX="43.0" layoutY="42.0" text="Difference" />
+    <Label layoutX="43.0" layoutY="72.0" text="Expenses" />
+  </AnchorPane>
 </AnchorPane>
