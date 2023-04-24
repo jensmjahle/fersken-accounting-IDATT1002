@@ -1,32 +1,31 @@
 package edu.ntnu.idatt1002.registers;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 class RegisterTest {
-  File file;
+
   Register<String> register;
   String testString;
 
   @BeforeEach
   @DisplayName("Set up")
-  void setUp(){
-    file = new File("RegisterTest");
-    register = new Register<>(file.getPath());
+  void setUp() {
+    register = new Register<>("src/test/resources/RegisterTest.txt");
     testString = "Test String";
   }
-
 
 
   @Test
@@ -56,11 +55,9 @@ class RegisterTest {
   }
 
 
-
-
   @Test
   @DisplayName("Should get objects")
-  void shoulGetObjects() {
+  void shouldGetObjects() {
     register.addObject(testString);
     List<String> expected = new ArrayList<>();
     expected.add(testString);
@@ -84,18 +81,16 @@ class RegisterTest {
 
   @Test
   void shouldThrowNullPointerExceptionIfFilePathIsNull() {
-    assertThrows(NullPointerException.class, () -> {
-      Register registerTestException = new SaleRegister(null);
-    });
+    assertThrows(NullPointerException.class, () -> new Register<>(null));
   }
 
   @AfterEach
   void tearDown() {
     try {
-      String location = "src/main/resources/registers/" + file.toPath() + ".txt";
+      String location = "src/test/resources/RegisterTest.txt";
       Path path = Paths.get(location);
       Files.deleteIfExists(path);
-    } catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
     }
 

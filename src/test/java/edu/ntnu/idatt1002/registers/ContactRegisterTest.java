@@ -1,38 +1,41 @@
 package edu.ntnu.idatt1002.registers;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import edu.ntnu.idatt1002.storageitems.Contact;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
+import edu.ntnu.idatt1002.storageitems.Contact;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 class ContactRegisterTest {
+
   ContactRegister contactRegister;
   Contact contact;
-  File file;
+
 
   @BeforeEach
   void setUp() {
-    file = new File("ContactsTest");
-    contactRegister = new ContactRegister("ContactsTest");
-    contact = new Contact("name", "email@email.com","street",
-        50,"12345678", "12345678910", "1740", "1234");
+
+    contactRegister = new ContactRegister("src/test/resources/ContactTest.txt");
+    contact = new Contact("name", "email@email.com", "street", 50, "12345678", "12345678910",
+        "1740", "1234");
   }
 
   @Test
   @DisplayName("Should find contact by name")
-  void shouldFindContactByName(){
-    Contact expectedContact = new Contact("ExpectedContact", "email@email.com","street",
-        50,"12345678", "12345678910", "1740", "1234");
+  void shouldFindContactByName() {
+    Contact expectedContact = new Contact("ExpectedContact", "email@email.com", "street", 50,
+        "12345678", "12345678910", "1740", "1234");
     contactRegister.addObject(expectedContact);
     Contact actualContact = contactRegister.findContactFromName("ExpectedContact");
 
@@ -41,7 +44,7 @@ class ContactRegisterTest {
 
   @Test
   @DisplayName("Should not find contact by name")
-  void shouldNotFindContactByName(){
+  void shouldNotFindContactByName() {
     contactRegister.addObject(contact);
     Contact foundContact = contactRegister.findContactFromName("NonExistingContact");
 
@@ -65,7 +68,8 @@ class ContactRegisterTest {
   void ShouldNotRemoveContact() {
     contactRegister.addObject(contact);
 
-    Contact unequalContact = new Contact("name2", "email@email.com", "street2", 60, "87654321", "10987654321", "4070", "1234");
+    Contact unequalContact = new Contact("name2", "email@email.com", "street2", 60, "87654321",
+        "10987654321", "4070", "1234");
     boolean stateOfRemoval = contactRegister.removeObject(unequalContact);
     assertFalse(stateOfRemoval);
 
@@ -101,18 +105,16 @@ class ContactRegisterTest {
   @Test
   @DisplayName("Not able to create contactRegister if filepath is null")
   void shouldThrowNullPointerExceptionIfFilePathIsNull() {
-    assertThrows(NullPointerException.class, () -> {
-      ContactRegister contactRegister1 = new ContactRegister(null);
-    });
+    assertThrows(NullPointerException.class, () -> new ContactRegister(null));
   }
 
   @AfterEach
   void tearDown() {
     try {
-      String location = "src/main/resources/registers/" + file.toPath() + ".txt";
+      String location = "src/test/resources/ContactTest.txt";
       Path path = Paths.get(location);
       Files.deleteIfExists(path);
-    } catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
     }
 

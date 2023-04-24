@@ -4,11 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.ntnu.idatt1002.registers.BudgetRegister;
-import edu.ntnu.idatt1002.registers.ContactRegister;
-import edu.ntnu.idatt1002.registers.ExpenseRegister;
-import edu.ntnu.idatt1002.registers.RegisterManager;
-import edu.ntnu.idatt1002.registers.SaleRegister;
 import edu.ntnu.idatt1002.storageitems.User;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

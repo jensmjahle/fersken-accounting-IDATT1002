@@ -1,23 +1,24 @@
 package edu.ntnu.idatt1002.registers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import edu.ntnu.idatt1002.storageitems.Budget;
 import edu.ntnu.idatt1002.storageitems.Contact;
 import edu.ntnu.idatt1002.storageitems.Expense;
 import edu.ntnu.idatt1002.storageitems.Sale;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 class BudgetRegisterTest {
 
@@ -27,7 +28,6 @@ class BudgetRegisterTest {
   Contact contact;
   Date date;
   BudgetRegister budgetRegister;
-  File file;
 
   @BeforeEach
   void setUp() {
@@ -35,12 +35,9 @@ class BudgetRegisterTest {
     sales = new ArrayList<>();
     budget = new Budget("Project");
     date = new Date();
-    contact = new Contact("name", "email@email.com", "street", 12, "12345678", "11111111111", "7043", "1234");
-    Sale sale = new Sale(contact, date, "product", "22222222222", 100);
-    file = new File("BudgetTest");
-    budgetRegister = new BudgetRegister(file.getPath());
-
-
+    contact = new Contact("name", "email@email.com", "street", 12, "12345678", "11111111111",
+        "7043", "1234");
+    budgetRegister = new BudgetRegister("src/test/resources/BudgetTest.txt");
   }
 
 
@@ -81,7 +78,8 @@ class BudgetRegisterTest {
     assertEquals(expected, actual);
   }
 
-  void shouldAddBudget(){
+  @Test
+  void shouldAddBudget() {
     budgetRegister.addObject(budget);
     Budget expected = budget;
     Budget actual = budgetRegister.getObjects().get(0);
@@ -95,14 +93,12 @@ class BudgetRegisterTest {
   @Test
   @DisplayName("Not able to create saleRegister if filepath is null")
   void shouldThrowNullPointerExceptionIfFilePathIsNull() {
-    assertThrows(NullPointerException.class, () -> {
-      SaleRegister saleRegister1 = new SaleRegister(null);
-    });
+    assertThrows(NullPointerException.class, () -> new SaleRegister(null));
   }
 
   @Test
   @DisplayName("Throws NullPointerException if trying to add a null object")
-  void cannotAddInvalidObject(){
+  void cannotAddInvalidObject() {
     assertThrows(NullPointerException.class, () -> budgetRegister.addObject(null));
   }
 
@@ -110,10 +106,10 @@ class BudgetRegisterTest {
   @AfterEach
   void tearDown() {
     try {
-      String location = "src/main/resources/registers/" + file.toPath() + ".txt";
+      String location = "src/test/resources/BudgetTest.txt";
       Path path = Paths.get(location);
       Files.deleteIfExists(path);
-    } catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
     }
 
