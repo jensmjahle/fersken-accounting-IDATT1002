@@ -1,13 +1,11 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Contact;
-import edu.ntnu.idatt1002.PathUtility;
-import edu.ntnu.idatt1002.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Contact;
+import edu.ntnu.idatt1002.utility.PathUtility;
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.registers.ContactRegister;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,9 +26,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -47,8 +45,6 @@ public class ListOfAllCustomersController implements Initializable {
   private Button deleteButton;
   @FXML
   private Button editButton;
-  @FXML
-  private ImageView infoIcon;
   @FXML
   private TableView<Contact> customerTable;
   @FXML
@@ -73,10 +69,9 @@ public class ListOfAllCustomersController implements Initializable {
    * Switches the application back to the main menu scene.
    *
    * @param event The event that triggers the switch back to the main menu.
-   * @throws IOException If the resource cannot be found
    */
   @FXML
-  private void switchToMainMenuScene(MouseEvent event) throws IOException {
+  private void switchToMainMenuScene(InputEvent event) {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
@@ -101,6 +96,7 @@ public class ListOfAllCustomersController implements Initializable {
   /**
    * Updates the tableview with updated values for the displayed objects.
    */
+  @SuppressWarnings("Duplicates")
   private void updateTable() {
     customerTable.getItems().removeAll(customerTable.getItems());
     customerRegister = RegisterManager.getInstance().getCustomerRegister();
@@ -167,7 +163,7 @@ public class ListOfAllCustomersController implements Initializable {
    * Creates a boolean binding that checks if only one item is selected.
    *
    * @return a boolean binding that represents information about if only one item is selected in the
-   * table.
+   *        table.
    */
   private BooleanBinding onlyOneSelectedItemBinding() {
     return Bindings.createBooleanBinding(
@@ -187,7 +183,7 @@ public class ListOfAllCustomersController implements Initializable {
         """);
     tooltip.setFont(Font.font(20));
     tooltip.setShowDelay(Duration.ZERO);
-    Tooltip.install(infoIcon, tooltip);
+    Tooltip.install(informationPane, tooltip);
   }
 
 
@@ -198,26 +194,41 @@ public class ListOfAllCustomersController implements Initializable {
     customerTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
   }
 
+  @FXML
+  private void switchToEditCustomerScene(InputEvent event) {
+    try {
+
+      FXMLLoader loader = new FXMLLoader(
+          PathUtility.getResourcePath(View.EDIT_CUSTOMER.getFileName()));
+      Parent root = loader.load();
+      EditCustomerController controller = loader.getController();
+      controller.setCustomer(customerTable.getSelectionModel().getSelectedItems().get(0));
+
+      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      Scene scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      Alert alert = new Alert(AlertType.ERROR,
+          "Cannot switch to selected page\nPlease contact customer service");
+      alert.showAndWait();
+    }
+  }
+
   /**
-   * Switches to edit customer page.
-   * Displays the highlighted customer and allows for edits.
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
    *
-   * @param event Event that triggers switch to edit customer page.
-   * @throws IOException If the resource path is invalid.
+   * @param keyEvent Event that triggers the shortcut.
    */
   @FXML
-  private void switchToEditCustomerScene(MouseEvent event) throws IOException {
-
-    FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath(View.EDIT_CUSTOMER.getFileName()));
-    Parent root = loader.load();
-    EditCustomerController controller = loader.getController();
-    controller.setCustomer(customerTable.getSelectionModel().getSelectedItems().get(0));
-
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+      switchToEditCustomerScene(keyEvent);
+    } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToMainMenuScene(keyEvent);
+    }
   }
+
 }
 
 

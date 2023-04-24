@@ -1,8 +1,11 @@
-package edu.ntnu.idatt1002;
+package edu.ntnu.idatt1002.storageitems;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import edu.ntnu.idatt1002.storageitems.Contact;
+import edu.ntnu.idatt1002.storageitems.Sale;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,25 +21,30 @@ class SaleTest {
   @DisplayName("Set up")
   void setUp() {
     date = new Date();
-    contact = new Contact("Name", "abc@email.com", "Street", 10, "12345678", "12345678910", "1234", "1234");
+    contact = new Contact("Name", "abc@email.com", "Street", 10, "12345678", "12345678910", "1234",
+        "1234");
     sale = new Sale(contact, date, "Product", "98765432111", 100);
   }
 
   @Test
   @DisplayName("Invalid sales amount throws IllegalArgumentException")
   void invalidSalesAmountThrowsIllegalArgumentException() {
-    assertThrows(IllegalArgumentException.class, () -> {
-      Sale invalidSale = new Sale(contact, date, "Product", "98765432111", -1);
-    });
+    assertThrows(IllegalArgumentException.class,
+        () -> new Sale(contact, date, "Product", "98765432111", -1));
+
+  }
+
+  @Test
+  void shouldCreateSaleWithoutContact() {
+    assertDoesNotThrow(() -> new Sale("customer", date, "Product", "98765432111", 100));
 
   }
 
   @Test
   @DisplayName("Invalid account number throws IllegalArgumentException")
   void invalidAccountNumberThrowsIllegalArgumentException() {
-    assertThrows(IllegalArgumentException.class, () -> {
-      Sale invalidSale = new Sale(contact, date, "Product", "12345", 100);
-    });
+    assertThrows(IllegalArgumentException.class,
+        () -> new Sale(contact, date, "Product", "12345", 100));
 
   }
 

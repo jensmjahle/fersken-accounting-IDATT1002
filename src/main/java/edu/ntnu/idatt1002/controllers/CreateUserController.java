@@ -1,10 +1,9 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.User;
+import edu.ntnu.idatt1002.registers.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.User;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
-import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import javafx.fxml.FXML;
@@ -12,7 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyEvent;
 
 /**
  * Controller for creating a user, used in the "CreateUser" fxml file.
@@ -32,7 +32,7 @@ public class CreateUserController {
    *
    * @param event Event that triggers the method activation.
    */
-  public void onCreateUserClicked(MouseEvent event) {
+  public void onCreateUserClicked(InputEvent event) {
     try {
       createUser();
       RegisterManager.getInstance().setUserName(userNameTextField.getText());
@@ -88,9 +88,9 @@ public class CreateUserController {
    * Loads the main menu fxml into the scene.
    *
    * @param event event that triggers the method execution
-   * @throws IOException if there is an error loading the main menu
    */
-  public void switchToMainMenuScene(MouseEvent event) throws IOException {
+  @FXML
+  private void switchToMainMenuScene(InputEvent event) {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
@@ -98,9 +98,21 @@ public class CreateUserController {
    * Loads the login fxml into the scene.
    *
    * @param event event that triggers the method execution
-   * @throws IOException if there is an error loading the login scene
    */
-  public void switchToLoginScene(MouseEvent event) throws IOException {
+  public void switchToLoginScene(InputEvent event) {
     ViewManager.switchToScene(event, View.LOGIN);
+  }
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    switch (keyEvent.getCode()) {
+      case ENTER -> onCreateUserClicked(keyEvent);
+      case ESCAPE -> switchToLoginScene(keyEvent);
+    }
   }
 }

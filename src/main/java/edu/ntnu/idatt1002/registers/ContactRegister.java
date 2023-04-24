@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002.registers;
 
-import edu.ntnu.idatt1002.Contact;
+import edu.ntnu.idatt1002.storageitems.Contact;
 
 /**
  * This class represents a contact register that stores object of type "Contact".

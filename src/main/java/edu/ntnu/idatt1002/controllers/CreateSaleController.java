@@ -1,12 +1,11 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Contact;
-import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.Sale;
+import edu.ntnu.idatt1002.storageitems.Contact;
+import edu.ntnu.idatt1002.registers.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Sale;
 import edu.ntnu.idatt1002.registers.ContactRegister;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
-import java.io.IOException;
 import java.time.ZoneId;
 import java.util.Date;
 import javafx.animation.PauseTransition;
@@ -16,7 +15,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 /**
@@ -41,14 +42,13 @@ public class CreateSaleController {
    * parameter, the method will try to go to that page instead.
    *
    * @param event Type of event that brings you back to main menu.
-   * @throws IOException if method can't find filepath.
    */
-  public void switchToMainMenuScene(MouseEvent event) throws IOException {
-    try {
+  public void switchToSelectedScene(InputEvent event) {
+    if (pageToReturnTo != null) {
       ViewManager.switchToScene(event, pageToReturnTo);
-    } catch (Exception e) {
-      ViewManager.switchToScene(event, View.MAIN_MENU);
     }
+    ViewManager.switchToScene(event, View.MAIN_MENU);
+
   }
 
   /**
@@ -107,9 +107,10 @@ public class CreateSaleController {
    * Tries to create a sale, if the sale is not created, the method will show an alert informing the
    * user of the problem.
    */
-  public void onCreateSale() {
+  public void onCreateSaleClicked() {
     try {
       createSale();
+      confirmSaleIsCreated();
     } catch (NumberFormatException e) {
       Alert alert = new Alert(AlertType.WARNING, e.getMessage() + " is not a valid number");
       alert.showAndWait();
@@ -161,5 +162,19 @@ public class CreateSaleController {
    */
   public void setPageToReturnTo(View view) {
     this.pageToReturnTo = view;
+  }
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+      onCreateSaleClicked();
+    } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToSelectedScene(keyEvent);
+    }
   }
 }

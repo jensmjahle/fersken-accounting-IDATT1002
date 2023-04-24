@@ -1,16 +1,16 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Contact;
-import edu.ntnu.idatt1002.Expense;
-import edu.ntnu.idatt1002.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Contact;
+import edu.ntnu.idatt1002.storageitems.Expense;
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.registers.ContactRegister;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
-import java.io.IOException;
 import java.net.URL;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -18,10 +18,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 /**
- * Controller class for the create expense page.
+ * Controller class for the register expense page.
  */
 public class CreateExpenseController implements Initializable {
 
@@ -41,21 +44,15 @@ public class CreateExpenseController implements Initializable {
    * Method for switching back to main menu.
    *
    * @param event type for event that brings you back to main menu
-   * @throws IOException if method can't find filepath
    */
-  public void switchToMainMenuScene(MouseEvent event) throws IOException {
-    try {
+  public void switchToSelectedScene(InputEvent event) {
+    if (pageToReturnTo != null) {
       ViewManager.switchToScene(event, pageToReturnTo);
-    } catch (Exception e) {
-      ViewManager.switchToScene(event, View.MAIN_MENU);
     }
+    ViewManager.switchToScene(event, View.MAIN_MENU);
+
   }
 
-  /**
-   * Sets a new page to return on return button pressed or when sale has been created.
-   *
-   * @param pageToReturnTo Page to return to.
-   */
   public void setPageToReturnTo(View pageToReturnTo) {
     this.pageToReturnTo = pageToReturnTo;
   }
@@ -104,9 +101,10 @@ public class CreateExpenseController implements Initializable {
    * Tries to create an expense, if it's not able to, an error message will be shown to the user
    * with the cause of error.
    */
-  public void onCreateExpense() {
+  public void onCreateExpenseClicked() {
     try {
       createExpense();
+      confirmExpenseIsCreated();
     } catch (NumberFormatException e) {
       Alert alert = new Alert(AlertType.WARNING, e.getMessage() + " is not a valid number");
       alert.showAndWait();
@@ -150,6 +148,28 @@ public class CreateExpenseController implements Initializable {
     ContactRegister supplierRegister = RegisterManager.getInstance().getSupplierRegister();
     for (Contact supplier : supplierRegister.getObjects()) {
       supplierComboBox.getItems().add(supplier.getName());
+    }
+  }
+
+  private void confirmExpenseIsCreated() {
+    Alert alert = new Alert(AlertType.CONFIRMATION, "Expense has been created");
+    alert.show();
+    PauseTransition delay = new PauseTransition(Duration.seconds(2));
+    delay.setOnFinished(event -> alert.close());
+    delay.play();
+  }
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+      onCreateExpenseClicked();
+    } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToSelectedScene(keyEvent);
     }
   }
 }

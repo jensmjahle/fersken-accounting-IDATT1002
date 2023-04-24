@@ -1,26 +1,26 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Budget;
-import edu.ntnu.idatt1002.Expense;
-import edu.ntnu.idatt1002.Sale;
+import edu.ntnu.idatt1002.storageitems.Budget;
+import edu.ntnu.idatt1002.storageitems.Expense;
+import edu.ntnu.idatt1002.storageitems.Sale;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-
-import java.io.IOException;
-import java.util.List;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
- * Controller class for open budget page.
- * Displays expenses and income about a given budget.
+ * Controller class for open budget page. Displays expenses and income about a given budget.
  */
 public class OpenBudgetController {
+
   @FXML
   private Label budgetNameField;
   @FXML
@@ -48,9 +48,8 @@ public class OpenBudgetController {
   private List<Sale> listOfIncome;
 
   /**
-   * Set the budget to be shown and retrieves a list of expenses
-   * and a list of sales from the budget.
-   * Fills fields with current info about the budget.
+   * Set the budget to be shown and retrieves a list of expenses and a list of sales from the
+   * budget. Fills fields with current info about the budget.
    *
    * @param budget The budget to be displayed.
    */
@@ -65,10 +64,9 @@ public class OpenBudgetController {
    * Switches to list of all budgets page.
    *
    * @param event Event that triggers switch to list of all budgets.
-   * @throws IOException If resource path is invalid.
    */
   @FXML
-  private void switchToListOfAllBudgetsScene(MouseEvent event) throws IOException {
+  private void switchToListOfAllBudgetsScene(InputEvent event) {
     ViewManager.switchToScene(event, View.LIST_OF_ALL_BUDGETS);
   }
 
@@ -96,7 +94,6 @@ public class OpenBudgetController {
 
       incomeProductColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
 
-
       listOfIncome = budget.getListOfSales();
       listOfExpenses = budget.getListOfExpenses();
       for (Expense expense : listOfExpenses) {
@@ -110,6 +107,19 @@ public class OpenBudgetController {
       Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
       e.printStackTrace();
       alert.showAndWait();
+    }
+  }
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToListOfAllBudgetsScene(keyEvent);
+
     }
   }
 }

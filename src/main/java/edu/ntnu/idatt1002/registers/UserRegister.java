@@ -1,7 +1,6 @@
 package edu.ntnu.idatt1002.registers;
 
-import edu.ntnu.idatt1002.User;
-import edu.ntnu.idatt1002.registers.Register;
+import edu.ntnu.idatt1002.storageitems.User;
 import java.util.Objects;
 
 /**
@@ -20,22 +19,19 @@ public class UserRegister extends Register<User> {
     super(fileName);
   }
 
-  public User findUserByName(String userName){
-    return getObjects().stream()
-        .filter(user -> user.getUserName().equals(userName))
+  public User findUserByName(String userName) {
+    return getObjects().stream().filter(user -> user.getUserName().equalsIgnoreCase(userName))
         .findFirst().orElse(null);
   }
 
-  public boolean userNameExists(String userName){
-    return getObjects().stream()
-        .anyMatch(user -> user.getUserName().equals(userName));
+  public boolean userNameAlreadyExists(String userName) {
+    return getObjects().stream().noneMatch(user -> user.getUserName().equalsIgnoreCase(userName));
   }
 
   @Override
-  public void addObject(User user){
+  public void addObject(User user) {
     Objects.requireNonNull(user, "Cannot add null object to register");
-    if (getObjects().stream()
-        .anyMatch(aUser -> aUser.getUserName().equals(user.getUserName()))){
+    if (getObjects().stream().anyMatch(aUser -> aUser.getUserName().equals(user.getUserName()))) {
       throw new IllegalArgumentException("Username is already in use");
     }
     getObjects().add(user);

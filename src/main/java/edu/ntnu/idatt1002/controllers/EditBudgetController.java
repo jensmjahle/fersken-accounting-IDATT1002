@@ -1,25 +1,29 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Budget;
-import edu.ntnu.idatt1002.Expense;
-import edu.ntnu.idatt1002.PathUtility;
-import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.Sale;
+import edu.ntnu.idatt1002.storageitems.Budget;
+import edu.ntnu.idatt1002.storageitems.Expense;
+import edu.ntnu.idatt1002.utility.PathUtility;
+import edu.ntnu.idatt1002.registers.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Sale;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
-import java.io.IOException;
 import java.util.List;
-
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -84,12 +88,10 @@ public class EditBudgetController {
   /**
    * Method for replacing the original budget with an updated version.
    *
-   * @param event Event that brings you back to the list of budgets,
-   *              with the updated budget.
-   * @throws IOException if the resource path is invalid.
+   * @param event Event that brings you back to the list of budgets, with the updated budget.
    */
   @FXML
-  private void replaceBudget(MouseEvent event) throws IOException {
+  private void replaceBudget(InputEvent event) {
     try {
       createBudget();
       RegisterManager.getInstance().getBudgetRegister().removeObject(budgetToBeEdited);
@@ -108,7 +110,7 @@ public class EditBudgetController {
    * Method that creates a new budget.
    *
    * @throws IllegalArgumentException if project name is empty.
-   * @throws NullPointerException if the project name is null.
+   * @throws NullPointerException     if the project name is null.
    */
   public void createBudget() throws IllegalArgumentException, NullPointerException {
     if (projectNameField.getText().isEmpty()) {
@@ -129,21 +131,27 @@ public class EditBudgetController {
    * Method that switches to list of all budgets.
    *
    * @param mouseEvent event that triggers switch back to list of all budgets.
-   * @throws IOException if the resource file is invalid.
    */
   @FXML
-  public void switchToListOfBudgets(MouseEvent mouseEvent) throws IOException {
-    Parent root = FXMLLoader.load(
-        PathUtility.getResourcePath(View.LIST_OF_ALL_BUDGETS.getFileName()));
-    Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+  public void switchToListOfBudgets(InputEvent mouseEvent) {
+    try {
+      Parent root = FXMLLoader.load(
+          PathUtility.getResourcePath(View.LIST_OF_ALL_BUDGETS.getFileName()));
+      Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+      Scene scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      Alert alert = new Alert(AlertType.ERROR,
+          "Cannot change page\nPlease contact customer service");
+      alert.showAndWait();
+    }
   }
 
   /**
    * Method that fills the fields with current info about the relevant budget.
    */
+  @SuppressWarnings("Duplicates")
   public void fillFieldsWithCurrentInfo() {
     try {
 
@@ -190,15 +198,14 @@ public class EditBudgetController {
    * Method that switches back to main menu.
    *
    * @param event event that brings you back to main menu.
-   * @throws IOException if there is an error loading the FXML file.
    */
-  public void switchToMainMenuScene(MouseEvent event) throws IOException {
+  public void switchToMainMenuScene(InputEvent event) {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
   /**
-   * Method that tries to add an expense.
-   * Shows warning alerts if any fields are incorrectly filled out.
+   * Method that tries to add an expense. Shows warning alerts if any fields are incorrectly filled
+   * out.
    */
   @FXML
   private void onAddExpenseClicked() {
@@ -218,7 +225,7 @@ public class EditBudgetController {
    * Method that creates a new sale.
    *
    * @throws IllegalArgumentException If any text fields are not filled out.
-   * @throws NullPointerException If any text fields are null.
+   * @throws NullPointerException     If any text fields are null.
    */
   public void addIncome() throws IllegalArgumentException, NullPointerException {
     if (incomeNameField.getText().isEmpty()) {
@@ -243,7 +250,7 @@ public class EditBudgetController {
    * Method that creates a new expense.
    *
    * @throws IllegalArgumentException If any text fields are not filled out.
-   * @throws NullPointerException If any text fields are null.
+   * @throws NullPointerException     If any text fields are null.
    */
   public void addExpense() throws IllegalArgumentException, NullPointerException {
     if (expenseNameField.getText().isEmpty()) {
@@ -267,8 +274,7 @@ public class EditBudgetController {
   }
 
   /**
-   * Method that tries to add a sale.
-   * Shows warning alert if any fields are incorrectly filled out.
+   * Method that tries to add a sale. Shows warning alert if any fields are incorrectly filled out.
    */
   @FXML
   private void onAddIncomeClicked() {
@@ -287,6 +293,7 @@ public class EditBudgetController {
   /**
    * Method that updates tables with recently added values.
    */
+  @SuppressWarnings("Duplicates")
   public void updateTables() {
     expenseNameColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
 
@@ -360,11 +367,25 @@ public class EditBudgetController {
   }
 
   /**
-   * Boolean binding that checks if there are any selected items.'
+   * Boolean binding that checks if there are any selected items.
    *
    * @return a Boolean binding that represents if there are any selected items or not.
    */
   private BooleanBinding selectedItemsNotNullBindingIncome() {
     return incomeTable.getSelectionModel().selectedItemProperty().isNotNull();
+  }
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+      replaceBudget(keyEvent);
+    } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToListOfBudgets(keyEvent);
+    }
   }
 }

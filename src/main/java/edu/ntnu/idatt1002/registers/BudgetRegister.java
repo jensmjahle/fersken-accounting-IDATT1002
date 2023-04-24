@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002.registers;
 
-import edu.ntnu.idatt1002.Budget;
+import edu.ntnu.idatt1002.storageitems.Budget;
 
 /**
  * This class represents a budget register that stores object of type "Budget".

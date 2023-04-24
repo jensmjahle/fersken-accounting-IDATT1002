@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002;
+package edu.ntnu.idatt1002.storageitems;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
@@ -34,11 +34,14 @@ public class User implements Serializable {
     if (password.length() > 64 || password.length() < 8) {
       throw new IllegalArgumentException("Password has to be between 8 and 64 characters long");
     }
-    if (!password.matches(".*[0-9].*")){
+    if (!password.matches(".*[0-9].*")) {
       throw new IllegalArgumentException("Password needs minimum 1 number");
     }
+    if (userName.equals(password)) {
+      throw new IllegalArgumentException("Username cannot be the same as password");
+    }
     this.userName = userName;
-    setSalt();
+    salt = createSalt();
     hash = createHash(password);
   }
 
@@ -72,11 +75,11 @@ public class User implements Serializable {
   /**
    * Sets a new random salt of length 16.
    */
-  private void setSalt() {
+  private byte[] createSalt() {
     SecureRandom random = new SecureRandom();
     byte[] salt = new byte[16];
     random.nextBytes(salt);
-    this.salt = salt;
+    return salt;
   }
 
   /**
@@ -108,13 +111,51 @@ public class User implements Serializable {
    */
   public void setNewPassword(String newPassword)
       throws IllegalArgumentException, NoSuchAlgorithmException, InvalidKeySpecException {
-    setSalt();
+
+
     byte[] newHash = createHash(newPassword);
     if (Arrays.equals(newHash, getHash())) {
       throw new IllegalArgumentException("Password cannot be the same as previous password");
+    } else {
+      salt = createSalt();
+      hash = createHash(newPassword);
     }
 
-    this.hash = newHash;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    User user = (User) o;
+
+    if (!getUserName().equals(user.getUserName())) {
+      return false;
+    }
+    if (!Arrays.equals(getSalt(), user.getSalt())) {
+      return false;
+    }
+    return Arrays.equals(getHash(), user.getHash());
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getUserName().hashCode();
+    result = 31 * result + Arrays.hashCode(getSalt());
+    result = 31 * result + Arrays.hashCode(getHash());
+    return result;
+  }
+
+  @Override
+  public String toString() {
+    return "Username: " + userName +
+        "\nsalt:" + Arrays.toString(salt) +
+        "\nhash: " + Arrays.toString(hash);
   }
 }
 

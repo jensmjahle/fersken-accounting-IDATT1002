@@ -1,5 +1,9 @@
-package edu.ntnu.idatt1002;
+package edu.ntnu.idatt1002.storageitems;
 
+import edu.ntnu.idatt1002.storageitems.Budget;
+import edu.ntnu.idatt1002.storageitems.Contact;
+import edu.ntnu.idatt1002.storageitems.Expense;
+import edu.ntnu.idatt1002.storageitems.Sale;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;

@@ -1,5 +1,6 @@
-package edu.ntnu.idatt1002;
+package edu.ntnu.idatt1002.storageitems;
 
+import edu.ntnu.idatt1002.storageitems.Contact;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

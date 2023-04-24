@@ -1,10 +1,9 @@
 package edu.ntnu.idatt1002.registers;
 
-import edu.ntnu.idatt1002.Budget;
-import edu.ntnu.idatt1002.Contact;
-import edu.ntnu.idatt1002.Expense;
-import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.Sale;
+import edu.ntnu.idatt1002.storageitems.Budget;
+import edu.ntnu.idatt1002.storageitems.Contact;
+import edu.ntnu.idatt1002.storageitems.Expense;
+import edu.ntnu.idatt1002.storageitems.Sale;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

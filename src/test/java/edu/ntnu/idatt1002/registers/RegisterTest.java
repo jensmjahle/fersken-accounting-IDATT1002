@@ -1,6 +1,5 @@
 package edu.ntnu.idatt1002.registers;
 
-import edu.ntnu.idatt1002.Sale;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

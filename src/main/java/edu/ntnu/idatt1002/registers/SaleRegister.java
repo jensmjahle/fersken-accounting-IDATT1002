@@ -1,6 +1,6 @@
 package edu.ntnu.idatt1002.registers;
 
-import edu.ntnu.idatt1002.Sale;
+import edu.ntnu.idatt1002.storageitems.Sale;
 
 /**
  * This class represents a sale register that stores object of type "Sale".

@@ -1,10 +1,10 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Budget;
-import edu.ntnu.idatt1002.Expense;
-import edu.ntnu.idatt1002.PathUtility;
-import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.Sale;
+import edu.ntnu.idatt1002.storageitems.Budget;
+import edu.ntnu.idatt1002.storageitems.Expense;
+import edu.ntnu.idatt1002.utility.PathUtility;
+import edu.ntnu.idatt1002.registers.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Sale;
 import edu.ntnu.idatt1002.registers.ExpenseRegister;
 import edu.ntnu.idatt1002.registers.SaleRegister;
 import edu.ntnu.idatt1002.viewmanagement.View;
@@ -28,6 +28,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -60,10 +63,10 @@ public class CreateBudgetController implements Initializable {
   /**
    * Initializes the controller with necessary methods.
    *
-   * @param url The location used to resolve relative paths for the root object, or null
-   *    *                       if the location is not known.
+   * @param url            The location used to resolve relative paths for the root object, or null
+   *                       if the location is not known.
    * @param resourceBundle The resources used to localize the root object, or null if the root
-   *    *                       object was not localized.
+   *                       object was not localized.
    */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -83,9 +86,8 @@ public class CreateBudgetController implements Initializable {
    * Loads the main menu fxml into the scene.
    *
    * @param event event that triggers the method execution
-   * @throws IOException if there is an error loading the main menu
    */
-  public void switchToMainMenuScene(MouseEvent event) throws IOException {
+  public void switchToMainMenuScene(InputEvent event) {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
@@ -167,7 +169,8 @@ public class CreateBudgetController implements Initializable {
   }
 
   /**
-   * Tries to create a budget, if any errors occur, the user will be shown an alert with an error message
+   * Tries to create a budget, if any errors occur, the user will be shown an alert with an error
+   * message.
    */
   public void createBudgetClicked() {
     try {
@@ -179,9 +182,10 @@ public class CreateBudgetController implements Initializable {
   }
 
   /**
-   * Tries to create a budget with the selected sales and expenses
+   * Tries to create a budget with the selected sales and expenses.
+   *
    * @throws IllegalArgumentException If the project name is empty
-   * @throws NullPointerException If the project name is null
+   * @throws NullPointerException     If the project name is null
    */
   private void createBudget() throws IllegalArgumentException, NullPointerException {
     if (projectNameField.getText().isEmpty()) {
@@ -202,10 +206,11 @@ public class CreateBudgetController implements Initializable {
   }
 
   /**
-   * Method for checking the difference in a budget.
-   * Presents a confirmation alert if difference is not zero.
-   * @return true if difference is zero or if user wants to proceed,
-   * false if user cancels the operation.
+   * Method for checking the difference in a budget. Presents a confirmation alert if difference is
+   * not zero.
+   *
+   * @return true if difference is zero or if user wants to proceed, false if user cancels the
+   *        operation.
    */
   private boolean checkDifferenceIsZero() {
     selectedExpenses = expenseTable.getSelectionModel().getSelectedItems();
@@ -232,8 +237,8 @@ public class CreateBudgetController implements Initializable {
   }
 
   /**
-   * Method for presenting a confirmation box to the user.
-   * Confirming that a budget has been created.
+   * Method for presenting a confirmation box to the user. Confirming that a budget has been
+   * created.
    */
   private void confirmBudgetIsCreated() {
     Alert budgetHasBeenCreated = new Alert(AlertType.CONFIRMATION, "Budget has been created");
@@ -251,5 +256,19 @@ public class CreateBudgetController implements Initializable {
     expenseTable.getItems().clear();
     incomeTable.getItems().clear();
 
+  }
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+      createBudgetClicked();
+    } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToMainMenuScene(keyEvent);
+    }
   }
 }

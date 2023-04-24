@@ -1,13 +1,11 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.PathUtility;
-import edu.ntnu.idatt1002.RegisterManager;
-import edu.ntnu.idatt1002.Sale;
+import edu.ntnu.idatt1002.utility.PathUtility;
+import edu.ntnu.idatt1002.registers.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Sale;
 import edu.ntnu.idatt1002.registers.SaleRegister;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,17 +26,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- * Controller for the list of all sales fxml file. Shows a table of sales to the user. Enables
- * the user to delete and edit existing sales.
+ * Controller for the list of all sales fxml file. Shows a table of sales to the user. Enables the
+ * user to delete and edit existing sales.
  */
 public class ListOfAllSalesController implements Initializable {
 
@@ -66,32 +64,35 @@ public class ListOfAllSalesController implements Initializable {
    * Switches the application back to the main menu scene.
    *
    * @param event The event that triggers the switch back to the main menu.
-   * @throws IOException If the resource cannot be found
    */
   @FXML
-  private void switchToMainMenuScene(MouseEvent event) throws IOException {
+  private void switchToMainMenuScene(InputEvent event) {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
   /**
-   * Switches to edit sale page.
-   * Displays the currently highlighted sale and allows for edited.
+   * Switches to edit sale page. Displays the currently highlighted sale and allows for edited.
    *
    * @param event Event that triggers switch to edit sale page.
-   * @throws IOException If the resource path is invalid.
    */
   @FXML
-  private void switchToEditSaleScene(MouseEvent event) throws IOException {
+  private void switchToEditSaleScene(InputEvent event) {
+    try {
 
-    FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath(View.EDIT_SALE.getFileName()));
-    Parent root = loader.load();
-    EditSaleController controller = loader.getController();
-    controller.setSale(salesTableView.getSelectionModel().getSelectedItems().get(0));
+      FXMLLoader loader = new FXMLLoader(PathUtility.getResourcePath(View.EDIT_SALE.getFileName()));
+      Parent root = loader.load();
+      EditSaleController controller = loader.getController();
+      controller.setSale(salesTableView.getSelectionModel().getSelectedItems().get(0));
 
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    Scene scene = new Scene(root);
-    stage.setScene(scene);
-    stage.show();
+      Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+      Scene scene = new Scene(root);
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      Alert alert = new Alert(AlertType.ERROR,
+          "Cannot switch to selected page\nPlease contact customer service");
+      alert.showAndWait();
+    }
   }
 
   /**
@@ -119,7 +120,6 @@ public class ListOfAllSalesController implements Initializable {
   private void enableMultiSelection() {
     salesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
   }
-
 
 
   /**
@@ -205,6 +205,20 @@ public class ListOfAllSalesController implements Initializable {
     tooltip.setFont(Font.font(20));
     tooltip.setShowDelay(Duration.ZERO);
     Tooltip.install(informationPane, tooltip);
+  }
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+      switchToEditSaleScene(keyEvent);
+    } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToMainMenuScene(keyEvent);
+    }
   }
 
 

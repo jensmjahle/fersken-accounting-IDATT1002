@@ -1,15 +1,18 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.Contact;
-import edu.ntnu.idatt1002.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Contact;
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
-import java.io.IOException;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 /**
  * Represents a controller used to create a customer, used in the "createCustomer" fxml file.
@@ -34,13 +37,7 @@ public class CreateCustomerController {
   @FXML
   private TextField streetNumberField;
 
-  /**
-   * Method for switching back to the main menu.
-   *
-   * @param event Event that triggers switch back to main menu.
-   * @throws IOException If the resource path is invalid.
-   */
-  public void switchToMainMenuScene(MouseEvent event) throws IOException {
+  public void switchToMainMenuScene(InputEvent event) {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
@@ -51,6 +48,7 @@ public class CreateCustomerController {
    *                                  selected values.
    * @throws NullPointerException     If any of the constructor inputs are null
    */
+  @SuppressWarnings("Duplicates")
   public void createCustomer() throws IllegalArgumentException, NullPointerException {
     if (nameField.getText().isEmpty()) {
       throw new IllegalArgumentException("Name cannot be empty");
@@ -96,9 +94,10 @@ public class CreateCustomerController {
    * Tries to create a customer, if it's not able to, an error message will be shown to the user
    * with the cause of error.
    */
-  public void onCreateCustomer() {
+  public void onCreateCustomerClicked() {
     try {
       createCustomer();
+      confirmCustomerIsCreated();
     } catch (NumberFormatException e) {
       Alert alert = new Alert(AlertType.WARNING, e.getMessage() + " is not a valid number");
       alert.showAndWait();
@@ -121,5 +120,28 @@ public class CreateCustomerController {
     organizationNumberField.clear();
     accountNumberField.clear();
     postCodeField.clear();
+  }
+
+  private void confirmCustomerIsCreated() {
+    Alert budgetHasBeenCreated = new Alert(AlertType.CONFIRMATION, "Customer has been created");
+    budgetHasBeenCreated.show();
+    PauseTransition delay = new PauseTransition(Duration.seconds(2));
+    delay.setOnFinished(event -> budgetHasBeenCreated.close());
+    delay.play();
+  }
+
+
+  /**
+   * Handles key shortcuts, executing the shortcut linked to each KeyCode.
+   *
+   * @param keyEvent Event that triggers the shortcut.
+   */
+  @FXML
+  private void handleKeyPressed(KeyEvent keyEvent) {
+    if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+      onCreateCustomerClicked();
+    } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+      switchToMainMenuScene(keyEvent);
+    }
   }
 }
