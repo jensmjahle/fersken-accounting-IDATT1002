@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002;
+package edu.ntnu.idatt1002.registers;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import edu.ntnu.idatt1002.registers.BudgetRegister;
 import edu.ntnu.idatt1002.registers.ContactRegister;
 import edu.ntnu.idatt1002.registers.ExpenseRegister;
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.registers.SaleRegister;
+import edu.ntnu.idatt1002.storageitems.User;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -24,7 +26,7 @@ class RegisterManagerTest {
   void setUp() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
     registerManager = RegisterManager.getInstance();
     User user = new User("TestUser123456789", "testPassword123");
-    if (!registerManager.getUserRegister().userNameExists(user.getUserName())) {
+    if (registerManager.getUserRegister().userNameAlreadyExists(user.getUserName())) {
       RegisterManager.getInstance().getUserRegister().addObject(user);
     }
     registerManager.setUserName("TestUser123456789");

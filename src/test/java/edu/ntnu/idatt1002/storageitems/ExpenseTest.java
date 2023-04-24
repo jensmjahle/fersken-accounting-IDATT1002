@@ -1,8 +1,10 @@
-package edu.ntnu.idatt1002;
+package edu.ntnu.idatt1002.storageitems;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import edu.ntnu.idatt1002.storageitems.Contact;
+import edu.ntnu.idatt1002.storageitems.Expense;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

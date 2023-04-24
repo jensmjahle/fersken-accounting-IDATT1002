@@ -1,10 +1,5 @@
-package edu.ntnu.idatt1002;
+package edu.ntnu.idatt1002.registers;
 
-import edu.ntnu.idatt1002.registers.BudgetRegister;
-import edu.ntnu.idatt1002.registers.ContactRegister;
-import edu.ntnu.idatt1002.registers.ExpenseRegister;
-import edu.ntnu.idatt1002.registers.SaleRegister;
-import edu.ntnu.idatt1002.registers.UserRegister;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -143,4 +138,10 @@ public class RegisterManager {
     return userName;
   }
 
+  /**
+   * Sets the current user to null.
+   */
+  public void logOut() {
+    this.userName = null;
+  }
 }

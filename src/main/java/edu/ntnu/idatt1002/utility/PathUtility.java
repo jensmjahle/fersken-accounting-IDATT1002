@@ -1,4 +1,4 @@
-package edu.ntnu.idatt1002;
+package edu.ntnu.idatt1002.utility;
 
 import java.io.File;
 import java.net.MalformedURLException;
