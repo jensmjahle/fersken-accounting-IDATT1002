@@ -1,9 +1,9 @@
 package edu.ntnu.idatt1002.controllers;
 
+import edu.ntnu.idatt1002.registers.ContactRegister;
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.storageitems.Contact;
 import edu.ntnu.idatt1002.utility.PathUtility;
-import edu.ntnu.idatt1002.registers.RegisterManager;
-import edu.ntnu.idatt1002.registers.ContactRegister;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.net.URL;
@@ -194,6 +194,11 @@ public class ListOfAllCustomersController implements Initializable {
     customerTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
   }
 
+  /**
+   * Switches the scene to the edit customer scene.
+   *
+   * @param event The event that triggers the method.
+   */
   @FXML
   private void switchToEditCustomerScene(InputEvent event) {
     try {

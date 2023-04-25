@@ -1,10 +1,10 @@
 package edu.ntnu.idatt1002.controllers;
 
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.storageitems.Budget;
 import edu.ntnu.idatt1002.storageitems.Expense;
-import edu.ntnu.idatt1002.utility.PathUtility;
-import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.storageitems.Sale;
+import edu.ntnu.idatt1002.utility.PathUtility;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.util.List;
@@ -27,7 +27,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
- * Controller for the Edit Budget fxml file.
+ * Controller for the Edit Budget fxml file. Has functionality for editing a budget.
  */
 
 public class EditBudgetController {

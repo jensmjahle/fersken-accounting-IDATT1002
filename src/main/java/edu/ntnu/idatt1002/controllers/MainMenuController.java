@@ -25,20 +25,31 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-
+/**
+ * Controller for the main menu fxml. Has methods for switching to other scenes in the application.
+ * Includes a chart of the statistics of the current year.
+ */
 public class MainMenuController implements Initializable {
-
 
   @FXML
   private LineChart<String, Double> lineChart;
 
-
+  /**
+   * Initializes the controller with a chart.
+   *
+   * @param url            The location used to resolve relative paths for the root object, or null
+   *                       if the location is not known.
+   * @param resourceBundle The resources used to localize the root object, or null if the root
+   *                       object was not localized.
+   */
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     createGraph();
   }
 
-
+  /**
+   * Creates a line chart of statistics of the current year.
+   */
   private void createGraph() {
     addAxis();
     Result result = getResult();
@@ -46,7 +57,11 @@ public class MainMenuController implements Initializable {
     setLineStyling(result.income(), result.expenses(), result.difference());
   }
 
-
+  /**
+   * Creates a Result object containing income, expense and difference for the current year.
+   *
+   * @return A Result object containing income, expense and difference for the current year.
+   */
   private Result getResult() {
     final Series<String, Double> income = new Series<>();
     final Series<String, Double> expenses = new Series<>();
@@ -76,11 +91,21 @@ public class MainMenuController implements Initializable {
     return new Result(income, expenses, difference);
   }
 
+  /**
+   * Record containing 3 series of data.
+   *
+   * @param income     Income data series.
+   * @param expenses   Income data series.
+   * @param difference Income data series.
+   */
   private record Result(Series<String, Double> income, Series<String, Double> expenses,
                         Series<String, Double> difference) {
 
   }
 
+  /**
+   * Adds an x and y-axis to the chart, with the "month" and "kr" labels.
+   */
   private void addAxis() {
     final CategoryAxis xAxis = new CategoryAxis();
     final NumberAxis yAxis = new NumberAxis();
@@ -88,6 +113,13 @@ public class MainMenuController implements Initializable {
     yAxis.setLabel("Kr");
   }
 
+  /**
+   * Sets line styling to colorblind friendly colors.
+   *
+   * @param income     Series of income data.
+   * @param expenses   Series of expense data.
+   * @param difference Series of difference data.
+   */
   private void setLineStyling(Series<String, Double> income, Series<String, Double> expenses,
                               Series<String, Double> difference) {
     income.setName("Income");
@@ -98,6 +130,9 @@ public class MainMenuController implements Initializable {
     expenses.getNode().setStyle("-fx-stroke: #859bba");
   }
 
+  /**
+   * Sets chart settings to increase performance and to make it fit in the frame.
+   */
   private void setChartStyling() {
     lineChart.setTitle("Yearly result");
     lineChart.setAnimated(false);
@@ -108,56 +143,133 @@ public class MainMenuController implements Initializable {
     lineChart.setLegendVisible(false);
   }
 
-
-  public void switchToCreateBudgetScene(MouseEvent event) {
+  /**
+   * Loads and switches to the "create budget" scene.
+   *
+   * @param event The event that triggers the switch to the new scene.
+   */
+  @FXML
+  private void switchToCreateBudgetScene(MouseEvent event) {
     ViewManager.switchToScene(event, View.CREATE_BUDGET);
   }
 
-  public void switchToCreateCustomerScene(MouseEvent event) {
+  /**
+   * Loads and switches to the "create customer" scene.
+   *
+   * @param event The event that triggers the switch to the new scene.
+   */
+  @FXML
+  private void switchToCreateCustomerScene(MouseEvent event) {
     ViewManager.switchToScene(event, View.CREATE_CUSTOMER);
   }
 
-  public void switchToCreateSupplierScene(MouseEvent event) {
+  /**
+   * Loads and switches to the "create supplier" scene.
+   *
+   * @param event The event that triggers the switch to the new scene.
+   */
+  @FXML
+  private void switchToCreateSupplierScene(MouseEvent event) {
     ViewManager.switchToScene(event, View.CREATE_SUPPLIER);
   }
 
-  public void switchToListOfAllBudgetsScene(MouseEvent event) {
+  /**
+   * Loads and switches to the "list of all budgets" scene.
+   *
+   * @param event The event that triggers the switch to the new scene.
+   */
+  @FXML
+  private void switchToListOfAllBudgetsScene(MouseEvent event) {
     ViewManager.switchToScene(event, View.LIST_OF_ALL_BUDGETS);
   }
 
-  public void switchToListOfAllCustomersScene(MouseEvent event) {
+  /**
+   * Loads and switches to the "list of all customers" scene.
+   *
+   * @param event The event that triggers the switch to the new scene.
+   */
+  @FXML
+  private void switchToListOfAllCustomersScene(MouseEvent event) {
     ViewManager.switchToScene(event, View.LIST_OF_ALL_CUSTOMERS);
   }
 
-  public void switchToListOfAllExpensesScene(MouseEvent event) {
+  /**
+   * Loads and switches to the "list of all expenses" scene.
+   *
+   * @param event The event that triggers the switch to the new scene.
+   */
+  @FXML
+  private void switchToListOfAllExpensesScene(MouseEvent event) {
     ViewManager.switchToScene(event, View.LIST_OF_ALL_EXPENSES);
   }
 
-  public void switchToListOfAllSalesScene(MouseEvent event) {
+  /**
+   * Loads and switches to the "list of all sales" scene.
+   *
+   * @param event The event that triggers the switch to the new scene.
+   */
+  @FXML
+  private void switchToListOfAllSalesScene(MouseEvent event) {
     ViewManager.switchToScene(event, View.LIST_OF_ALL_SALES);
   }
 
-  public void switchToListOfAllSuppliersScene(MouseEvent event) {
+  /**
+   * Loads and switches to the "list of all suppliers" scene.
+   *
+   * @param event The event that triggers the switch to the new scene.
+   */
+  @FXML
+  private void switchToListOfAllSuppliersScene(MouseEvent event) {
     ViewManager.switchToScene(event, View.LIST_OF_ALL_SUPPLIERS);
   }
 
-  public void switchToRegisterExpenseScene(MouseEvent event) {
-    ViewManager.switchToScene(event, View.REGISTER_EXPENSE);
+  /**
+   * Loads and switches to the "Create expense" scene.
+   *
+   * @param event The event that triggers the switch to the new scene.
+   */
+  @FXML
+  private void switchToRegisterExpenseScene(MouseEvent event) {
+    ViewManager.switchToScene(event, View.CREATE_EXPENSE);
   }
 
-  public void switchToRegisterSaleScene(MouseEvent event) {
-    ViewManager.switchToScene(event, View.REGISTER_SALE);
+  /**
+   * Loads and switches to the "create sale scene" scene.
+   *
+   * @param event The event that triggers the switch to the new scene.
+   */
+  @FXML
+  private void switchToRegisterSaleScene(MouseEvent event) {
+    ViewManager.switchToScene(event, View.CREATE_SALE);
   }
 
-  public void switchToShowStatsScene(MouseEvent event) {
+  /**
+   * Loads and switches to the "Show statistics" scene.
+   *
+   * @param event The event that triggers the switch to the new scene.
+   */
+  @FXML
+  private void switchToShowStatsScene(MouseEvent event) {
     ViewManager.switchToScene(event, View.STATS);
   }
 
-  public void switchToLoginScene(MouseEvent event) {
+  /**
+   * Loads and switches to the "login" scene.
+   *
+   * @param event The event that triggers the switch to the new scene.
+   */
+  @FXML
+  private void switchToLoginScene(MouseEvent event) {
     ViewManager.switchToScene(event, View.LOGIN);
   }
 
-  public void handleLogOutClicked(MouseEvent event) {
+  /**
+   * Logs out the user from the application and switches to the login screen.
+   *
+   * @param event Event that triggers the logout.
+   */
+  @FXML
+  private void handleLogOutClicked(MouseEvent event) {
     Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to log out?");
     ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Yes");
     alert.showAndWait();
@@ -169,23 +281,44 @@ public class MainMenuController implements Initializable {
     }
   }
 
-
-  public void highlightText(Text text) {
+  /**
+   * Highlights the input text by setting the font to bold, adding an underline and increasing font
+   * to 16.
+   *
+   * @param text The text to be highlighted.
+   */
+  @FXML
+  private void highlightText(Text text) {
     text.setFont(Font.font("System", FontWeight.BOLD, 16));
     text.setUnderline(true);
   }
 
+  /**
+   * Highlights the selected element if it is a text object.
+   *
+   * @param event The event that will be used to find the text.
+   */
   @FXML
-  public void onMouseEntered(MouseEvent event) {
+  private void onMouseEntered(MouseEvent event) {
     highlightText((Text) event.getSource());
   }
 
+  /**
+   * Returns the selected text to normal, if the exited element is text.
+   *
+   * @param event Event that triggers the method.
+   */
   @FXML
-  public void onMouseExited(MouseEvent event) {
+  private void onMouseExited(MouseEvent event) {
     returnTextToNormal((Text) event.getSource());
   }
 
-  public void returnTextToNormal(Text text) {
+  /**
+   * Returns the input text to normal.
+   *
+   * @param text The text to be put to normal.
+   */
+  private void returnTextToNormal(Text text) {
     text.setFont(Font.font("System", 16));
     text.setUnderline(false);
   }

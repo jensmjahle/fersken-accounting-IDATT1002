@@ -1,6 +1,5 @@
 package edu.ntnu.idatt1002.storageitems;
 
-import edu.ntnu.idatt1002.storageitems.Contact;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;

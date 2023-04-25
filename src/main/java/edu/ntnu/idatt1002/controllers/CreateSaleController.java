@@ -1,9 +1,9 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.storageitems.Contact;
-import edu.ntnu.idatt1002.registers.RegisterManager;
-import edu.ntnu.idatt1002.storageitems.Sale;
 import edu.ntnu.idatt1002.registers.ContactRegister;
+import edu.ntnu.idatt1002.registers.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Contact;
+import edu.ntnu.idatt1002.storageitems.Sale;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.time.ZoneId;

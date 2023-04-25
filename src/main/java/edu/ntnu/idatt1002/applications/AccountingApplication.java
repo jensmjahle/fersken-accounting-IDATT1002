@@ -1,8 +1,8 @@
 package edu.ntnu.idatt1002.applications;
 
 import edu.ntnu.idatt1002.registers.RegisterManager;
-import edu.ntnu.idatt1002.storageitems.User;
 import edu.ntnu.idatt1002.registers.UserRegister;
+import edu.ntnu.idatt1002.storageitems.User;
 import java.io.File;
 import java.net.URL;
 import java.util.logging.Level;
@@ -16,13 +16,20 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
+/**
+ * Class that represents an accounting application. The application has methods for creating and
+ * editing: budgets, expenses, sales, customers and suppliers.
+ */
 public class AccountingApplication extends Application {
 
   private static final Logger LOGGER = Logger.getLogger(AccountingApplication.class.getName());
 
+  /**
+   * Runs the application
+   *
+   * @param args Arguments to launch.
+   */
   public static void main(String[] args) {
-
     launch(args);
   }
 
@@ -36,9 +43,7 @@ public class AccountingApplication extends Application {
       URL url = new File("src/main/resources/pages/Login.fxml").toURI().toURL();
       loader.setLocation(url);
       Pane pane = loader.load();
-
       Scene scene = new Scene(pane);
-
       primaryStage.setTitle("Fersken Regnskap");
       primaryStage.setScene(scene);
       primaryStage.show();
@@ -52,6 +57,11 @@ public class AccountingApplication extends Application {
     }
   }
 
+  /**
+   * Sets the application icon to a peach logo.
+   *
+   * @param primaryStage The stage where the icon will be set.
+   */
   private void setIcon(Stage primaryStage) {
     try {
       URL url2 = new File("src/main/resources/Icons/peach.png").toURI().toURL();

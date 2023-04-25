@@ -1,9 +1,9 @@
 package edu.ntnu.idatt1002.controllers;
 
+import edu.ntnu.idatt1002.registers.ContactRegister;
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.storageitems.Contact;
 import edu.ntnu.idatt1002.utility.PathUtility;
-import edu.ntnu.idatt1002.registers.RegisterManager;
-import edu.ntnu.idatt1002.registers.ContactRegister;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.net.URL;
@@ -168,7 +168,6 @@ public class ListOfAllSuppliersController implements Initializable {
 
   }
 
-
   /**
    * Enables the disabling of buttons when their actions are not possible to perform.
    */
@@ -198,7 +197,6 @@ public class ListOfAllSuppliersController implements Initializable {
         supplierTable.getSelectionModel().getSelectedItems());
   }
 
-
   /**
    * Enables multi-selection in the tableview.
    */
@@ -211,9 +209,9 @@ public class ListOfAllSuppliersController implements Initializable {
    */
   private void installToolTip() {
     Tooltip tooltip = new Tooltip("""
-        Highlight sale : left click
-        Unhighlight sdale : press left click on a marked sale
-        Mark multiple sales : hold ctrl while highlighting
+        Highlight supplier : left click
+        Unhighlight supplier : press left click on a marked sale
+        Mark multiple suppliers : hold ctrl while highlighting
         """);
     tooltip.setFont(Font.font(20));
     tooltip.setShowDelay(Duration.ZERO);

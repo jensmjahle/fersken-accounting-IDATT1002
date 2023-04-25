@@ -1,7 +1,7 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.storageitems.Contact;
 import edu.ntnu.idatt1002.registers.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Contact;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.animation.PauseTransition;
@@ -122,6 +122,9 @@ public class CreateCustomerController {
     postCodeField.clear();
   }
 
+  /**
+   * Shows an alert to the user that the customer has been created.
+   */
   private void confirmCustomerIsCreated() {
     Alert budgetHasBeenCreated = new Alert(AlertType.CONFIRMATION, "Customer has been created");
     budgetHasBeenCreated.show();

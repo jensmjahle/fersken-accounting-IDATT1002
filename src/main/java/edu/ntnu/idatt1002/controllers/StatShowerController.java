@@ -90,12 +90,10 @@ public class StatShowerController implements Initializable {
     expenseInPeriod = new Series<>();
     differenceInPeriod = new Series<>();
     setNamesForSeries();
-
     setDefaultDates();
     setChoiceBoxOptions();
     updateChart();
     setPeriodInfo();
-
   }
 
   /**
@@ -105,8 +103,6 @@ public class StatShowerController implements Initializable {
     incomeInPeriod.setName("Sales");
     expenseInPeriod.setName("Expenses");
     differenceInPeriod.setName("Difference");
-
-
   }
 
   /**
@@ -221,8 +217,6 @@ public class StatShowerController implements Initializable {
       createLineChart(dataSetsToAdd);
     }
     setPeriodInfo();
-
-
   }
 
   /**
@@ -240,7 +234,7 @@ public class StatShowerController implements Initializable {
    * Filters the list of data series depending on which sets the user wants to see.
    *
    * @return A list of data series that contain only the data series that the user wants to have
-   * shown in the chart.
+   *        shown in the chart.
    */
   private List<Series<String, Number>> filterSelectedLines() {
     List<Series<String, Number>> dataSetsToAdd = new ArrayList<>();
@@ -285,6 +279,9 @@ public class StatShowerController implements Initializable {
     lineChart.setLegendVisible(false);
   }
 
+  /**
+   * Adds css styling to all series.
+   */
   private void setSeriesStyling() {
 
     incomeInPeriod.getNode().setStyle("-fx-stroke: #384c6b;");
@@ -293,6 +290,11 @@ public class StatShowerController implements Initializable {
 
   }
 
+  /**
+   * Creates a barchart from a list of series of data.
+   *
+   * @param listOfDataSeries The list of data series to be added to the chart.
+   */
   private void createBarChart(List<Series<String, Number>> listOfDataSeries) {
 
     final CategoryAxis xAxis = new CategoryAxis();
@@ -307,16 +309,25 @@ public class StatShowerController implements Initializable {
 
     barChart.getData().addAll(listOfDataSeries);
 
+    setBarChartSettings(barChart);
+    chartPane.getChildren().removeAll(chartPane.getChildren());
+    chartPane.getChildren().add(barChart);
+    barChart.setLegendVisible(false);
+
+  }
+
+  /**
+   * Sets bar chart settings to fit the page and increase performance.
+   *
+   * @param barChart The barchart that will have its settings changed.
+   */
+  private void setBarChartSettings(BarChart<String, Number> barChart) {
     barChart.setBarGap(0);
     barChart.setCategoryGap(3);
     barChart.setAnimated(false);
     barChart.setPadding(new Insets(0, 0, 0, 0));
     barChart.getXAxis().setAutoRanging(true);
     barChart.getYAxis().setAutoRanging(true);
-    chartPane.getChildren().removeAll(chartPane.getChildren());
-    chartPane.getChildren().add(barChart);
-    barChart.setLegendVisible(false);
-
   }
 
   /**

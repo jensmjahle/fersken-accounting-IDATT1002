@@ -1,9 +1,9 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.utility.PathUtility;
 import edu.ntnu.idatt1002.registers.RegisterManager;
-import edu.ntnu.idatt1002.storageitems.Sale;
 import edu.ntnu.idatt1002.registers.SaleRegister;
+import edu.ntnu.idatt1002.storageitems.Sale;
+import edu.ntnu.idatt1002.utility.PathUtility;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.net.URL;
@@ -161,7 +161,6 @@ public class ListOfAllSalesController implements Initializable {
     }
 
   }
-
 
   /**
    * Enables the disabling of buttons when their actions are not possible to perform.

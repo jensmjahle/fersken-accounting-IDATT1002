@@ -1,8 +1,8 @@
 package edu.ntnu.idatt1002.controllers;
 
 import edu.ntnu.idatt1002.registers.RegisterManager;
-import edu.ntnu.idatt1002.storageitems.User;
 import edu.ntnu.idatt1002.registers.UserRegister;
+import edu.ntnu.idatt1002.storageitems.User;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.net.URL;
@@ -137,7 +137,7 @@ public class LoginController implements Initializable {
 
   /**
    * Creates an entering delay timer. When the timer is finished, activeTimer will be set to false,
-   *        and the amount of login attempts is reset to 0.
+   * and the amount of login attempts is reset to 0.
    *
    * @param delayMinutes The amount of minutes that the delay will last.
    */
@@ -163,7 +163,7 @@ public class LoginController implements Initializable {
   }
 
   /**
-   * Alerts the user that the login is successful
+   * Alerts the user that the login is successful.
    */
   private void confirmLoginSuccessful() {
     Alert alert = new Alert(AlertType.CONFIRMATION, "Login successful");
@@ -231,7 +231,7 @@ public class LoginController implements Initializable {
     switch (keyEvent.getCode()) {
       case ENTER -> onLoginClicked(keyEvent);
       case ESCAPE -> switchToCreateUser(keyEvent);
-      default -> {//No default action on purpose
+      default -> {
       }
     }
   }

@@ -1,7 +1,7 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.storageitems.Contact;
 import edu.ntnu.idatt1002.registers.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Contact;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.animation.PauseTransition;
@@ -97,7 +97,7 @@ public class CreateSupplierController {
   }
 
   /**
-   * Tries to create a supplier, if it's not possible, an alert will be shown to the user
+   * Tries to create a supplier, if it's not possible, an alert will be shown to the user.
    */
   public void onCreateSupplierClicked() {
     try {
@@ -114,7 +114,7 @@ public class CreateSupplierController {
   }
 
   /**
-   * Clears all input fields
+   * Clears all input fields.
    */
   public void clearAllFields() {
     nameField.clear();
@@ -127,6 +127,9 @@ public class CreateSupplierController {
     postCodeField.clear();
   }
 
+  /**
+   * Confirms that a supplier is created to the user.
+   */
   private void confirmSupplierIsCreated() {
     Alert alert = new Alert(AlertType.CONFIRMATION, "Supplier has been created");
     alert.show();
