@@ -113,6 +113,9 @@ public class CreateUserController {
     switch (keyEvent.getCode()) {
       case ENTER -> onCreateUserClicked(keyEvent);
       case ESCAPE -> switchToLoginScene(keyEvent);
+      default -> {
+
+      }
     }
   }
 }

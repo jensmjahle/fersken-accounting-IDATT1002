@@ -1,12 +1,12 @@
 package edu.ntnu.idatt1002.controllers;
 
+import edu.ntnu.idatt1002.registers.ExpenseRegister;
+import edu.ntnu.idatt1002.registers.RegisterManager;
+import edu.ntnu.idatt1002.registers.SaleRegister;
 import edu.ntnu.idatt1002.storageitems.Budget;
 import edu.ntnu.idatt1002.storageitems.Expense;
-import edu.ntnu.idatt1002.utility.PathUtility;
-import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.storageitems.Sale;
-import edu.ntnu.idatt1002.registers.ExpenseRegister;
-import edu.ntnu.idatt1002.registers.SaleRegister;
+import edu.ntnu.idatt1002.utility.PathUtility;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.io.IOException;
@@ -100,7 +100,7 @@ public class CreateBudgetController implements Initializable {
    */
   public void switchToRegisterExpenseScene(MouseEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader(
-        PathUtility.getResourcePath(View.REGISTER_EXPENSE.getFileName()));
+        PathUtility.getResourcePath(View.CREATE_EXPENSE.getFileName()));
     Parent root = loader.load();
     CreateExpenseController controller = loader.getController();
     controller.setPageToReturnTo(View.CREATE_BUDGET);
@@ -119,7 +119,7 @@ public class CreateBudgetController implements Initializable {
    */
   public void switchToRegisterSaleScene(MouseEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader(
-        PathUtility.getResourcePath(View.REGISTER_SALE.getFileName()));
+        PathUtility.getResourcePath(View.CREATE_SALE.getFileName()));
     Parent root = loader.load();
     CreateSaleController controller = loader.getController();
     controller.setPageToReturnTo(View.CREATE_BUDGET);

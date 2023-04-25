@@ -11,15 +11,29 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.InputEvent;
 import javafx.stage.Stage;
 
+/**
+ * Class that represents a ViewManager. Has methods for switching the application to a new scene.
+ */
 public class ViewManager {
 
   private static Scene scene;
   private static final Logger LOGGER = Logger.getLogger(ViewManager.class.getName());
 
+  /**
+   * Sets the scene to switch to.
+   *
+   * @param scene The scene that will be switched to.
+   */
   public static void setScene(Scene scene) {
     ViewManager.scene = scene;
   }
 
+  /**
+   * Switches to the specified scene.
+   *
+   * @param event Event that triggers the switch of scenes.
+   * @param view  The scene that will be switched to
+   */
   public static void switchToScene(InputEvent event, View view) {
     try {
       Parent root = FXMLLoader.load(PathUtility.getResourcePath(view.getFileName()));

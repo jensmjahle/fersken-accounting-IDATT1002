@@ -1,9 +1,9 @@
 package edu.ntnu.idatt1002.controllers;
 
+import edu.ntnu.idatt1002.registers.ExpenseRegister;
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.storageitems.Expense;
 import edu.ntnu.idatt1002.utility.PathUtility;
-import edu.ntnu.idatt1002.registers.RegisterManager;
-import edu.ntnu.idatt1002.registers.ExpenseRegister;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.net.URL;
@@ -69,7 +69,11 @@ public class ListOfAllExpensesController implements Initializable {
     ViewManager.switchToScene(event, View.MAIN_MENU);
   }
 
-
+  /**
+   * Loads the edit expense scene with the currently selected expense.
+   *
+   * @param event The event that triggers the method.
+   */
   @FXML
   private void switchToEditExpenseScene(InputEvent event) {
     try {

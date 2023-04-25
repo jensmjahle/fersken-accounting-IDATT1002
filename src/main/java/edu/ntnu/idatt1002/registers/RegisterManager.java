@@ -1,6 +1,5 @@
 package edu.ntnu.idatt1002.registers;
 
-import edu.ntnu.idatt1002.applications.AccountingApplication;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,7 +29,7 @@ public class RegisterManager {
     try {
       Files.createDirectories(Path.of("src/main/java/registers"));
       userRegister = new UserRegister("src/main/java/registers" + "/users.txt");
-    } catch (Exception e){
+    } catch (Exception e) {
       Alert alert = new Alert(AlertType.ERROR, "CANNOT CREATE DIRECTORY" + e);
       alert.showAndWait();
     }

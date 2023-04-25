@@ -83,8 +83,6 @@ public class Expense implements Serializable {
     this.date = null;
     this.contact = null;
     this.nameOfContact = null;
-
-    //TODO should this be deleted?
   }
 
   /**

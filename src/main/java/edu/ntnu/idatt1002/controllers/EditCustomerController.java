@@ -1,7 +1,7 @@
 package edu.ntnu.idatt1002.controllers;
 
-import edu.ntnu.idatt1002.storageitems.Contact;
 import edu.ntnu.idatt1002.registers.RegisterManager;
+import edu.ntnu.idatt1002.storageitems.Contact;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import javafx.fxml.FXML;
@@ -13,7 +13,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
- * Controller class for the edit customer FXML file.
+ * Controller class for the edit customer FXML file. Has functionality for editing a customer.
  */
 public class EditCustomerController extends CreateCustomerController {
 

@@ -1,9 +1,9 @@
 package edu.ntnu.idatt1002.controllers;
 
+import edu.ntnu.idatt1002.registers.ContactRegister;
+import edu.ntnu.idatt1002.registers.RegisterManager;
 import edu.ntnu.idatt1002.storageitems.Contact;
 import edu.ntnu.idatt1002.storageitems.Expense;
-import edu.ntnu.idatt1002.registers.RegisterManager;
-import edu.ntnu.idatt1002.registers.ContactRegister;
 import edu.ntnu.idatt1002.viewmanagement.View;
 import edu.ntnu.idatt1002.viewmanagement.ViewManager;
 import java.net.URL;
@@ -30,7 +30,6 @@ public class CreateExpenseController implements Initializable {
 
   @FXML
   private ComboBox<String> supplierComboBox;
-
   @FXML
   private TextField amountTextField;
   @FXML
@@ -59,9 +58,13 @@ public class CreateExpenseController implements Initializable {
 
 
   /**
-   * Method for creating an expense.
+   * Creates an expense from input values. If any of the values are invalid, an exception will be
+   * thrown.
+   *
+   * @throws IllegalArgumentException If any input fields are empty, or any of the values are
+   *                                  invalid from the expense constructor.
+   * @throws NullPointerException If any of the input values are null.
    */
-
   public void createExpense() throws IllegalArgumentException, NullPointerException {
 
     if (supplierComboBox.getValue() == null || supplierComboBox.getValue().isBlank()) {
@@ -151,6 +154,9 @@ public class CreateExpenseController implements Initializable {
     }
   }
 
+  /**
+   * Shows an alert to the user that confirms that an expense has been created.
+   */
   private void confirmExpenseIsCreated() {
     Alert alert = new Alert(AlertType.CONFIRMATION, "Expense has been created");
     alert.show();

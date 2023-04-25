@@ -253,6 +253,11 @@ public class Contact implements Serializable {
     return result;
   }
 
+  /**
+   * Creates a String of the contact with all its data.
+   *
+   * @return A string of information about the contact.
+   */
   @Override
   public String toString() {
     return "Contact{" + "name='" + name + '\'' + ", email='" + email + '\'' + ", street='" + street

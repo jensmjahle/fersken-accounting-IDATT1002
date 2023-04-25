@@ -112,7 +112,6 @@ public class User implements Serializable {
   public void setNewPassword(String newPassword)
       throws IllegalArgumentException, NoSuchAlgorithmException, InvalidKeySpecException {
 
-
     byte[] newHash = createHash(newPassword);
     if (Arrays.equals(newHash, getHash())) {
       throw new IllegalArgumentException("Password cannot be the same as previous password");
@@ -153,9 +152,8 @@ public class User implements Serializable {
 
   @Override
   public String toString() {
-    return "Username: " + userName +
-        "\nsalt:" + Arrays.toString(salt) +
-        "\nhash: " + Arrays.toString(hash);
+    return "Username: " + userName + "\nsalt:" + Arrays.toString(salt) + "\nhash: "
+        + Arrays.toString(hash);
   }
 }
 

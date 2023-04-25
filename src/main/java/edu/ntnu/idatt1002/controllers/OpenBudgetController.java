@@ -77,21 +77,13 @@ public class OpenBudgetController {
   private void fillFieldsWithCurrentInfo() {
     try {
       budgetNameField.setText(budget.getProjectName());
-
       expenseSupplierColumn.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
-
       expenseDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-
       expenseAmountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-
       expenseProductColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
-
       incomeCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-
       incomeDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-
       incomeAmountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-
       incomeProductColumn.setCellValueFactory(new PropertyValueFactory<>("product"));
 
       listOfIncome = budget.getListOfSales();
