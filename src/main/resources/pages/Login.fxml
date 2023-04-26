@@ -15,12 +15,12 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane onKeyPressed="#handleKeyPressed" maxWidth="800.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f6d992;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.LoginController">
+<BorderPane onKeyPressed="#handleKeyPressed" maxWidth="800.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f6d992;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ntnu.idatt1002.controllers.LoginController">
   <top>
 
   </top>
   <right>
-    <AnchorPane onKeyPressed="#handleKeyPressed" prefHeight="600.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+    <AnchorPane prefHeight="600.0" prefWidth="400.0" BorderPane.alignment="CENTER">
       <Label layoutX="180.0" layoutY="108.0" text="Login">
         <font>
           <Font name="System Bold" size="28.0" />
