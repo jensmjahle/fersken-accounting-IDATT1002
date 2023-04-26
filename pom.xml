@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>no.ntnu.idatt1002.demo</groupId>
-    <artifactId>idatt2002demo</artifactId>
+    <groupId>edu.ntnu.idatt1002</groupId>
+    <artifactId>AccountingApplication</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>demo</name>
+    <name>AccountingApplication</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -152,7 +152,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        no.ntnu.idatt1002.demo.MyApp
+                                        edu.ntnu.idatt1002.applications.AccountingApplication
                                     </mainClass>
                                 </manifest>
                             </archive>
