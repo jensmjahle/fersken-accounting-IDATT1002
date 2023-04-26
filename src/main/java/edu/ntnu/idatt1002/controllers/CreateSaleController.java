@@ -68,7 +68,7 @@ public class CreateSaleController {
    */
   public void createSale() throws IllegalArgumentException, NullPointerException {
     if (customerComboBox.getValue() == null || customerComboBox.getValue().isBlank()) {
-      throw new IllegalArgumentException("customer has to be chosen");
+      throw new IllegalArgumentException("Customer has to be chosen");
     }
     if (datePicker.getValue() == null) {
       throw new IllegalArgumentException("Date has to be chosen");
@@ -116,7 +116,7 @@ public class CreateSaleController {
       alert.showAndWait();
 
     } catch (IllegalArgumentException e) {
-      Alert alert = new Alert(AlertType.WARNING, "Cannot save expense because: " + e.getMessage());
+      Alert alert = new Alert(AlertType.WARNING, "Cannot save sale because: " + e.getMessage());
       alert.showAndWait();
     }
   }
