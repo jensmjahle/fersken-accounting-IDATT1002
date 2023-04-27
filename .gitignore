@@ -37,8 +37,3 @@ out/
 ##############################
 *.db
 *.DS_Store
-contact.txt
-supplier.txt
-sales.txt
-expenses.txt
-budgets.txt
